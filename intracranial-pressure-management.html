@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Intracranial Pressure Management — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#0a0520 0%,#1a0a40 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'ICP';position:absolute;right:10px;top:-10px;font-size:130px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#12b5b5;opacity:.5}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:14px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.box{background:#112233;border-radius:10px;padding:13px 16px;border-left:4px solid #12b5b5}
+.box.amber{border-left-color:#f5a623}
+.box.red{border-left-color:#e74c3c}
+.box.green{border-left-color:#27ae60}
+.box.blue{border-left-color:#3498db}
+.box.purple{border-left-color:#9b59b6}
+.box.orange{border-left-color:#e67e22}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#12b5b5;margin-bottom:8px}
+.box.amber .sec-lbl{color:#f5a623}
+.box.red .sec-lbl{color:#e74c3c}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+.box.purple .sec-lbl{color:#9b59b6}
+.box.orange .sec-lbl{color:#e67e22}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.mini-box{background:#1a2e44;border-radius:8px;padding:10px 12px}
+.mini-title{font-size:10.5px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.item{font-size:12px;color:#d0e8e8;padding:2px 0 2px 14px;position:relative;line-height:1.35}
+.item::before{content:'▸';position:absolute;left:0;color:#12b5b5;font-size:9px;top:4px}
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+/* ICP target bands */
+.target-bands{display:flex;gap:8px;margin-top:4px}
+.tb-cell{flex:1;border-radius:7px;padding:9px 12px;text-align:center}
+.tb-normal{background:rgba(39,174,96,.12);border:1px solid rgba(39,174,96,.35)}
+.tb-elevated{background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.35)}
+.tb-critical{background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.35)}
+.tb-val{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:800;line-height:1}
+.tb-val-green{color:#27ae60}
+.tb-val-amber{color:#f5a623}
+.tb-val-red{color:#e74c3c}
+.tb-label{font-size:10.5px;color:#d0e8e8;margin-top:4px;font-weight:600}
+
+/* Monroe-Kellie + CPP inline */
+.doctrine-row{display:grid;grid-template-columns:1.2fr 1fr;gap:10px;margin-top:8px}
+.doctrine-box{background:#1a2e44;border-radius:8px;padding:9px 12px}
+.dt-label{font-size:10px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
+.formula-inline{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:#12b5b5;margin-bottom:4px}
+
+/* Stepwise protocol */
+.step-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.step-cell{background:#1a2e44;border-radius:8px;padding:10px 10px}
+.step-tier{font-size:10px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:3px}
+.step-title{font-size:12.5px;font-weight:800;color:#fff;margin-bottom:4px}
+.step-detail{font-size:10.5px;color:#b0d8d8;line-height:1.4}
+.tier-1{border-top:3px solid #27ae60}
+.tier-2{border-top:3px solid #f5a623}
+.tier-3{border-top:3px solid #e67e22}
+.tier-4{border-top:3px solid #e74c3c}
+
+/* Cushing's triad alert */
+.cushing-alert{background:rgba(231,76,60,.08);border:2px solid rgba(231,76,60,.5);border-radius:10px;padding:11px 16px;display:flex;align-items:center;gap:16px}
+.cushing-icon{font-size:32px;flex-shrink:0}
+.cushing-body{flex:1}
+.cushing-title{font-size:14px;font-weight:800;color:#e74c3c;margin-bottom:4px}
+.cushing-triad{display:flex;gap:10px;flex-wrap:wrap}
+.ct-item{background:rgba(231,76,60,.15);border-radius:5px;padding:4px 10px;font-size:12px;font-weight:700;color:#f0b8b0}
+.cushing-action{font-size:11.5px;color:#f0b8b0;margin-top:5px;font-weight:500}
+
+/* Osmotherapy compare */
+.osmo-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.osmo-cell{border-radius:8px;padding:10px 12px}
+.oc-mannitol{background:#0a1520;border:1px solid rgba(52,152,219,.25);border-top:3px solid #3498db}
+.oc-hts{background:#150a20;border:1px solid rgba(155,89,182,.25);border-top:3px solid #9b59b6}
+.oc-drug{font-size:13px;font-weight:800;margin-bottom:4px}
+.oc-drug-blue{color:#3498db}
+.oc-drug-purple{color:#9b59b6}
+
+/* Warnings */
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:11px;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">Neurocritical Care · Critical Care</span>
+    </div>
+    <div class="title">Intracranial Pressure (ICP) Management</div>
+    <div class="subtitle">Monroe-Kellie Doctrine · CPP Targets · Stepwise ICP Protocol · Osmotherapy · EVD · Decompressive Craniectomy</div>
+  </div>
+
+  <div class="body">
+
+    <!-- ICP Targets + Monroe-Kellie + CPP -->
+    <div class="box">
+      <div class="sec-lbl">📊 ICP Targets &amp; Key Principles</div>
+      <div class="target-bands">
+        <div class="tb-cell tb-normal"><div class="tb-val tb-val-green">&lt;15 mmHg</div><div class="tb-label">Normal ICP</div></div>
+        <div class="tb-cell tb-elevated"><div class="tb-val tb-val-amber">15–20 mmHg</div><div class="tb-label">Borderline — monitor closely</div></div>
+        <div class="tb-cell tb-critical"><div class="tb-val tb-val-red">&gt;20–25 mmHg</div><div class="tb-label">Treat — ICP Crisis</div></div>
+      </div>
+      <div class="doctrine-row">
+        <div class="doctrine-box">
+          <div class="dt-label">Monroe-Kellie Doctrine</div>
+          <div style="font-size:11.5px;color:#d0e8e8;line-height:1.45">The cranium is a rigid, fixed-volume box. Volume = Brain (80%) + Blood (10%) + CSF (10%). Increase in any component <strong style="color:#f5a623">must</strong> be compensated by reduction in another — once compensatory mechanisms are exhausted, ICP rises exponentially.</div>
+        </div>
+        <div class="doctrine-box">
+          <div class="dt-label">Cerebral Perfusion Pressure (CPP)</div>
+          <div class="formula-inline">CPP = MAP − ICP</div>
+          <div style="font-size:11.5px;color:#d0e8e8;line-height:1.45">Target CPP: <span class="val">60–70 mmHg</span><br>CPP &lt;50 mmHg → cerebral ischemia<br>CPP &gt;70 mmHg → ARDS risk (vasopressors)<br>Autoregulation intact: CPP 50–150 mmHg</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cushing's Triad -->
+    <div class="cushing-alert">
+      <div class="cushing-icon">🧠</div>
+      <div class="cushing-body">
+        <div class="cushing-title">⚠️ Cushing's Triad — Herniation Imminent</div>
+        <div class="cushing-triad">
+          <div class="ct-item">🔴 Hypertension (widened pulse pressure)</div>
+          <div class="ct-item">🫀 Bradycardia</div>
+          <div class="ct-item">🌬️ Irregular / slow respirations</div>
+        </div>
+        <div class="cushing-action">Cushing's Triad = brainstem compression from tentorial herniation. Emergent intervention required: hyperventilate to PaCO₂ 30–35 mmHg, mannitol/HTS bolus, immediate neurosurgical consult. Pupillary asymmetry/blown pupil = uncal herniation.</div>
+      </div>
+    </div>
+
+    <!-- Stepwise ICP Protocol -->
+    <div class="box green">
+      <div class="sec-lbl">📋 Stepwise ICP Management Protocol (Tier 0 → 3)</div>
+      <div class="step-grid">
+        <div class="step-cell tier-1">
+          <div class="step-tier">Tier 0 — Universal</div>
+          <div class="step-title">Head of Bed + Basics</div>
+          <div class="step-detail">HOB <span class="val">30°</span>, head midline (no neck flexion)<br>Normothermia (avoid fever — 0.5 mmHg ICP rise/°C)<br>Euglycemia <span class="val">140–180 mg/dL</span><br>Avoid hypoxia (SpO₂ &gt;94%) &amp; hypercapnia (PaCO₂ 35–45 mmHg)<br>Adequate analgesia/sedation; avoid Valsalva, coughing<br>Isotonic fluids only</div>
+        </div>
+        <div class="step-cell tier-2">
+          <div class="step-tier">Tier 1 — First Line</div>
+          <div class="step-title">Osmotherapy</div>
+          <div class="step-detail"><strong>Mannitol</strong> 20%: <span class="val">0.5–1 g/kg IV</span> over 15–20 min<br><strong>Hypertonic saline</strong> 3%: <span class="val">250 mL IV</span> bolus; or 23.4% via central line<br>CSF drainage via EVD (if placed)<br>Sedation/analgesia optimization: propofol + fentanyl<br>Neuromuscular blockade if refractory agitation</div>
+        </div>
+        <div class="step-cell tier-3">
+          <div class="step-tier">Tier 2 — Second Line</div>
+          <div class="step-title">Deeper Interventions</div>
+          <div class="step-detail">Mild hyperventilation: target PaCO₂ <span class="val">30–35 mmHg</span> (short-term bridge only — causes vasoconstriction)<br>High-dose barbiturates: pentobarbital coma (EEG burst suppression)<br>Repeat osmotherapy boluses; serum Na target <span class="val">145–155 mEq/L</span><br>Optimize CPP with vasopressors (norepinephrine)</div>
+        </div>
+        <div class="step-cell tier-4">
+          <div class="step-tier">Tier 3 — Salvage</div>
+          <div class="step-title">Surgical Options</div>
+          <div class="step-detail"><strong>Decompressive craniectomy</strong>: removes bone flap to allow brain expansion — reduces ICP by 50–60%<br><strong>EVD placement</strong>: continuous or intermittent CSF drainage (target ICP &lt;20)<br>Indications: refractory to medical Rx, GCS deterioration, herniation signs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Osmotherapy + Positioning/Temperature -->
+    <div class="two-col">
+      <div class="box blue" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">💊 Osmotherapy — Mannitol vs Hypertonic Saline</div>
+        <div class="osmo-grid">
+          <div class="osmo-cell oc-mannitol">
+            <div class="oc-drug oc-drug-blue">Mannitol 20%</div>
+            <div class="item">Dose: <span class="val">0.5–1 g/kg IV</span> q4–6h PRN</div>
+            <div class="item">Onset: <span class="val">15–30 min</span>; duration 2–6h</div>
+            <div class="item">Hold if serum osm &gt;<span class="val">320 mOsm/L</span></div>
+            <div class="item">Risk: hypotension, hypovolemia, rebound ICP</div>
+            <div class="item">Monitor: Osmol gap, BUN/Cr, UO</div>
+          </div>
+          <div class="osmo-cell oc-hts">
+            <div class="oc-drug oc-drug-purple">Hypertonic Saline</div>
+            <div class="item">3% NaCl: <span class="val">250 mL IV</span> bolus (peripheral OK)</div>
+            <div class="item">23.4% NaCl: <span class="val">30 mL IV</span> via central line only</div>
+            <div class="item">Target serum Na: <span class="val">145–155 mEq/L</span></div>
+            <div class="item">Preferred if: hypotension, hypovolemia, renal failure</div>
+            <div class="item">Monitor Na q4–6h; avoid rapid correction</div>
+          </div>
+        </div>
+      </div>
+      <div class="box purple" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">🌡️ Temperature Control &amp; Monitoring</div>
+        <div class="item"><strong>Targeted Temperature Management (TTM)</strong>: Normothermia (36–37°C) is first goal; prevent fever aggressively (each 1°C fever = ↑ICP)</div>
+        <div class="item"><strong>Therapeutic hypothermia</strong> (32–35°C): may reduce ICP in refractory cases; risk of coagulopathy, infection, cardiac arrhythmias</div>
+        <div class="item"><strong>ICP monitoring</strong>: Intraventricular catheter (gold standard) — allows both monitoring and CSF drainage</div>
+        <div class="item">Intraparenchymal probe (Camino, Codman) — monitoring only; no drainage</div>
+        <div class="item"><strong>DVT prophylaxis</strong>: Delay pharmacologic prophylaxis ≥24–48h post-hemorrhage; use sequential compression devices (SCDs) immediately</div>
+        <div class="item">Seizure prophylaxis: levetiracetam or phenytoin for 7 days in traumatic brain injury</div>
+      </div>
+    </div>
+
+    <!-- Critical Warnings -->
+    <div class="box red">
+      <div class="sec-lbl">⚠️ Critical Reminders</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>No hypotonic fluids</strong> (D5W, 0.45% NaCl) — lowers serum osmolality, drives water into brain, worsening cerebral edema and ICP</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Avoid hypoxia</strong> (SpO₂ &lt;94%) and <strong>hypercapnia</strong> (PaCO₂ &gt;45) — both cause cerebral vasodilation and acute ICP spikes</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Prolonged hyperventilation</strong> (PaCO₂ &lt;30 mmHg) causes ischemia via excessive vasoconstriction — use as bridge only (&lt;30 min)</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>DVT prophylaxis timing</strong>: Mechanical (SCD) immediately; LMWH/heparin delay ≥24–48h post-haemorrhage; failure to initiate → high DVT/PE mortality</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on BTF TBI Guidelines 4th Ed / NCS ICP Guidelines<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

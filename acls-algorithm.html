@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>ACLS Algorithm — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden}
+
+.hdr{background:linear-gradient(135deg,#6e0a0a 0%,#9e1010 40%,#112233 100%);padding:24px 42px 18px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'ACLS';position:absolute;right:-10px;top:-8px;font-size:130px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-2px;line-height:1}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase;margin-bottom:3px}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:3px}
+
+.body{flex:1;padding:14px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+
+/* Main two-column layout */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* Rhythm box */
+.rhythm-box{border-radius:10px;padding:12px 15px}
+.rb-shock{background:#1f0a0a;border:1px solid rgba(231,76,60,.3);border-top:4px solid #e74c3c}
+.rb-noshock{background:#0a1f0a;border:1px solid rgba(39,174,96,.3);border-top:4px solid #27ae60}
+
+.rhythm-title{font-size:14px;font-weight:800;margin-bottom:4px}
+.rt-shock{color:#e74c3c}
+.rt-noshock{color:#27ae60}
+
+.rhythm-list{font-size:12px;color:#d0e8e8;margin-bottom:8px;line-height:1.6}
+.rhythm-list span{font-weight:700;color:#f5a623}
+
+.step-list{list-style:none}
+.step-item{display:flex;gap:8px;align-items:flex-start;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.step-item:last-child{border-bottom:none}
+.step-num{min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px}
+.sn-shock{background:#e74c3c;color:#fff}
+.sn-noshock{background:#27ae60;color:#fff}
+.step-text{font-size:11.5px;color:#d0e8e8;line-height:1.4}
+.step-text .mono{font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600}
+.step-text strong{color:#fff}
+
+/* CPR quality box */
+.cpr-box{background:#112233;border-radius:10px;padding:12px 15px;border-left:4px solid #f5a623}
+.cpr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cpr-cell{background:#1a2e44;border-radius:7px;padding:9px 10px;text-align:center}
+.cpr-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#7aaeae;margin-bottom:4px}
+.cpr-val{font-size:15px;font-weight:800;font-family:'JetBrains Mono',monospace;color:#f5a623;line-height:1}
+.cpr-unit{font-size:9.5px;color:#7aaeae;margin-top:2px;font-family:'Inter',sans-serif}
+
+/* Drugs table */
+.drugs-box{background:#112233;border-radius:10px;padding:12px 15px;border-left:4px solid #9b59b6}
+.drug-row{display:grid;grid-template-columns:150px 180px 1fr;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);align-items:baseline}
+.drug-row:last-child{border-bottom:none}
+.drug-row-head{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7aaeae;padding:2px 0 6px}
+.dn{font-size:13px;font-weight:700;color:#fff}
+.dd{font-size:12px;font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600}
+.di{font-size:11.5px;color:#b0d8d8;line-height:1.35}
+
+/* H's and T's */
+.ht-box{background:#112233;border-radius:10px;padding:11px 15px;border-left:4px solid #3498db}
+.ht-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ht-col{background:#1a2e44;border-radius:7px;padding:9px 11px}
+.ht-title{font-size:9.5px;font-weight:700;color:#3498db;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.ht-item{font-size:11.5px;color:#d0e8e8;padding:2px 0;line-height:1.3}
+.ht-item strong{color:#f5a623}
+
+/* Defib energy */
+.defib-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2px}
+.defib-cell{background:#1f0a0a;border-radius:8px;padding:9px 10px;border:1px solid rgba(231,76,60,.3)}
+.defib-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#e74c3c;margin-bottom:3px}
+.defib-val{font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;color:#f5a623}
+.defib-note{font-size:10px;color:#7aaeae;margin-top:2px}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.subtitle{font-size:11.5px}
+.body{padding:12px 24px 8px;gap:9px}
+.cpr-box{padding:10px 13px}
+.cpr-grid{grid-template-columns:repeat(2,1fr)}
+.two-col{grid-template-columns:1fr}
+.defib-row{grid-template-columns:1fr}
+.drug-row{grid-template-columns:1fr;gap:4px}
+.ht-grid{grid-template-columns:1fr}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo">CCM Notes</div>
+    <div class="cat">Emergency Medicine · Cardiac Arrest</div>
+    <div class="title">ACLS Algorithm 2020</div>
+    <div class="subtitle">Shockable vs Non-shockable Rhythms · Drug Doses · Defibrillation · H's &amp; T's</div>
+  </div>
+
+  <div class="body">
+
+    <!-- CPR quality -->
+    <div class="cpr-box">
+      <div class="sec-lbl" style="color:#f5a623">⚡ CPR Quality Standards (AHA 2020)</div>
+      <div class="cpr-grid">
+        <div class="cpr-cell">
+          <div class="cpr-label">Compression Rate</div>
+          <div class="cpr-val">100–120</div>
+          <div class="cpr-unit">/minute</div>
+        </div>
+        <div class="cpr-cell">
+          <div class="cpr-label">Depth</div>
+          <div class="cpr-val">2–2.4"</div>
+          <div class="cpr-unit">5–6 cm adults</div>
+        </div>
+        <div class="cpr-cell">
+          <div class="cpr-label">Full Recoil</div>
+          <div class="cpr-val">100%</div>
+          <div class="cpr-unit">Allow complete recoil</div>
+        </div>
+        <div class="cpr-cell">
+          <div class="cpr-label">Interruptions</div>
+          <div class="cpr-val">&lt;10s</div>
+          <div class="cpr-unit">Min pause for rhythm check</div>
+        </div>
+        <div class="cpr-cell">
+          <div class="cpr-label">Breaths</div>
+          <div class="cpr-val">30:2</div>
+          <div class="cpr-unit">Until advanced airway</div>
+        </div>
+        <div class="cpr-cell">
+          <div class="cpr-label">Ventilation (intubated)</div>
+          <div class="cpr-val">10/min</div>
+          <div class="cpr-unit">Asynchronous with CPR</div>
+        </div>
+        <div class="cpr-cell">
+          <div class="cpr-label">Vasopressor</div>
+          <div class="cpr-val">Epi 1mg</div>
+          <div class="cpr-unit">IV/IO q3–5min</div>
+        </div>
+        <div class="cpr-cell">
+          <div class="cpr-label">Shock check</div>
+          <div class="cpr-val">Every 2 min</div>
+          <div class="cpr-unit">Before/after defibrillation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shockable vs non-shockable -->
+    <div class="two-col">
+      <!-- SHOCKABLE -->
+      <div class="rhythm-box rb-shock">
+        <div class="rhythm-title rt-shock">⚡ Shockable Rhythms</div>
+        <div class="rhythm-list">
+          <span>VF</span> (Ventricular Fibrillation) &amp; <span>pVT</span> (Pulseless VT)
+        </div>
+        <ul class="step-list">
+          <li class="step-item"><div class="step-num sn-shock">1</div><div class="step-text"><strong>CPR</strong> 2 min while charging → Shock ASAP</div></li>
+          <li class="step-item"><div class="step-num sn-shock">2</div><div class="step-text">Defibrillate: <span class="mono">200J</span> biphasic (or max); <span class="mono">360J</span> monophasic</div></li>
+          <li class="step-item"><div class="step-num sn-shock">3</div><div class="step-text">Resume CPR immediately × 2 min → recheck</div></li>
+          <li class="step-item"><div class="step-num sn-shock">4</div><div class="step-text"><strong>Epinephrine</strong> <span class="mono">1 mg IV q3–5min</span> (after 2nd shock)</div></li>
+          <li class="step-item"><div class="step-num sn-shock">5</div><div class="step-text">If VF/pVT persists after 3rd shock: <strong>Amiodarone</strong> <span class="mono">300 mg IV</span> (2nd: 150 mg) OR <strong>Lidocaine</strong> <span class="mono">1–1.5 mg/kg IV</span></div></li>
+          <li class="step-item"><div class="step-num sn-shock">6</div><div class="step-text">After ROSC: targeted temperature management <span class="mono">32–36°C</span> × 24h</div></li>
+        </ul>
+        <!-- Defib energies -->
+        <div style="margin-top:8px;font-size:9.5px;font-weight:700;color:#e74c3c;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px">Defibrillation Energy</div>
+        <div class="defib-row">
+          <div class="defib-cell">
+            <div class="defib-lbl">Biphasic (Adult)</div>
+            <div class="defib-val">120–200 J</div>
+            <div class="defib-note">Per manufacturer (escalate)</div>
+          </div>
+          <div class="defib-cell">
+            <div class="defib-lbl">Monophasic</div>
+            <div class="defib-val">360 J</div>
+            <div class="defib-note">All shocks</div>
+          </div>
+          <div class="defib-cell">
+            <div class="defib-lbl">Pediatric</div>
+            <div class="defib-val">2–4 J/kg</div>
+            <div class="defib-note">Max 10 J/kg</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NON-SHOCKABLE -->
+      <div class="rhythm-box rb-noshock">
+        <div class="rhythm-title rt-noshock">🫀 Non-Shockable Rhythms</div>
+        <div class="rhythm-list">
+          <span>PEA</span> (Pulseless Electrical Activity) &amp; <span>Asystole</span>
+        </div>
+        <ul class="step-list">
+          <li class="step-item"><div class="step-num sn-noshock">1</div><div class="step-text"><strong>CPR</strong> continuously × 2 min cycles</div></li>
+          <li class="step-item"><div class="step-num sn-noshock">2</div><div class="step-text"><strong>Epinephrine</strong> <span class="mono">1 mg IV q3–5min</span> — as soon as possible</div></li>
+          <li class="step-item"><div class="step-num sn-noshock">3</div><div class="step-text">Advanced airway: intubate or SGA (do not interrupt CPR)</div></li>
+          <li class="step-item"><div class="step-num sn-noshock">4</div><div class="step-text">IV/IO access: isotonic crystalloid bolus</div></li>
+          <li class="step-item"><div class="step-num sn-noshock">5</div><div class="step-text">Treat reversible causes: <strong>H's &amp; T's</strong> (see below)</div></li>
+          <li class="step-item"><div class="step-num sn-noshock">6</div><div class="step-text">If ROSC: 12-lead ECG, BP, end-tidal CO₂ monitoring; <span class="mono">ETCO₂ &gt;10</span> = effective CPR</div></li>
+        </ul>
+        <!-- ETCO2 guidance -->
+        <div style="margin-top:8px;background:#0f240f;border-radius:6px;padding:8px 10px">
+          <div style="font-size:9.5px;font-weight:700;color:#27ae60;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px">End-Tidal CO₂ Monitoring</div>
+          <div style="font-size:11.5px;color:#b0d8d8;line-height:1.45">
+            ETCO₂ <span style="font-family:monospace;color:#f5a623;font-weight:600">&lt;10 mmHg</span> → improve CPR quality<br>
+            ETCO₂ <span style="font-family:monospace;color:#f5a623;font-weight:600">&gt;40 mmHg</span> → ROSC likely<br>
+            Low ETCO₂ despite good CPR → consider stopping resuscitation
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drugs + H's & T's -->
+    <div class="two-col">
+      <div class="drugs-box">
+        <div class="sec-lbl" style="color:#9b59b6">💊 ACLS Drug Doses</div>
+        <div class="drug-row drug-row-head">
+          <div>Drug</div><div>Dose</div><div>Indication / Notes</div>
+        </div>
+        <div class="drug-row">
+          <div class="dn">Epinephrine</div>
+          <div class="dd">1 mg IV q3–5min</div>
+          <div class="di">All cardiac arrest; first ASAP in non-shockable</div>
+        </div>
+        <div class="drug-row">
+          <div class="dn">Amiodarone</div>
+          <div class="dd">300 mg IV; then 150 mg</div>
+          <div class="di">VF/pVT refractory to 3 shocks</div>
+        </div>
+        <div class="drug-row">
+          <div class="dn">Lidocaine</div>
+          <div class="dd">1–1.5 mg/kg IV</div>
+          <div class="di">Alternative to amiodarone VF/pVT</div>
+        </div>
+        <div class="drug-row">
+          <div class="dn">Magnesium</div>
+          <div class="dd">2 g IV push</div>
+          <div class="di">Torsades de Pointes (TdP) only</div>
+        </div>
+        <div class="drug-row">
+          <div class="dn">Adenosine</div>
+          <div class="dd">6 mg → 12 mg IV (rapid push)</div>
+          <div class="di">SVT with pulse; not for irregular/wide complex</div>
+        </div>
+        <div class="drug-row">
+          <div class="dn">Atropine</div>
+          <div class="dd">0.5 mg IV q3–5min (max 3mg)</div>
+          <div class="di">Symptomatic bradycardia (not AV block)</div>
+        </div>
+        <div class="drug-row">
+          <div class="dn">Sodium Bicarb</div>
+          <div class="dd">1 mEq/kg IV</div>
+          <div class="di">Hyperkalemia, TCA OD, severe metabolic acidosis</div>
+        </div>
+        <div class="drug-row">
+          <div class="dn">Calcium Chloride</div>
+          <div class="dd">0.5–1 g IV</div>
+          <div class="di">Hyperkalemia, Ca-channel blocker OD, hypoCa</div>
+        </div>
+      </div>
+
+      <div class="ht-box">
+        <div class="sec-lbl" style="color:#3498db">🔍 Reversible Causes — H's &amp; T's</div>
+        <div class="ht-grid">
+          <div class="ht-col">
+            <div class="ht-title">H's</div>
+            <div class="ht-item"><strong>H</strong>ypovolemia → IV fluids</div>
+            <div class="ht-item"><strong>H</strong>ypoxia → ventilation/airway</div>
+            <div class="ht-item"><strong>H</strong>ydrogen ion (acidosis) → bicarb</div>
+            <div class="ht-item"><strong>H</strong>ypo/hyperkalemia → K+ correction</div>
+            <div class="ht-item"><strong>H</strong>ypothermia → warming</div>
+          </div>
+          <div class="ht-col">
+            <div class="ht-title">T's</div>
+            <div class="ht-item"><strong>T</strong>ension pneumothorax → needle decompression</div>
+            <div class="ht-item"><strong>T</strong>amponade (cardiac) → pericardiocentesis</div>
+            <div class="ht-item"><strong>T</strong>oxins (OD) → antidotes/dialysis</div>
+            <div class="ht-item"><strong>T</strong>hrombosis (PE) → thrombolytics/thrombectomy</div>
+            <div class="ht-item"><strong>T</strong>hrombosis (coronary) → STEMI → PCI</div>
+          </div>
+        </div>
+        <!-- Post-ROSC box -->
+        <div style="margin-top:8px;background:#1a2e44;border-radius:7px;padding:9px 11px">
+          <div style="font-size:9.5px;font-weight:700;color:#12b5b5;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px">Post-ROSC Care</div>
+          <div style="font-size:11.5px;color:#d0e8e8;line-height:1.4">
+            ▸ 12-lead ECG → STEMI → emergent PCI<br>
+            ▸ TTM: 32–36°C × 24h (or fever prevention 36°C)<br>
+            ▸ SpO₂ 94–99% | PaCO₂ 35–45 mmHg<br>
+            ▸ Avoid hypotension: MAP ≥65 mmHg<br>
+            ▸ Head CT to exclude hemorrhage
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on AHA ACLS Guidelines 2020<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

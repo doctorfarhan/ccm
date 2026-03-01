@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>DKA Management — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#2a4a0a 0%,#3d6b10 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'DKA';position:absolute;right:-5px;top:-10px;font-size:130px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#12b5b5;opacity:.5}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:16px 42px 10px;display:flex;flex-direction:column;gap:11px;overflow:hidden}
+.box{background:#112233;border-radius:10px;padding:13px 16px;border-left:4px solid #12b5b5}
+.box.amber{border-left-color:#f5a623}
+.box.red{border-left-color:#e74c3c}
+.box.green{border-left-color:#27ae60}
+.box.blue{border-left-color:#3498db}
+.box.purple{border-left-color:#9b59b6}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#12b5b5;margin-bottom:8px}
+.box.amber .sec-lbl{color:#f5a623}
+.box.red .sec-lbl{color:#e74c3c}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+.box.purple .sec-lbl{color:#9b59b6}
+
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini-box{background:#1a2e44;border-radius:8px;padding:10px 12px}
+.mini-title{font-size:10px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.item{font-size:12px;color:#d0e8e8;padding:2px 0 2px 14px;position:relative;line-height:1.35}
+.item::before{content:'▸';position:absolute;left:0;color:#12b5b5;font-size:9px;top:4px}
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+.algo-row{display:flex;align-items:flex-start;gap:10px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.algo-row:last-child{border-bottom:none}
+.algo-step{width:22px;height:22px;border-radius:50%;background:#12b5b5;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0d1b2a;flex-shrink:0;margin-top:1px}
+.algo-text{font-size:12px;color:#d0e8e8;line-height:1.35;flex:1}
+
+/* Diagnostic table */
+.diag-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.diag-table th{background:#1a2e44;color:#7aaeae;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:10px;padding:6px 10px;text-align:left;border-bottom:1px solid rgba(18,181,181,.2)}
+.diag-table td{padding:5px 10px;color:#d0e8e8;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.3}
+.diag-table tr:last-child td{border-bottom:none}
+.diag-table td .val{font-size:11px}
+.sev-mild{color:#27ae60;font-weight:700}
+.sev-mod{color:#f5a623;font-weight:700}
+.sev-sev{color:#e74c3c;font-weight:700}
+
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:11px;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">Internal Medicine · Endocrinology</span>
+    </div>
+    <div class="title">DKA Management</div>
+    <div class="subtitle">Diabetic Ketoacidosis — Diagnosis · Fluid Resuscitation · Insulin Protocol · Electrolytes · Monitoring</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Diagnostic Criteria -->
+    <div class="box">
+      <div class="sec-lbl">🔬 Diagnostic Criteria & Severity Classification (ADA 2024)</div>
+      <table class="diag-table">
+        <thead>
+          <tr><th>Parameter</th><th class="sev-mild">Mild</th><th class="sev-mod">Moderate</th><th class="sev-sev">Severe</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Plasma Glucose</td><td><span class="val">&gt;250 mg/dL</span></td><td><span class="val">&gt;250 mg/dL</span></td><td><span class="val">&gt;250 mg/dL</span></td></tr>
+          <tr><td>Arterial pH</td><td><span class="val">7.25–7.30</span></td><td><span class="val">7.00–7.24</span></td><td><span class="val">&lt;7.00</span></td></tr>
+          <tr><td>Serum Bicarbonate</td><td><span class="val">15–18 mEq/L</span></td><td><span class="val">10–15 mEq/L</span></td><td><span class="val">&lt;10 mEq/L</span></td></tr>
+          <tr><td>Urine / Serum Ketones</td><td>Positive</td><td>Positive</td><td>Positive</td></tr>
+          <tr><td>Anion Gap</td><td><span class="val">&gt;12</span></td><td><span class="val">&gt;12</span></td><td><span class="val">&gt;12</span></td></tr>
+          <tr><td>Mental Status</td><td>Alert</td><td>Alert/Drowsy</td><td>Stupor/Coma</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:6px;font-size:11px;color:#7aaeae">Anion Gap = Na⁺ − (Cl⁻ + HCO₃⁻) &nbsp;|&nbsp; Corrected Na = Measured Na + 1.6 × [(glucose − 100)/100] &nbsp;|&nbsp; Effective osmolality = 2×Na + glucose/18</div>
+    </div>
+
+    <!-- Fluid Resuscitation -->
+    <div class="two-col">
+      <div class="box green" style="border-radius:10px;padding:12px 15px">
+        <div class="sec-lbl">💧 Fluid Resuscitation Protocol</div>
+        <div class="algo-row">
+          <div class="algo-step">1</div>
+          <div class="algo-text"><strong>0.9% NaCl</strong> — <span class="val">1 L over 1st hour</span> (15–20 mL/kg/h). Correct shock first.</div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">2</div>
+          <div class="algo-text">Hours 2–4: <strong>0.45% NaCl</strong> at <span class="val">250–500 mL/h</span> if Na corrected; continue 0.9% NaCl if low Na</div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">3</div>
+          <div class="algo-text">When glucose reaches <span class="val">200 mg/dL</span>, add <strong>Dextrose 5%</strong> with 0.45% NaCl at 150–250 mL/h</div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">4</div>
+          <div class="algo-text">Target: Replace <span class="val">~50%</span> deficit in first 8h, remainder over 16–24h. Total deficit ~3–6 L.</div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">5</div>
+          <div class="algo-text">Monitor for <strong>cerebral edema</strong> — especially in children. Avoid rapid osmolality changes.</div>
+        </div>
+      </div>
+
+      <div class="box amber" style="border-radius:10px;padding:12px 15px">
+        <div class="sec-lbl">💉 Insulin Protocol</div>
+        <div class="algo-row">
+          <div class="algo-step">1</div>
+          <div class="algo-text"><strong>K⁺ must be ≥3.5 mEq/L</strong> before insulin. Replace K⁺ first if low. <span class="val">Do NOT start insulin if K &lt;3.5</span></div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">2</div>
+          <div class="algo-text">Regular insulin IV infusion: <span class="val">0.1 U/kg/h</span> (no bolus needed per ADA 2024)</div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">3</div>
+          <div class="algo-text">Target glucose fall: <span class="val">50–75 mg/dL/hour</span>. If &lt;50 mg/dL/h fall → double rate.</div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">4</div>
+          <div class="algo-text">Maintain glucose <span class="val">150–200 mg/dL</span> until anion gap closes and pH &gt;7.30</div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">5</div>
+          <div class="algo-text">Transition to SC insulin: give long-acting insulin <span class="val">2h before</span> stopping IV. Overlap mandatory.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Electrolyte Replacement -->
+    <div class="box blue">
+      <div class="sec-lbl">⚗️ Electrolyte Replacement</div>
+      <div class="three-col">
+        <div class="mini-box">
+          <div class="mini-title">🧂 Potassium (K⁺)</div>
+          <div class="item">K⁺ <span class="val">&lt;3.5</span>: Give <span class="val">40 mEq/h</span>, hold insulin</div>
+          <div class="item">K⁺ <span class="val">3.5–5.0</span>: Add <span class="val">20–40 mEq/L</span> IV fluid</div>
+          <div class="item">K⁺ <span class="val">&gt;5.0</span>: No replacement; recheck q2h</div>
+          <div class="item">Target K⁺: <span class="val">4.0–5.0 mEq/L</span></div>
+        </div>
+        <div class="mini-box">
+          <div class="mini-title">🫧 Phosphate &amp; Bicarbonate</div>
+          <div class="item">Bicarb only if pH <span class="val">&lt;6.9</span>: 100 mmol NaHCO₃ over 2h</div>
+          <div class="item">Phosphate: replace if &lt;<span class="val">1.0 mg/dL</span> or symptomatic</div>
+          <div class="item">KPhos: <span class="val">20–30 mmol</span> over 2h if severe</div>
+          <div class="item">Magnesium: replace if Mg &lt;<span class="val">1.8 mg/dL</span></div>
+        </div>
+        <div class="mini-box">
+          <div class="mini-title">📋 Resolution Criteria</div>
+          <div class="item">Glucose <span class="val">&lt;200 mg/dL</span></div>
+          <div class="item">Anion gap <span class="val">≤12 mEq/L</span></div>
+          <div class="item">Serum HCO₃ <span class="val">≥15 mEq/L</span></div>
+          <div class="item">Venous pH <span class="val">≥7.30</span></div>
+          <div class="item">Patient able to eat/drink</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monitoring & Precipitants -->
+    <div class="two-col">
+      <div class="box purple" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">📊 Monitoring Parameters</div>
+        <div class="item"><strong>Glucose</strong>: <span class="val">q1h</span> initially</div>
+        <div class="item"><strong>Electrolytes, BUN, Cr</strong>: <span class="val">q2–4h</span></div>
+        <div class="item"><strong>Venous blood gas (pH, HCO₃)</strong>: <span class="val">q2–4h</span></div>
+        <div class="item"><strong>Urine output</strong>: Foley catheter, target <span class="val">≥0.5 mL/kg/h</span></div>
+        <div class="item"><strong>Cardiac monitor</strong>: Watch for K⁺-related arrhythmias</div>
+        <div class="item"><strong>Anion gap</strong>: Close q4h to confirm resolution</div>
+      </div>
+      <div class="box red" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">⚠️ Precipitants &amp; Pitfalls</div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>6 I's</strong>: Insulin (omission), Infection, Infarction, Intoxication, Iatrogenic, Ignorance of diagnosis</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Gulf context: T2DM very common — SGLT2 inhibitors can cause <strong>euglycemic DKA</strong> (glucose may be normal!)</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Never withhold K⁺ replacement — hypokalemia is a leading cause of DKA death</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Pseudo-hyponatremia: corrected Na must be calculated before interpreting</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on ADA Standards of Care 2024<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

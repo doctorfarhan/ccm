@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Rapid Sequence Intubation — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden}
+
+.hdr{background:linear-gradient(135deg,#0a3a1a 0%,#0a6e3a 40%,#112233 100%);padding:24px 42px 18px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'RSI';position:absolute;right:20px;top:-5px;font-size:150px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase;margin-bottom:3px}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:3px}
+
+.body{flex:1;padding:13px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px}
+
+/* RSI steps */
+.rsi-timeline{background:#112233;border-radius:10px;padding:12px 16px;border-left:4px solid #27ae60}
+.timeline-grid{display:grid;grid-template-columns:70px 1fr;gap:0}
+.tl-time{font-size:11px;font-family:'JetBrains Mono',monospace;color:#12b5b5;font-weight:700;padding:5px 8px 5px 0;text-align:right;border-right:2px solid rgba(18,181,181,.3)}
+.tl-content{padding:4px 0 4px 12px;border-bottom:1px solid rgba(255,255,255,.04)}
+.tl-title{font-size:12.5px;font-weight:700;color:#fff}
+.tl-desc{font-size:11.5px;color:#b0d8d8;line-height:1.35;margin-top:2px}
+.tl-desc .mono{font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600}
+.tl-desc .red{color:#e74c3c;font-weight:600}
+.tl-desc .green{color:#27ae60;font-weight:600}
+
+/* Drug comparison grid */
+.drugs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.drug-box{background:#112233;border-radius:10px;padding:11px 14px}
+.drug-box-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.08)}
+.db-induction{border-left:4px solid #9b59b6}
+.db-paralytic{border-left:4px solid #3498db}
+.db-title-induction{color:#9b59b6}
+.db-title-paralytic{color:#3498db}
+
+.drug-entry{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.drug-entry:last-child{border-bottom:none}
+.de-name{font-size:14px;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px}
+.de-tag{font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px}
+.tag-first{background:rgba(39,174,96,.2);color:#27ae60}
+.tag-alt{background:rgba(245,166,35,.2);color:#f5a623}
+.tag-caution{background:rgba(231,76,60,.2);color:#e74c3c}
+.de-dose{font-size:12px;font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600;margin:2px 0}
+.de-notes{font-size:11px;color:#b0d8d8;line-height:1.35}
+.de-notes .warn{color:#e74c3c;font-weight:600}
+.de-notes .ok{color:#27ae60;font-weight:600}
+
+/* Airway assessment */
+.airway-box{background:#112233;border-radius:10px;padding:11px 14px;border-left:4px solid #e74c3c}
+.mnemonics-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mn-box{background:#1a2e44;border-radius:7px;padding:9px 11px}
+.mn-title{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7aaeae;margin-bottom:5px}
+.mn-item{font-size:12px;color:#d0e8e8;padding:2px 0;line-height:1.3}
+.mn-item strong{color:#f5a623}
+
+/* Failed airway */
+.fail-box{background:#1f0a0a;border-radius:8px;padding:10px 12px;border:1px solid rgba(231,76,60,.3);border-top:3px solid #e74c3c}
+.fail-title{font-size:10px;font-weight:700;color:#e74c3c;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.fail-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.fail-step{background:#1a1010;border-radius:6px;padding:8px 8px;text-align:center}
+.fail-num{font-size:16px;font-weight:900;color:#e74c3c;line-height:1;margin-bottom:3px}
+.fail-text{font-size:10.5px;color:#d0e8e8;line-height:1.3}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo">CCM Notes</div>
+    <div class="cat">Emergency Medicine · Airway</div>
+    <div class="title">Rapid Sequence Intubation</div>
+    <div class="subtitle">RSI Checklist · Induction Agents · Paralytic Doses · Difficult Airway Plan</div>
+  </div>
+
+  <div class="body">
+
+    <!-- RSI Timeline -->
+    <div class="rsi-timeline">
+      <div class="sec-lbl" style="color:#27ae60">🕐 RSI Timeline & Checklist</div>
+      <div class="timeline-grid">
+        <div class="tl-time">T−10 min</div>
+        <div class="tl-content">
+          <div class="tl-title">Preparation & LEMON Assessment</div>
+          <div class="tl-desc">Difficult airway assessment (LEMON). Two IVs, monitors, suction × 2, BVM at bedside. Pre-oxygenate: <span class="mono">NRB 15 L/min × 3–5 min</span> or HFNC 60L/min. Call backup if difficult airway anticipated. Backup plan decided.</div>
+        </div>
+
+        <div class="tl-time">T−0 min</div>
+        <div class="tl-content">
+          <div class="tl-title">Pre-oxygenation Confirmed</div>
+          <div class="tl-desc">SpO₂ <span class="mono green">≥95%</span> before proceeding. Position: <span class="mono">head-up 20–30°</span> (ear-to-sternal notch). NODESAT: apneic oxygenation via nasal cannula at 15 L/min during laryngoscopy.</div>
+        </div>
+
+        <div class="tl-time">T+0</div>
+        <div class="tl-content">
+          <div class="tl-title">Pretreatment (optional)</div>
+          <div class="tl-desc">Fentanyl <span class="mono">3 mcg/kg IV</span> for sympathomimetic response (↑ICP, aortic dissection). Lidocaine <span class="mono">1.5 mg/kg IV</span> (↑ICP, reactive airway — less evidence). Atropine <span class="mono">0.02 mg/kg</span> in pediatrics (&lt;1yr).</div>
+        </div>
+
+        <div class="tl-time">T+3 min</div>
+        <div class="tl-content">
+          <div class="tl-title">Induction Agent → Immediately Paralytic</div>
+          <div class="tl-desc">Give induction agent IV push → immediately follow with paralytic agent. <span class="red">No time gap</span> between agents. Apply cricoid pressure (Sellick) — controversial, use if aspiration risk.</div>
+        </div>
+
+        <div class="tl-time">T+4 min</div>
+        <div class="tl-content">
+          <div class="tl-title">Laryngoscopy & Intubation</div>
+          <div class="tl-desc">After succinylcholine: jaw relaxation in <span class="mono">45–60 sec</span>. After rocuronium: onset <span class="mono">60–90 sec</span>. Direct (Mac #3–4) or video laryngoscope. Confirm: waveform capnography (gold standard) + bilateral BS.</div>
+        </div>
+
+        <div class="tl-time">T+5 min</div>
+        <div class="tl-content">
+          <div class="tl-title">Confirm & Secure</div>
+          <div class="tl-desc">ETCO₂ waveform confirmed. CXR for tube position. Initial vent settings. Post-intubation sedation + analgesia immediately.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Induction + Paralytic drugs -->
+    <div class="drugs-grid">
+      <!-- Induction agents -->
+      <div class="drug-box db-induction">
+        <div class="drug-box-title db-title-induction">💉 Induction Agents</div>
+
+        <div class="drug-entry">
+          <div class="de-name">Ketamine <span class="de-tag tag-first">First-line</span></div>
+          <div class="de-dose">1.5–2 mg/kg IV</div>
+          <div class="de-notes"><span class="ok">Hemodynamically stable</span>; preserves airway reflexes; bronchodilator. Indicated: hypotension, asthma, bronchospasm. Raises secretions; add atropine. <span class="warn">Caution in ↑ICP (reassessed — likely safe)</span></div>
+        </div>
+
+        <div class="drug-entry">
+          <div class="de-name">Etomidate <span class="de-tag tag-first">First-line</span></div>
+          <div class="de-dose">0.3 mg/kg IV</div>
+          <div class="de-notes"><span class="ok">Hemodynamically neutral</span>; minimal CV effects. Excellent for cardiac patients. <span class="warn">Single dose: cortisol suppression 24–48h</span> (controversial in sepsis). Myoclonus common.</div>
+        </div>
+
+        <div class="drug-entry">
+          <div class="de-name">Propofol <span class="de-tag tag-alt">Alternative</span></div>
+          <div class="de-dose">1.5–2 mg/kg IV</div>
+          <div class="de-notes"><span class="warn">Hypotension risk</span> — avoid if hemodynamically unstable. Use reduced dose in elderly/sick. Rapid, pleasant induction. Good anticonvulsant.</div>
+        </div>
+
+        <div class="drug-entry">
+          <div class="de-name">Midazolam <span class="de-tag tag-caution">Use caution</span></div>
+          <div class="de-dose">0.1–0.3 mg/kg IV</div>
+          <div class="de-notes"><span class="warn">Slow onset 1–2 min; hypotension;</span> accumulates in renal failure. Avoid as primary agent if possible. Useful as adjunct.</div>
+        </div>
+      </div>
+
+      <!-- Paralytic agents -->
+      <div class="drug-box db-paralytic">
+        <div class="drug-box-title db-title-paralytic">💊 Paralytic Agents (NMBAs)</div>
+
+        <div class="drug-entry">
+          <div class="de-name">Succinylcholine <span class="de-tag tag-first">First-line</span></div>
+          <div class="de-dose">1.5 mg/kg IV</div>
+          <div class="de-notes">Depolarizing NMBA. Onset <span class="ok">45–60 sec</span>; duration 8–10 min (short-acting — "get out of jail"). 
+          <span class="warn">CONTRAINDICATED:</span> hyperkalemia, burns (&gt;48h), crush injury (&gt;5 days), UMN injury (&gt;3 days), denervation, malignant hyperthermia Hx. Bradycardia with repeat doses.</div>
+        </div>
+
+        <div class="drug-entry">
+          <div class="de-name">Rocuronium <span class="de-tag tag-first">First-line / Alternative</span></div>
+          <div class="de-dose">1.2 mg/kg IV (RSI dose)</div>
+          <div class="de-notes">Non-depolarizing. Onset <span class="ok">60–90 sec</span> at 1.2 mg/kg. Duration 45–60 min. <span class="ok">Safe when succinylcholine contraindicated.</span> Reversible with sugammadex <span class="de-dose" style="font-size:11px;display:inline">16 mg/kg IV</span> for immediate reversal.</div>
+        </div>
+
+        <div class="drug-entry">
+          <div class="de-name">Vecuronium <span class="de-tag tag-alt">Alternative</span></div>
+          <div class="de-dose">0.1–0.2 mg/kg IV</div>
+          <div class="de-notes">Non-depolarizing. Onset 3–5 min (slow — not ideal RSI). Duration 25–40 min. Less commonly used for RSI.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Difficult airway + Failed -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="airway-box">
+        <div class="sec-lbl" style="color:#e74c3c">🔍 Difficult Airway: LEMON Assessment</div>
+        <div class="mnemonics-grid">
+          <div class="mn-box">
+            <div class="mn-title">LEMON</div>
+            <div class="mn-item"><strong>L</strong> — Look externally (obesity, short neck, trauma)</div>
+            <div class="mn-item"><strong>E</strong> — Evaluate 3-3-2 (mouth, mandible, hyoid)</div>
+            <div class="mn-item"><strong>M</strong> — Mallampati score (I–IV)</div>
+            <div class="mn-item"><strong>O</strong> — Obstruction / angioedema / mass</div>
+            <div class="mn-item"><strong>N</strong> — Neck mobility (fused spine, collar)</div>
+          </div>
+          <div class="mn-box">
+            <div class="mn-title">3-3-2 Rule</div>
+            <div class="mn-item"><strong>3</strong> fingers in open mouth (interincisor)</div>
+            <div class="mn-item"><strong>3</strong> fingers from chin to hyoid</div>
+            <div class="mn-item"><strong>2</strong> fingers from hyoid to thyroid notch</div>
+            <div class="mn-item" style="margin-top:4px;color:#e74c3c">Any criterion failed → difficult</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="fail-box">
+          <div class="fail-title">🚨 Failed Airway / Can't Intubate Can't Oxygenate (CICO)</div>
+          <div class="fail-steps">
+            <div class="fail-step">
+              <div class="fail-num">1</div>
+              <div class="fail-text"><strong>BVM ventilation</strong> attempt</div>
+            </div>
+            <div class="fail-step">
+              <div class="fail-num">2</div>
+              <div class="fail-text"><strong>SGA / LMA</strong> (supraglottic airway)</div>
+            </div>
+            <div class="fail-step">
+              <div class="fail-num">3</div>
+              <div class="fail-text"><strong>Video laryngoscopy</strong> + bougie</div>
+            </div>
+            <div class="fail-step">
+              <div class="fail-num">4</div>
+              <div class="fail-text"><strong>Surgical airway</strong> (cricothyrotomy)</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#1a2e44;border-radius:8px;padding:9px 11px">
+          <div style="font-size:9.5px;font-weight:700;color:#12b5b5;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px">Confirmation of Tube Placement</div>
+          <div style="font-size:11.5px;color:#d0e8e8;line-height:1.45">
+            ▸ Waveform capnography (ETCO₂) — gold standard<br>
+            ▸ Bilateral breath sounds + absent epigastric sounds<br>
+            ▸ Chest rise with bag ventilation<br>
+            ▸ CXR: tip 2–3cm above carina (T2–T4)<br>
+            ▸ Colorimetric CO₂ detector if capnography unavailable
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">EM Airway Management — Educational use only<br>Always verify drug doses</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Burns Management — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#5a1a00 0%,#8a3010 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'BURN';position:absolute;right:10px;top:-10px;font-size:130px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#12b5b5;opacity:.5}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:14px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.box{background:#112233;border-radius:10px;padding:13px 16px;border-left:4px solid #12b5b5}
+.box.amber{border-left-color:#f5a623}
+.box.red{border-left-color:#e74c3c}
+.box.green{border-left-color:#27ae60}
+.box.blue{border-left-color:#3498db}
+.box.purple{border-left-color:#9b59b6}
+.box.orange{border-left-color:#e67e22}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#12b5b5;margin-bottom:8px}
+.box.amber .sec-lbl{color:#f5a623}
+.box.red .sec-lbl{color:#e74c3c}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+.box.purple .sec-lbl{color:#9b59b6}
+.box.orange .sec-lbl{color:#e67e22}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.mini-box{background:#1a2e44;border-radius:8px;padding:10px 12px}
+.mini-title{font-size:10.5px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.item{font-size:12px;color:#d0e8e8;padding:2px 0 2px 14px;position:relative;line-height:1.35}
+.item::before{content:'▸';position:absolute;left:0;color:#12b5b5;font-size:9px;top:4px}
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+/* Burn depth cells */
+.depth-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.depth-cell{border-radius:8px;padding:10px 12px}
+.dc-1{background:#1a2a1a;border:1px solid rgba(39,174,96,.25);border-top:3px solid #27ae60}
+.dc-2{background:#2a1e0a;border:1px solid rgba(245,166,35,.25);border-top:3px solid #f5a623}
+.dc-3{background:#1f0a0a;border:1px solid rgba(231,76,60,.25);border-top:3px solid #e74c3c}
+.dc-label{font-size:12.5px;font-weight:800;margin-bottom:5px}
+.dcl-green{color:#27ae60}
+.dcl-amber{color:#f5a623}
+.dcl-red{color:#e74c3c}
+.dc-sub{font-size:10px;color:#7aaeae;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+
+/* Parkland formula highlight */
+.formula-box{background:rgba(18,181,181,0.08);border:2px solid rgba(18,181,181,0.4);border-radius:10px;padding:12px 16px;text-align:center}
+.formula-main{font-family:'JetBrains Mono','Courier New',monospace;font-size:17px;font-weight:700;color:#12b5b5;line-height:1.5}
+.formula-sub{font-size:11px;color:#b0d8d8;margin-top:6px;line-height:1.5}
+
+/* Rule of nines grid */
+.nines-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:4px}
+.nine-cell{background:#1a2e44;border-radius:7px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center}
+.nine-label{font-size:11.5px;color:#d0e8e8}
+.nine-val{font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:700;font-size:13px}
+
+/* Algo steps */
+.algo-row{display:flex;align-items:flex-start;gap:10px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.algo-row:last-child{border-bottom:none}
+.algo-step{width:22px;height:22px;border-radius:50%;background:#12b5b5;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0d1b2a;flex-shrink:0;margin-top:1px}
+.algo-step.red-step{background:#e74c3c}
+.algo-text{font-size:12px;color:#d0e8e8;line-height:1.35;flex:1}
+
+/* Warnings */
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:11px;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+/* Transfer criteria badges */
+.badge-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.badge{background:#1a2e44;border-radius:5px;padding:4px 10px;font-size:11px;color:#d0e8e8;border:1px solid rgba(255,255,255,0.1)}
+.badge.red-badge{background:rgba(231,76,60,.1);border-color:rgba(231,76,60,.3);color:#f0b8b0}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">Emergency Medicine · Critical Care</span>
+    </div>
+    <div class="title">Burns Management</div>
+    <div class="subtitle">Parkland Formula · Rule of Nines · Burn Depth · Fluid Resuscitation · Inhalation Injury · Escharotomy · Transfer Criteria</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Burn Depth Classification -->
+    <div class="box">
+      <div class="sec-lbl">🔥 Burn Depth Classification</div>
+      <div class="depth-grid">
+        <div class="depth-cell dc-1">
+          <div class="dc-label dcl-green">Superficial (1st°)</div>
+          <div class="dc-sub">Epidermis only</div>
+          <div class="item">Erythema, pain, dry</div>
+          <div class="item">No blisters</div>
+          <div class="item">Blanches with pressure</div>
+          <div class="item">Heals <span class="val">3–5 days</span></div>
+          <div class="item">Not included in TBSA calculation</div>
+        </div>
+        <div class="depth-cell dc-2">
+          <div class="dc-label dcl-amber">Partial Thickness (2nd°)</div>
+          <div class="dc-sub">Epidermis + dermis</div>
+          <div class="item"><strong>Superficial partial</strong>: Blisters, moist, painful, blanches → heals <span class="val">14–21 days</span></div>
+          <div class="item"><strong>Deep partial</strong>: White/red, fixed staining, decreased pain → may need grafting</div>
+          <div class="item">Included in TBSA</div>
+        </div>
+        <div class="depth-cell dc-3">
+          <div class="dc-label dcl-red">Full Thickness (3rd/4th°)</div>
+          <div class="dc-sub">All skin layers (±underlying)</div>
+          <div class="item">Leathery, waxy, dry, painless</div>
+          <div class="item">Does not blanch</div>
+          <div class="item">Thrombosed vessels visible</div>
+          <div class="item">4th°: muscle, bone involved</div>
+          <div class="item">Requires skin grafting</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parkland + Rule of Nines -->
+    <div class="two-col">
+      <div class="box green" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">💧 Parkland Formula — Fluid Resuscitation</div>
+        <div class="formula-box">
+          <div class="formula-main">4 × Weight (kg) × %TBSA</div>
+          <div class="formula-main" style="color:#f5a623;font-size:14px;margin-top:4px">= mL Lactated Ringer's in 24 hours</div>
+          <div class="formula-sub">
+            First 8 hours: give <strong style="color:#12b5b5">½ of total volume</strong> (from time of burn)<br>
+            Next 16 hours: give remaining <strong style="color:#12b5b5">½ of total volume</strong>
+          </div>
+        </div>
+        <div class="item" style="margin-top:8px">Only count <strong>2nd° + 3rd° burns</strong> in TBSA; exclude 1st° burns</div>
+        <div class="item">Use <strong>Lactated Ringer's</strong> — not normal saline, NOT dextrose</div>
+        <div class="item">Titrate urine output: <span class="val">0.5 mL/kg/h</span> adults; <span class="val">1 mL/kg/h</span> children</div>
+        <div class="item">Children: add maintenance glucose (D5LR) separately</div>
+        <div class="item">Colloid (albumin 5%) may be added after 12–24h in large burns (&gt;40% TBSA)</div>
+      </div>
+      <div class="box amber" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">📐 Rule of Nines — %TBSA Estimation</div>
+        <div class="nines-grid">
+          <div class="nine-cell"><span class="nine-label">Head &amp; Neck</span><span class="nine-val">9%</span></div>
+          <div class="nine-cell"><span class="nine-label">Chest (ant.)</span><span class="nine-val">9%</span></div>
+          <div class="nine-cell"><span class="nine-label">Abdomen (ant.)</span><span class="nine-val">9%</span></div>
+          <div class="nine-cell"><span class="nine-label">Upper back</span><span class="nine-val">9%</span></div>
+          <div class="nine-cell"><span class="nine-label">Lower back</span><span class="nine-val">9%</span></div>
+          <div class="nine-cell"><span class="nine-label">Each arm</span><span class="nine-val">9%</span></div>
+          <div class="nine-cell"><span class="nine-label">Each thigh</span><span class="nine-val">9%</span></div>
+          <div class="nine-cell"><span class="nine-label">Each lower leg</span><span class="nine-val">9%</span></div>
+          <div class="nine-cell"><span class="nine-label">Perineum</span><span class="nine-val">1%</span></div>
+        </div>
+        <div style="margin-top:7px;padding:6px 10px;background:rgba(245,166,35,.1);border-radius:6px;font-size:11px;color:#f5a623;font-weight:600">
+          Palmar method: Patient's palm + fingers ≈ 1% TBSA — useful for scattered burns
+        </div>
+        <div class="item" style="margin-top:4px">Children: use Lund-Browder chart (larger head %, smaller legs %)</div>
+      </div>
+    </div>
+
+    <!-- Inhalation Injury + Wound Care -->
+    <div class="two-col">
+      <div class="box blue" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">💨 Inhalation Injury Assessment</div>
+        <div class="item"><strong>Suspect if</strong>: facial burns, singed eyebrows/nasal hairs, hoarseness, stridor, carbonaceous sputum, burns in enclosed space</div>
+        <div class="item"><strong>CO Poisoning</strong>: Send <span class="val">CO-oximetry</span> (not pulse ox — falsely normal). COHb &gt;25% → hyperbaric O₂ consider</div>
+        <div class="item"><strong>High-flow O₂ 100%</strong> via NRB mask immediately; reduces CO half-life from 5h → 60–90 min</div>
+        <div class="item"><strong>Early intubation</strong>: If stridor, hoarseness, progressive edema, or GCS ≤8 — airway edema can occlude within hours</div>
+        <div class="item">Cyanide toxicity: co-expose in house fires (plastics); treat with hydroxocobalamin <span class="val">5g IV</span></div>
+        <div class="item">Bronchoscopy: confirms subglottic injury; guides prognosis</div>
+      </div>
+      <div class="box purple" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">🏥 Wound Care &amp; Escharotomy</div>
+        <div class="item"><strong>Initial wound care</strong>: Cool with tepid water (15°C, 20 min); remove clothing/jewelry; cover with clean dressing</div>
+        <div class="item">Do NOT use ice, butter, or toothpaste on burns</div>
+        <div class="item">Topical agents: Silver sulfadiazine, mafenide acetate, silver-impregnated dressings</div>
+        <div style="margin-top:6px;padding:7px 10px;background:rgba(231,76,60,.1);border-radius:7px;border:1px solid rgba(231,76,60,.25)">
+          <div style="font-size:10.5px;font-weight:700;color:#e74c3c;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">⚡ Escharotomy Indications</div>
+          <div class="item">Circumferential full-thickness burn of limbs (compartment syndrome)</div>
+          <div class="item">Circumferential chest burns (impaired ventilation)</div>
+          <div class="item">Signs: absent pulses, paresthesias, pain with passive stretch, compartment pressure &gt;<span class="val">30 mmHg</span></div>
+          <div class="item">Fasciotomy if escharotomy insufficient</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transfer Criteria + Critical Warnings -->
+    <div class="two-col">
+      <div class="box orange" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">🚁 Transfer to Burns Centre Criteria (ABA)</div>
+        <div class="badge-grid">
+          <div class="badge red-badge">Partial/full thickness &gt;10% TBSA</div>
+          <div class="badge red-badge">Any full thickness burn</div>
+          <div class="badge red-badge">Burns of face, hands, feet, genitalia</div>
+          <div class="badge red-badge">Burns of major joints</div>
+          <div class="badge red-badge">Circumferential burns</div>
+          <div class="badge red-badge">Chemical / electrical burns</div>
+          <div class="badge red-badge">Inhalation injury</div>
+          <div class="badge red-badge">Burns + pre-existing illness</div>
+          <div class="badge red-badge">Burns + trauma (burn priority)</div>
+          <div class="badge red-badge">Pediatric / elderly patients</div>
+        </div>
+        <div class="item" style="margin-top:6px">Stabilize airway + start Parkland fluids <strong>before</strong> transfer</div>
+      </div>
+      <div class="box red" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">⚠️ Critical Warnings</div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>No dextrose in first 24h</strong> — causes hyperglycemia and osmotic diuresis, masking true fluid status. Use Lactated Ringer's only.</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Pulse oximetry is unreliable in CO poisoning</strong> — SpO₂ reads falsely normal. Must use <strong>CO-oximetry</strong> (ABG co-ox panel) to detect COHb.</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Escharotomy must not be delayed</strong> — compartment syndrome from circumferential burn causes irreversible limb ischemia within 6 hours.</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Avoid over-resuscitation</strong> — "fluid creep" causes abdominal compartment syndrome, pulmonary edema, extremity edema. Target strict UO goals.</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on ABA Burn Centre Referral Criteria / ACS ATLS<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

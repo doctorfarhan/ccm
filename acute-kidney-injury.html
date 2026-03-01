@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Acute Kidney Injury — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#1a0a3a 0%,#2e1060 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'AKI';position:absolute;right:10px;top:-10px;font-size:130px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#12b5b5;opacity:.5}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:14px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.box{background:#112233;border-radius:10px;padding:13px 16px;border-left:4px solid #12b5b5}
+.box.amber{border-left-color:#f5a623}
+.box.red{border-left-color:#e74c3c}
+.box.green{border-left-color:#27ae60}
+.box.blue{border-left-color:#3498db}
+.box.purple{border-left-color:#9b59b6}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#12b5b5;margin-bottom:8px}
+.box.amber .sec-lbl{color:#f5a623}
+.box.red .sec-lbl{color:#e74c3c}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+.box.purple .sec-lbl{color:#9b59b6}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.mini-box{background:#1a2e44;border-radius:8px;padding:10px 12px}
+.mini-title{font-size:10.5px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.item{font-size:12px;color:#d0e8e8;padding:2px 0 2px 14px;position:relative;line-height:1.35}
+.item::before{content:'▸';position:absolute;left:0;color:#12b5b5;font-size:9px;top:4px}
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+/* KDIGO staging table */
+.kdigo-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.kdigo-table th{background:#1a2e44;color:#7aaeae;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:10px;padding:6px 10px;text-align:left;border-bottom:1px solid rgba(18,181,181,.2)}
+.kdigo-table td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.3;color:#d0e8e8}
+.kdigo-table tr:last-child td{border-bottom:none}
+.stage1{background:rgba(52,152,219,.1)}
+.stage2{background:rgba(245,166,35,.1)}
+.stage3{background:rgba(231,76,60,.1)}
+.s1-color{color:#3498db;font-weight:800;font-size:13px}
+.s2-color{color:#f5a623;font-weight:800;font-size:13px}
+.s3-color{color:#e74c3c;font-weight:800;font-size:13px}
+
+/* Causes */
+.causes-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.cause-box{border-radius:8px;padding:10px 12px}
+.cb-pre{background:rgba(52,152,219,.1);border:1px solid rgba(52,152,219,.25);border-top:3px solid #3498db}
+.cb-renal{background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.25);border-top:3px solid #f5a623}
+.cb-post{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.25);border-top:3px solid #e74c3c}
+.cause-title{font-size:12px;font-weight:800;margin-bottom:5px}
+.ct-pre{color:#3498db}
+.ct-renal{color:#f5a623}
+.ct-post{color:#e74c3c}
+
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:11px;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">Nephrology · Critical Care</span>
+    </div>
+    <div class="title">Acute Kidney Injury (AKI)</div>
+    <div class="subtitle">KDIGO Staging · Causes (Pre/Renal/Post) · Fluid Management · Dialysis Criteria · Nephrotoxin Avoidance</div>
+  </div>
+
+  <div class="body">
+
+    <!-- KDIGO Staging -->
+    <div class="box">
+      <div class="sec-lbl">🔬 KDIGO Staging (Kidney Disease: Improving Global Outcomes 2012)</div>
+      <table class="kdigo-table">
+        <thead>
+          <tr><th>Stage</th><th>Serum Creatinine Criteria</th><th>Urine Output Criteria</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr class="stage1">
+            <td><span class="s1-color">Stage 1</span></td>
+            <td>Rise ≥<span class="val">0.3 mg/dL</span> within 48h <em>or</em> 1.5–1.9× baseline within 7d</td>
+            <td><span class="val">&lt;0.5 mL/kg/h</span> for 6–12h</td>
+            <td>Identify + remove cause; optimize fluids; stop nephrotoxins</td>
+          </tr>
+          <tr class="stage2">
+            <td><span class="s2-color">Stage 2</span></td>
+            <td>Cr rise <span class="val">2.0–2.9×</span> baseline within 7 days</td>
+            <td><span class="val">&lt;0.5 mL/kg/h</span> for ≥12h</td>
+            <td>All Stage 1 measures + nephrology consult; assess for RRT</td>
+          </tr>
+          <tr class="stage3">
+            <td><span class="s3-color">Stage 3</span></td>
+            <td>Cr rise <span class="val">≥3×</span> baseline <em>or</em> Cr ≥<span class="val">4.0 mg/dL</span> <em>or</em> RRT initiation <em>or</em> eGFR &lt;35 (&lt;18y)</td>
+            <td><span class="val">&lt;0.3 mL/kg/h</span> for ≥24h <em>or</em> anuria ≥12h</td>
+            <td>Urgent nephrology; prepare RRT; ICU admission</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:6px;font-size:11px;color:#7aaeae">AKI Definition (any 1 criterion): sCr rise ≥0.3 mg/dL within 48h · sCr rise ≥1.5× baseline within 7d · UO &lt;0.5 mL/kg/h for ≥6h</div>
+    </div>
+
+    <!-- Causes -->
+    <div class="box blue">
+      <div class="sec-lbl">🔎 Causes of AKI</div>
+      <div class="causes-grid">
+        <div class="cause-box cb-pre">
+          <div class="cause-title ct-pre">Pre-Renal (~60%)</div>
+          <div class="item">Hypovolemia (bleeding, GI losses, burns)</div>
+          <div class="item">Reduced cardiac output (HF, cardiogenic shock)</div>
+          <div class="item">Sepsis / distributive shock</div>
+          <div class="item">Hepatorenal syndrome</div>
+          <div class="item">NSAIDs, ACEi/ARBs (afferent dilation block)</div>
+          <div class="item"><strong>FENa &lt;1%</strong>; UNa &lt;20 mEq/L; responds to fluids</div>
+        </div>
+        <div class="cause-box cb-renal">
+          <div class="cause-title ct-renal">Intrinsic Renal (~35%)</div>
+          <div class="item"><strong>ATN</strong>: ischemic (shock) or nephrotoxic (contrast, gentamicin, vancomycin)</div>
+          <div class="item">Glomerulonephritis (rapidly progressive)</div>
+          <div class="item">Interstitial nephritis (drug-induced: NSAIDs, PPIs, β-lactams)</div>
+          <div class="item">Vascular: TTP/HUS, renal artery occlusion</div>
+          <div class="item">Myoglobinuria (rhabdomyolysis)</div>
+          <div class="item"><strong>FENa &gt;2%</strong>; muddy brown casts on UA</div>
+        </div>
+        <div class="cause-box cb-post">
+          <div class="cause-title ct-post">Post-Renal (~5%)</div>
+          <div class="item">BPH / prostatic obstruction (most common in Gulf elderly males)</div>
+          <div class="item">Ureteric stones (bilateral or solitary kidney)</div>
+          <div class="item">Cervical / pelvic malignancy</div>
+          <div class="item">Bladder outlet obstruction</div>
+          <div class="item">Retroperitoneal fibrosis</div>
+          <div class="item">Renal US: hydronephrosis; foley → immediate relief</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Management -->
+    <div class="two-col">
+      <div class="box green" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">💧 Fluid & General Management</div>
+        <div class="item">Pre-renal: Fluid challenge — <span class="val">500 mL</span> crystalloid bolus; reassess UO</div>
+        <div class="item">Target MAP <span class="val">≥65 mmHg</span> (or higher in CKD/HTN)</div>
+        <div class="item">Avoid fluid overload — use dynamic assessment (PLR, IVC)</div>
+        <div class="item">Hold ACEi/ARBs/NSAIDs/metformin</div>
+        <div class="item">Contrast avoidance; if unavoidable: pre-hydrate with 0.9% NaCl</div>
+        <div class="item">Nutritional support: protein <span class="val">0.8–1.0 g/kg/day</span> (non-catabolic AKI)</div>
+        <div class="item">Monitor strict I&O; daily weights; electrolytes q4–8h</div>
+        <div class="item">Urinary catheter for accurate monitoring in Stage 2–3</div>
+      </div>
+      <div class="box red" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">🔴 RRT Indications (AKI Dialysis)</div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>A</strong> — Metabolic <strong>A</strong>cidosis: pH &lt;7.1 refractory to treatment</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>E</strong> — <strong>E</strong>lectrolytes: K⁺ &gt;6.5 mEq/L or rapidly rising despite treatment</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>I</strong> — <strong>I</strong>ntoxication: dialyzable toxins (salicylates, methanol, lithium)</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>O</strong> — <strong>O</strong>verload: fluid overload unresponsive to diuretics, pulmonary edema</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>U</strong> — <strong>U</strong>remia: encephalopathy, pericarditis, bleeding (BUN &gt;100 mg/dL)</span></div>
+        <div style="margin-top:6px;font-size:11px;color:#7aaeae;padding:5px 8px;background:rgba(18,181,181,.05);border-radius:5px">CRRT preferred in hemodynamically unstable patients. IHD for stable patients.</div>
+      </div>
+    </div>
+
+    <!-- Nephrotoxins -->
+    <div class="box amber">
+      <div class="sec-lbl">⚠️ Nephrotoxin Avoidance & Dose Adjustment</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>NSAIDs</strong>: Contraindicated in AKI — prostaglandin inhibition → afferent constriction</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Aminoglycosides</strong> (gentamicin): Avoid if possible; once-daily dosing; monitor troughs</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Iodinated contrast</strong>: Minimize dose; pre/post-hydration; avoid NSAID same day</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Vancomycin</strong>: AUC-based monitoring (AUC/MIC 400–600); avoid with piperacillin</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>ACEi/ARBs</strong>: Stop in AKI — reduce GFR by inhibiting efferent tone</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Metformin</strong>: Stop when eGFR &lt;30 — risk of lactic acidosis</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on KDIGO AKI Guidelines 2012 / 2024 Update<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

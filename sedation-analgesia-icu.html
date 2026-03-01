@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>ICU Sedation & Analgesia — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden}
+
+.hdr{background:linear-gradient(135deg,#1a0a4a 0%,#3d0a7a 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'SEDATION';position:absolute;right:-15px;top:-8px;font-size:90px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-2px;line-height:1}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase;margin-bottom:4px}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.title{font-size:36px;font-weight:900;color:#fff;line-height:1.1}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:14px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+
+/* RASS scale */
+.rass-box{background:#112233;border-radius:10px;padding:12px 16px;border-left:4px solid #9b59b6}
+.rass-grid{display:grid;grid-template-columns:60px 80px 1fr;gap:0;border-radius:6px;overflow:hidden}
+.rg-cell{padding:5px 10px;font-size:12px}
+.rg-head{background:#1a2244;font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7aaeae;padding:6px 10px}
+.rg-score{font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center}
+.rg-label{font-weight:600}
+.rg-desc{color:#b0d8d8}
+/* Score colors */
+.rg-m5{background:rgba(231,76,60,.15)} .s-m5{color:#e74c3c}
+.rg-m4{background:rgba(231,76,60,.1)} .s-m4{color:#e74c3c}
+.rg-m3{background:rgba(245,166,35,.12)} .s-m3{color:#f5a623}
+.rg-m2{background:rgba(245,166,35,.08)} .s-m2{color:#f5a623}
+.rg-m1{background:rgba(245,166,35,.05)} .s-m1{color:#f5a623}
+.rg-0{background:rgba(39,174,96,.12)} .s-0{color:#27ae60}
+.rg-p1{background:rgba(52,152,219,.08)} .s-p1{color:#3498db}
+.rg-p2{background:rgba(52,152,219,.12)} .s-p2{color:#3498db}
+.rg-p3{background:rgba(52,152,219,.18)} .s-p3{color:#3498db}
+.rg-p4{background:rgba(52,152,219,.22)} .s-p4{color:#3498db}
+.rg-target{background:rgba(18,181,181,.15);border:2px solid rgba(18,181,181,.3)}
+.s-target{color:#12b5b5}
+.target-badge{display:inline-block;background:#12b5b5;color:#0d1b2a;font-size:9px;font-weight:800;padding:1px 6px;border-radius:3px;margin-left:4px;vertical-align:middle}
+
+/* Drug cards */
+.drug-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.drug-card{background:#112233;border-radius:10px;padding:11px 14px;border-left:4px solid}
+.dc-prop{border-color:#e74c3c}
+.dc-midaz{border-color:#f5a623}
+.dc-dex{border-color:#12b5b5}
+.dc-ket{border-color:#9b59b6}
+.dc-fent{border-color:#27ae60}
+.dc-morph{border-color:#3498db}
+
+.drug-name{font-size:15px;font-weight:800;color:#fff;margin-bottom:1px}
+.drug-class{font-size:10px;color:#7aaeae;font-style:italic;margin-bottom:7px}
+.drug-row{display:flex;gap:8px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.drug-row:last-child{border-bottom:none}
+.dr-lbl{font-size:10px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1px;min-width:80px}
+.dr-val{font-size:12px;color:#d0e8e8;line-height:1.35}
+.dr-val .mono{font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600}
+.dr-val .red{color:#e74c3c;font-weight:600}
+.dr-val .green{color:#27ae60;font-weight:600}
+
+/* ABCDEF bundle */
+.abcdef-box{background:#112233;border-radius:10px;padding:11px 16px;border-left:4px solid #27ae60}
+.abcdef-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.abc-cell{background:#1a2e44;border-radius:7px;padding:8px 8px;text-align:center}
+.abc-letter{font-size:22px;font-weight:900;line-height:1;margin-bottom:3px}
+.abc-a{color:#e74c3c} .abc-b{color:#f5a623} .abc-c{color:#27ae60}
+.abc-d{color:#3498db} .abc-e{color:#9b59b6} .abc-f{color:#12b5b5}
+.abc-text{font-size:10px;color:#b0d8d8;line-height:1.3}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo">CCM Notes</div>
+    <div class="cat">ICU Essentials · Sedation & Analgesia</div>
+    <div class="title">ICU Sedation, Analgesia & Delirium</div>
+    <div class="subtitle">RASS Scale · A–F Bundle · Sedative & Opioid Dosing · PAD Guidelines 2018</div>
+  </div>
+
+  <div class="body">
+
+    <!-- RASS Scale -->
+    <div class="rass-box">
+      <div class="sec-lbl" style="color:#9b59b6">🧠 Richmond Agitation–Sedation Scale (RASS) — Target: -1 to 0</div>
+      <div class="rass-grid">
+        <div class="rg-head">Score</div>
+        <div class="rg-head">Level</div>
+        <div class="rg-head">Description</div>
+
+        <div class="rg-cell rg-m5 rg-score s-m5">−5</div>
+        <div class="rg-cell rg-m5 rg-label s-m5">Unarousable</div>
+        <div class="rg-cell rg-m5 rg-desc">No response to voice or physical stimulation</div>
+
+        <div class="rg-cell rg-m4 rg-score s-m4">−4</div>
+        <div class="rg-cell rg-m4 rg-label s-m4">Deep Sedation</div>
+        <div class="rg-cell rg-m4 rg-desc">No response to voice; any movement to physical stimulation</div>
+
+        <div class="rg-cell rg-m3 rg-score s-m3">−3</div>
+        <div class="rg-cell rg-m3 rg-label s-m3">Moderate Sedation</div>
+        <div class="rg-cell rg-m3 rg-desc">Movement/eye opening to voice, no eye contact</div>
+
+        <div class="rg-cell rg-m2 rg-score s-m2">−2</div>
+        <div class="rg-cell rg-m2 rg-label s-m2">Light Sedation</div>
+        <div class="rg-cell rg-m2 rg-desc">Brief eye opening/contact (&lt;10 sec) to voice</div>
+
+        <div class="rg-cell rg-m1 rg-score s-m1">−1</div>
+        <div class="rg-cell rg-m1 rg-label s-m1">Drowsy</div>
+        <div class="rg-cell rg-m1 rg-desc">Eye opening/contact &gt;10 sec to voice</div>
+
+        <div class="rg-cell rg-0 rg-score s-0">0</div>
+        <div class="rg-cell rg-0 rg-label s-0">Alert &amp; Calm <span class="target-badge">TARGET</span></div>
+        <div class="rg-cell rg-0 rg-desc">Spontaneously awake and calm</div>
+
+        <div class="rg-cell rg-p1 rg-score s-p1">+1</div>
+        <div class="rg-cell rg-p1 rg-label s-p1">Restless</div>
+        <div class="rg-cell rg-p1 rg-desc">Anxious but movements not aggressive or vigorous</div>
+
+        <div class="rg-cell rg-p2 rg-score s-p2">+2</div>
+        <div class="rg-cell rg-p2 rg-label s-p2">Agitated</div>
+        <div class="rg-cell rg-p2 rg-desc">Frequent non-purposeful movement, fights ventilator</div>
+
+        <div class="rg-cell rg-p3 rg-score s-p3">+3</div>
+        <div class="rg-cell rg-p3 rg-label s-p3">Very Agitated</div>
+        <div class="rg-cell rg-p3 rg-desc">Pulls/removes tubes, aggressive</div>
+
+        <div class="rg-cell rg-p4 rg-score s-p4">+4</div>
+        <div class="rg-cell rg-p4 rg-label s-p4">Combative</div>
+        <div class="rg-cell rg-p4 rg-desc">Overtly combative, violent, immediate danger to staff</div>
+      </div>
+    </div>
+
+    <!-- Sedatives -->
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#f5a623;margin-bottom:8px">💊 ICU Sedatives & Opioid Dosing</div>
+      <div class="drug-grid">
+
+        <div class="drug-card dc-prop">
+          <div class="drug-name">Propofol</div>
+          <div class="drug-class">GABA-A agonist · Lipid emulsion</div>
+          <div class="drug-row"><div class="dr-lbl">Infusion</div><div class="dr-val"><span class="mono">5–50 mcg/kg/min</span></div></div>
+          <div class="drug-row"><div class="dr-lbl">Onset</div><div class="dr-val">30–60 sec IV push</div></div>
+          <div class="drug-row"><div class="dr-lbl">Use</div><div class="dr-val">Preferred for short-term sedation; awakening trials</div></div>
+          <div class="drug-row"><div class="dr-lbl">Caution</div><div class="dr-val"><span class="red">Propofol infusion syndrome</span> &gt;48h at high doses; hypotriglyceridemia; monitor TGs &gt;48h</div></div>
+        </div>
+
+        <div class="drug-card dc-midaz">
+          <div class="drug-name">Midazolam</div>
+          <div class="drug-class">Benzodiazepine · GABA-A</div>
+          <div class="drug-row"><div class="dr-lbl">Bolus</div><div class="dr-val"><span class="mono">1–5 mg IV</span> q1–2h PRN</div></div>
+          <div class="drug-row"><div class="dr-lbl">Infusion</div><div class="dr-val"><span class="mono">0.01–0.1 mg/kg/h</span></div></div>
+          <div class="drug-row"><div class="dr-lbl">Use</div><div class="dr-val">Acute agitation; procedural sedation; status epilepticus</div></div>
+          <div class="drug-row"><div class="dr-lbl">Caution</div><div class="dr-val"><span class="red">Prolonged sedation</span>, active metabolite accumulates (renal/hepatic failure); delirium risk</div></div>
+        </div>
+
+        <div class="drug-card dc-dex">
+          <div class="drug-name">Dexmedetomidine</div>
+          <div class="drug-class">Alpha-2 agonist · "Cooperative sedation"</div>
+          <div class="drug-row"><div class="dr-lbl">Load</div><div class="dr-val"><span class="mono">0.5–1 mcg/kg</span> over 10min (optional)</div></div>
+          <div class="drug-row"><div class="dr-lbl">Infusion</div><div class="dr-val"><span class="mono">0.2–1.5 mcg/kg/h</span></div></div>
+          <div class="drug-row"><div class="dr-lbl">Use</div><div class="dr-val"><span class="green">Preferred for light sedation</span>; reduces delirium; allows verbal communication; ICU agitation</div></div>
+          <div class="drug-row"><div class="dr-lbl">Caution</div><div class="dr-val">Bradycardia, hypotension; avoid in heart block; does not prevent seizures</div></div>
+        </div>
+
+        <div class="drug-card dc-ket">
+          <div class="drug-name">Ketamine</div>
+          <div class="drug-class">NMDA antagonist · Dissociative</div>
+          <div class="drug-row"><div class="dr-lbl">Bolus</div><div class="dr-val"><span class="mono">0.5–2 mg/kg IV</span> (induction)</div></div>
+          <div class="drug-row"><div class="dr-lbl">Infusion</div><div class="dr-val"><span class="mono">0.1–0.5 mg/kg/h</span> (analgesia)</div></div>
+          <div class="drug-row"><div class="dr-lbl">Use</div><div class="dr-val">Bronchospasm; hemodynamically unstable; analgesia-based sedation; RSI</div></div>
+          <div class="drug-row"><div class="dr-lbl">Caution</div><div class="dr-val">↑ secretions; emergence reaction; <span class="red">caution</span> in raised ICP (older concern — reassessed); add midazolam to prevent emergence</div></div>
+        </div>
+
+        <div class="drug-card dc-fent">
+          <div class="drug-name">Fentanyl</div>
+          <div class="drug-class">Opioid · μ-receptor · Analgesia-first</div>
+          <div class="drug-row"><div class="dr-lbl">Bolus</div><div class="dr-val"><span class="mono">25–100 mcg IV</span> q1–2h PRN</div></div>
+          <div class="drug-row"><div class="dr-lbl">Infusion</div><div class="dr-val"><span class="mono">25–200 mcg/h</span></div></div>
+          <div class="drug-row"><div class="dr-lbl">Use</div><div class="dr-val"><span class="green">First-line analgesia</span> in ICU; hemodynamically neutral; renal failure safe</div></div>
+          <div class="drug-row"><div class="dr-lbl">Caution</div><div class="dr-val">Chest wall rigidity at high doses; tolerance with prolonged use</div></div>
+        </div>
+
+        <div class="drug-card dc-morph">
+          <div class="drug-name">Morphine</div>
+          <div class="drug-class">Opioid · μ-receptor</div>
+          <div class="drug-row"><div class="dr-lbl">Bolus</div><div class="dr-val"><span class="mono">2–5 mg IV</span> q2–4h PRN</div></div>
+          <div class="drug-row"><div class="dr-lbl">Infusion</div><div class="dr-val"><span class="mono">1–5 mg/h</span></div></div>
+          <div class="drug-row"><div class="dr-lbl">Use</div><div class="dr-val">Post-op analgesia; comfort care; acute pain</div></div>
+          <div class="drug-row"><div class="dr-lbl">Caution</div><div class="dr-val"><span class="red">Avoid in renal failure</span> (M6G accumulates); histamine release; hypotension</div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ABCDEF Bundle -->
+    <div class="abcdef-box">
+      <div class="sec-lbl" style="color:#27ae60">🏥 ABCDEF Bundle — ICU Liberation (Every Day)</div>
+      <div class="abcdef-grid">
+        <div class="abc-cell"><div class="abc-letter abc-a">A</div><div class="abc-text">Assess, Prevent, Manage <strong>Pain</strong> (CPOT/NRS)</div></div>
+        <div class="abc-cell"><div class="abc-letter abc-b">B</div><div class="abc-text"><strong>SAT + SBT</strong> — Daily awakening trial → spontaneous breathing trial</div></div>
+        <div class="abc-cell"><div class="abc-letter abc-c">C</div><div class="abc-text"><strong>Choose</strong> analgesia-first sedation; lightest effective level</div></div>
+        <div class="abc-cell"><div class="abc-letter abc-d">D</div><div class="abc-text">Assess, Prevent, Manage <strong>Delirium</strong> (CAM-ICU)</div></div>
+        <div class="abc-cell"><div class="abc-letter abc-e">E</div><div class="abc-text">Early <strong>Exercise</strong> & Mobility — PT/OT even intubated</div></div>
+        <div class="abc-cell"><div class="abc-letter abc-f">F</div><div class="abc-text"><strong>Family</strong> Engagement — Include family in daily rounds</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on SCCM PAD Guidelines 2018<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

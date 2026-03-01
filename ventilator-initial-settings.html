@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Ventilator Initial Settings — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden}
+
+.hdr{background:linear-gradient(135deg,#0a3a6e 0%,#0a5ba0 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'VENT';position:absolute;right:-10px;top:-12px;font-size:130px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase;margin-bottom:4px}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:16px 42px 10px;display:flex;flex-direction:column;gap:11px;overflow:hidden}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:9px}
+
+/* Mode cards */
+.modes-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.mode-card{background:#112233;border-radius:10px;padding:13px 14px}
+.mode-name{font-size:15px;font-weight:800;color:#fff;margin-bottom:2px}
+.mode-full{font-size:10px;color:#7aaeae;margin-bottom:8px;font-style:italic}
+.mode-body{font-size:11.5px;color:#b0d8d8;line-height:1.45}
+.mode-body strong{color:#12b5b5}
+.mode-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:6px}
+.tag-blue{background:rgba(52,152,219,.2);color:#3498db}
+.tag-teal{background:rgba(18,181,181,.2);color:#12b5b5}
+.tag-amber{background:rgba(245,166,35,.2);color:#f5a623}
+
+/* Settings table */
+.settings-box{background:#112233;border-radius:10px;padding:13px 16px}
+.settings-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.05);border-radius:6px;overflow:hidden}
+.sg-header{background:#0d1b2a;padding:8px 10px}
+.sg-cell{background:#1a2e44;padding:9px 10px}
+.sg-header-first{background:#0a2240;padding:8px 10px}
+.sg-label{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7aaeae}
+.sg-cond{font-size:12px;font-weight:700;color:#fff}
+.sg-val{font-size:12.5px;color:#d0e8e8;font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600;line-height:1.35}
+.sg-note{font-size:10px;color:#7aaeae;margin-top:2px;font-family:'Inter',sans-serif;font-weight:400}
+
+/* Param boxes */
+.param-box{background:#112233;border-radius:10px;padding:12px 16px}
+.param-row{display:flex;align-items:flex-start;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.param-row:last-child{border-bottom:none}
+.param-name{font-size:13px;font-weight:700;color:#fff;min-width:180px}
+.param-target{font-size:13px;font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600;min-width:150px}
+.param-note{font-size:11.5px;color:#b0d8d8;flex:1;line-height:1.35}
+
+/* Alarm */
+.alarm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.alarm-cell{background:#112233;border-radius:8px;padding:10px 11px;border-top:3px solid}
+.ac-pplat{border-color:#e74c3c}
+.ac-pip{border-color:#f5a623}
+.ac-peep{border-color:#3498db}
+.ac-mv{border-color:#27ae60}
+.alarm-label{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7aaeae;margin-bottom:4px}
+.alarm-val{font-size:17px;font-weight:800;font-family:'JetBrains Mono',monospace}
+.ac-pplat .alarm-val{color:#e74c3c}
+.ac-pip .alarm-val{color:#f5a623}
+.ac-peep .alarm-val{color:#3498db}
+.ac-mv .alarm-val{color:#27ae60}
+.alarm-note{font-size:10px;color:#7aaeae;margin-top:3px;line-height:1.3}
+
+.two-box{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.box{background:#112233;border-radius:10px;padding:12px 16px}
+.box.red{border-left:4px solid #e74c3c}
+.box.green{border-left:4px solid #27ae60}
+.box.amber{border-left:4px solid #f5a623}
+
+.lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.lbl-teal{color:#12b5b5}
+.lbl-red{color:#e74c3c}
+.lbl-green{color:#27ae60}
+.lbl-amber{color:#f5a623}
+
+.item{font-size:12px;color:#b0d8d8;padding:3px 0 3px 14px;position:relative;line-height:1.35}
+.item::before{content:'▸';position:absolute;left:0;font-size:9px;top:5px}
+.item-teal::before{color:#12b5b5}
+.item-red::before{color:#e74c3c}
+.item-green::before{color:#27ae60}
+.item-amber::before{color:#f5a623}
+.mono{font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo">CCM Notes</div>
+    <div class="cat">ICU Essentials · Mechanical Ventilation</div>
+    <div class="title">Ventilator Initial Settings</div>
+    <div class="subtitle">Modes · Initial Parameters by Condition · Targets · Alarms</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Ventilation Modes -->
+    <div style="background:#112233;border-radius:10px;padding:13px 16px;border-left:4px solid #3498db">
+      <div class="sec-lbl" style="color:#3498db">🔧 Ventilation Modes</div>
+      <div class="modes-row">
+        <div class="mode-card">
+          <div class="mode-name">A/C — VC</div>
+          <div class="mode-full">Assist-Control, Volume-Cycled</div>
+          <div class="mode-body">
+            Delivers <strong>set TV</strong> every breath (patient or time-triggered).<br>
+            Guarantees minute ventilation.<br>
+            Most common mode in ICU.
+          </div>
+          <div class="mode-tag tag-teal">First-line ICU</div>
+        </div>
+        <div class="mode-card">
+          <div class="mode-name">SIMV</div>
+          <div class="mode-full">Synchronized IMV</div>
+          <div class="mode-body">
+            Delivers <strong>set rate</strong> of mandatory breaths + allows spontaneous breathing in between.<br>
+            Slower weaning, more WOB.
+          </div>
+          <div class="mode-tag tag-amber">Weaning mode</div>
+        </div>
+        <div class="mode-card">
+          <div class="mode-name">PSV / SBT</div>
+          <div class="mode-full">Pressure Support Ventilation</div>
+          <div class="mode-body">
+            All breaths <strong>patient-triggered</strong>. Set pressure support only.<br>
+            Used for weaning, SBT.<br>
+            Requires adequate drive.
+          </div>
+          <div class="mode-tag tag-blue">Weaning / SBT</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings by condition -->
+    <div class="settings-box">
+      <div class="sec-lbl" style="color:#12b5b5">📋 Initial Settings by Condition</div>
+      <div class="settings-grid">
+        <!-- Header row -->
+        <div class="sg-header-first"><div class="sg-label">Parameter</div></div>
+        <div class="sg-header"><div class="sg-label" style="color:#e74c3c">ARDS</div></div>
+        <div class="sg-header"><div class="sg-label" style="color:#f5a623">COPD / Asthma</div></div>
+        <div class="sg-header"><div class="sg-label" style="color:#27ae60">Post-Op (Routine)</div></div>
+
+        <!-- TV row -->
+        <div class="sg-cell"><div class="sg-label">Tidal Volume</div></div>
+        <div class="sg-cell"><div class="sg-val">4–6 mL/kg IBW</div><div class="sg-note">Low TV = lung protective</div></div>
+        <div class="sg-cell"><div class="sg-val">6–8 mL/kg IBW</div><div class="sg-note">Allow full exhalation</div></div>
+        <div class="sg-cell"><div class="sg-val">6–8 mL/kg IBW</div><div class="sg-note">Standard volumes</div></div>
+
+        <!-- RR row -->
+        <div class="sg-cell"><div class="sg-label">Rate (RR)</div></div>
+        <div class="sg-cell"><div class="sg-val">16–35 /min</div><div class="sg-note">Compensate for low TV</div></div>
+        <div class="sg-cell"><div class="sg-val">10–14 /min</div><div class="sg-note">Low rate → exhalation time</div></div>
+        <div class="sg-cell"><div class="sg-val">12–16 /min</div><div class="sg-note">Normal physiology</div></div>
+
+        <!-- FiO2 row -->
+        <div class="sg-cell"><div class="sg-label">FiO₂</div></div>
+        <div class="sg-cell"><div class="sg-val">Start 100%</div><div class="sg-note">Wean to SpO₂ 88–95%</div></div>
+        <div class="sg-cell"><div class="sg-val">Start 40–60%</div><div class="sg-note">Target SpO₂ 88–92%</div></div>
+        <div class="sg-cell"><div class="sg-val">Start 40–60%</div><div class="sg-note">Wean quickly to &lt;60%</div></div>
+
+        <!-- PEEP row -->
+        <div class="sg-cell"><div class="sg-label">PEEP</div></div>
+        <div class="sg-cell"><div class="sg-val">8–16 cmH₂O</div><div class="sg-note">Use ARDSnet table</div></div>
+        <div class="sg-cell"><div class="sg-val">3–5 cmH₂O</div><div class="sg-note">Avoid air trapping</div></div>
+        <div class="sg-cell"><div class="sg-val">5–8 cmH₂O</div><div class="sg-note">Physiologic PEEP</div></div>
+
+        <!-- I:E row -->
+        <div class="sg-cell"><div class="sg-label">I:E Ratio</div></div>
+        <div class="sg-cell"><div class="sg-val">1:2 to 1:1</div><div class="sg-note">May use IRV</div></div>
+        <div class="sg-cell"><div class="sg-val">1:3 to 1:4</div><div class="sg-note">Prevent auto-PEEP</div></div>
+        <div class="sg-cell"><div class="sg-val">1:2</div><div class="sg-note">Standard</div></div>
+      </div>
+    </div>
+
+    <!-- IBW Formula + Key Targets + Alarms -->
+    <div class="two-box">
+      <div class="box" style="border-left:4px solid #12b5b5">
+        <div class="lbl lbl-teal">📐 IBW Formula (for TV calculation)</div>
+        <div style="background:#1a2e44;border-radius:6px;padding:10px 12px;margin-bottom:8px">
+          <div style="font-size:11px;color:#7aaeae;margin-bottom:4px">Males (kg)</div>
+          <div style="font-family:'JetBrains Mono',monospace;color:#f5a623;font-size:13px;font-weight:600">50 + 2.3 × [height(in) − 60]</div>
+        </div>
+        <div style="background:#1a2e44;border-radius:6px;padding:10px 12px">
+          <div style="font-size:11px;color:#7aaeae;margin-bottom:4px">Females (kg)</div>
+          <div style="font-family:'JetBrains Mono',monospace;color:#f5a623;font-size:13px;font-weight:600">45.5 + 2.3 × [height(in) − 60]</div>
+        </div>
+        <div class="item item-teal" style="margin-top:8px">1 inch = 2.54 cm | Height in cm ÷ 2.54</div>
+        <div class="item item-teal">Never use actual body weight for TV in ARDS</div>
+      </div>
+
+      <div class="box" style="border-left:4px solid #27ae60">
+        <div class="lbl lbl-green">🎯 Key Ventilator Targets</div>
+        <div class="param-row">
+          <div class="param-name">Pplat (plateau)</div>
+          <div class="param-target" style="color:#e74c3c">≤30 cmH₂O</div>
+        </div>
+        <div class="param-row">
+          <div class="param-name">Driving pressure</div>
+          <div class="param-target" style="color:#e74c3c">≤15 cmH₂O</div>
+        </div>
+        <div class="param-row">
+          <div class="param-name">SpO₂ ARDS</div>
+          <div class="param-target">88–95%</div>
+        </div>
+        <div class="param-row">
+          <div class="param-name">PaO₂ target</div>
+          <div class="param-target">55–80 mmHg</div>
+        </div>
+        <div class="param-row">
+          <div class="param-name">pH target</div>
+          <div class="param-target">7.30–7.45</div>
+        </div>
+        <div class="param-row">
+          <div class="param-name">PaCO₂</div>
+          <div class="param-target">35–45 (permissive ↑ ok in ARDS)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alarms + Proning -->
+    <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:11px">
+      <div class="alarm-grid" style="align-content:start">
+        <div class="alarm-cell ac-pplat">
+          <div class="alarm-label">Plateau Pressure</div>
+          <div class="alarm-val">≤30</div>
+          <div class="alarm-note">cmH₂O — reduce TV if exceeded</div>
+        </div>
+        <div class="alarm-cell ac-pip">
+          <div class="alarm-label">PIP Alarm</div>
+          <div class="alarm-val">+10</div>
+          <div class="alarm-note">cmH₂O above PIP — high alarm</div>
+        </div>
+        <div class="alarm-cell ac-peep">
+          <div class="alarm-label">Auto-PEEP</div>
+          <div class="alarm-val">0–3</div>
+          <div class="alarm-note">cmH₂O target — esp. in obstructive disease</div>
+        </div>
+        <div class="alarm-cell ac-mv">
+          <div class="alarm-label">Minute Vol</div>
+          <div class="alarm-val">8–15</div>
+          <div class="alarm-note">L/min typical; alarm ±3L from baseline</div>
+        </div>
+      </div>
+
+      <div class="box red" style="border-radius:10px;padding:12px 14px">
+        <div class="lbl lbl-red">🫁 ARDS: Proning</div>
+        <div class="item item-red">Prone if P/F ratio <span class="mono">&lt;150</span> on FiO₂ ≥60%, PEEP ≥5</div>
+        <div class="item item-red">Prone 16–18 hours/session</div>
+        <div class="item item-red">Continue lung-protective settings while prone</div>
+        <div class="item item-red">NMBA: cisatracurium 48h if P/F <span class="mono">&lt;150</span></div>
+        <div class="item item-red">Prone reduces mortality ~50% in severe ARDS (PROSEVA)</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on ARDSnet / PROSEVA protocols<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

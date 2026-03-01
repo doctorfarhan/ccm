@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Mechanical Ventilation — ARDS — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#0a2a4e 0%,#0d3d6b 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'ARDS';position:absolute;right:-5px;top:-10px;font-size:120px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#12b5b5;opacity:.5}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:14px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.box{background:#112233;border-radius:10px;padding:13px 16px;border-left:4px solid #12b5b5}
+.box.amber{border-left-color:#f5a623}
+.box.red{border-left-color:#e74c3c}
+.box.green{border-left-color:#27ae60}
+.box.blue{border-left-color:#3498db}
+.box.purple{border-left-color:#9b59b6}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#12b5b5;margin-bottom:8px}
+.box.amber .sec-lbl{color:#f5a623}
+.box.red .sec-lbl{color:#e74c3c}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+.box.purple .sec-lbl{color:#9b59b6}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.mini-box{background:#1a2e44;border-radius:8px;padding:10px 12px}
+.mini-title{font-size:10.5px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.item{font-size:12px;color:#d0e8e8;padding:2px 0 2px 14px;position:relative;line-height:1.35}
+.item::before{content:'▸';position:absolute;left:0;color:#12b5b5;font-size:9px;top:4px}
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+/* Settings table */
+.settings-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.settings-table th{background:#1a2e44;color:#7aaeae;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:10px;padding:6px 10px;text-align:left;border-bottom:1px solid rgba(18,181,181,.2)}
+.settings-table td{padding:5px 10px;color:#d0e8e8;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.3}
+.settings-table tr:last-child td{border-bottom:none}
+.param-name{font-weight:700;color:#fff}
+
+/* FiO2/PEEP table */
+.peep-table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:4px}
+.peep-table th{background:#1a2e44;color:#7aaeae;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:10px;padding:6px 10px;text-align:center;border-bottom:1px solid rgba(18,181,181,.2)}
+.peep-table td{padding:5px 10px;color:#d0e8e8;border-bottom:1px solid rgba(255,255,255,.05);text-align:center;line-height:1.3}
+.peep-table tr:last-child td{border-bottom:none}
+.peep-lo{color:#27ae60;font-weight:700;font-family:'JetBrains Mono',monospace}
+.peep-hi{color:#e74c3c;font-weight:700;font-family:'JetBrains Mono',monospace}
+
+/* ARDS severity */
+.ards-band{display:flex;gap:8px;margin-bottom:8px}
+.ards-cell{flex:1;border-radius:7px;padding:8px 10px;text-align:center}
+.ards-mild{background:rgba(52,152,219,.15);border:1px solid rgba(52,152,219,.3)}
+.ards-mod{background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3)}
+.ards-sev{background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3)}
+.ards-sev-label{font-size:12px;font-weight:800;margin-bottom:3px}
+.al-mild{color:#3498db}
+.al-mod{color:#f5a623}
+.al-sev{color:#e74c3c}
+.ards-pf{font-size:14px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#fff;margin-bottom:2px}
+.ards-note{font-size:9.5px;color:#b0d8d8;line-height:1.3}
+
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:11px;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">Critical Care · Pulmonology</span>
+    </div>
+    <div class="title">Mechanical Ventilation — ARDS</div>
+    <div class="subtitle">ARDSnet Lung-Protective Ventilation · FiO₂/PEEP Table · Driving Pressure · Prone Positioning</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Berlin Definition -->
+    <div class="box">
+      <div class="sec-lbl">🫁 Berlin Definition of ARDS (JAMA 2012)</div>
+      <div class="ards-band">
+        <div class="ards-cell ards-mild">
+          <div class="ards-sev-label al-mild">Mild</div>
+          <div class="ards-pf">200–300</div>
+          <div class="ards-note">PaO₂/FiO₂ on PEEP/CPAP ≥5 cmH₂O</div>
+        </div>
+        <div class="ards-cell ards-mod">
+          <div class="ards-sev-label al-mod">Moderate</div>
+          <div class="ards-pf">100–200</div>
+          <div class="ards-note">PaO₂/FiO₂ on PEEP ≥5 cmH₂O</div>
+        </div>
+        <div class="ards-cell ards-sev">
+          <div class="ards-sev-label al-sev">Severe</div>
+          <div class="ards-pf">&lt;100</div>
+          <div class="ards-note">PaO₂/FiO₂ on PEEP ≥5 cmH₂O</div>
+        </div>
+      </div>
+      <div style="font-size:11.5px;color:#b0d8d8">Required: <strong>Acute onset (&lt;1 week)</strong> · Bilateral opacities on CXR/CT · Respiratory failure not fully explained by fluid overload or cardiac failure · PaO₂/FiO₂ ratio as above on PEEP ≥5</div>
+    </div>
+
+    <!-- ARDSnet Settings -->
+    <div class="box green">
+      <div class="sec-lbl">⚙️ ARDSnet Lung-Protective Initial Ventilator Settings</div>
+      <table class="settings-table">
+        <thead>
+          <tr><th>Parameter</th><th>Target / Setting</th><th>Rationale</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="param-name">Mode</span></td><td><span class="val">Volume Control AC (VC-AC)</span></td><td>Ensures consistent tidal volume delivery</td></tr>
+          <tr><td><span class="param-name">Tidal Volume (Vt)</span></td><td><span class="val">6 mL/kg IBW</span> (range 4–8 mL/kg)</td><td>ARDSnet trial: reduced mortality vs 12 mL/kg</td></tr>
+          <tr><td><span class="param-name">Respiratory Rate</span></td><td><span class="val">14–35 breaths/min</span></td><td>Titrate to maintain pH goal; avoid air trapping</td></tr>
+          <tr><td><span class="param-name">PEEP</span></td><td><span class="val">5–24 cmH₂O</span> (per FiO₂/PEEP table)</td><td>Alveolar recruitment; prevent derecruitment</td></tr>
+          <tr><td><span class="param-name">Plateau Pressure (Pplat)</span></td><td><span class="val">≤30 cmH₂O</span></td><td>Limits barotrauma; check every 4h and after changes</td></tr>
+          <tr><td><span class="param-name">Driving Pressure (ΔP)</span></td><td><span class="val">≤15 cmH₂O</span> (ΔP = Pplat − PEEP)</td><td>ΔP &gt;15 independently predicts mortality (Amato 2015)</td></tr>
+          <tr><td><span class="param-name">I:E Ratio</span></td><td><span class="val">1:1 to 1:3</span></td><td>Allow adequate expiration; avoid auto-PEEP</td></tr>
+          <tr><td><span class="param-name">FiO₂</span></td><td><span class="val">0.3–1.0</span> (per table below)</td><td>Titrate to SpO₂ 88–95%, PaO₂ 55–80 mmHg</td></tr>
+          <tr><td><span class="param-name">pH Target</span></td><td><span class="val">7.30–7.45</span></td><td>Permissive hypercapnia accepted (pH &gt;7.20)</td></tr>
+          <tr><td><span class="param-name">PaO₂ Target</span></td><td><span class="val">55–80 mmHg</span></td><td>SpO₂ 88–95% acceptable in ARDS</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FiO2/PEEP table -->
+    <div class="box blue">
+      <div class="sec-lbl">📊 ARDSnet FiO₂/PEEP Combination Table</div>
+      <div class="two-col" style="gap:8px">
+        <div>
+          <div style="font-size:10px;font-weight:700;color:#3498db;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Lower PEEP Strategy</div>
+          <table class="peep-table">
+            <thead><tr><th>FiO₂</th><th>0.3</th><th>0.4</th><th>0.5</th><th>0.6</th><th>0.7</th><th>0.8</th><th>0.9</th><th>1.0</th></tr></thead>
+            <tbody><tr><td>PEEP</td><td class="peep-lo">5</td><td class="peep-lo">5–8</td><td class="peep-lo">8–10</td><td class="peep-lo">10</td><td class="peep-lo">10–14</td><td class="peep-lo">14</td><td class="peep-lo">14–18</td><td class="peep-lo">18–24</td></tr></tbody>
+          </table>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;color:#e74c3c;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Higher PEEP Strategy (Moderate–Severe)</div>
+          <table class="peep-table">
+            <thead><tr><th>FiO₂</th><th>0.3</th><th>0.4</th><th>0.5</th><th>0.6</th><th>0.7</th><th>0.8</th><th>0.9</th><th>1.0</th></tr></thead>
+            <tbody><tr><td>PEEP</td><td class="peep-hi">5–14</td><td class="peep-hi">14–16</td><td class="peep-hi">16–18</td><td class="peep-hi">20</td><td class="peep-hi">22</td><td class="peep-hi">22</td><td class="peep-hi">22–24</td><td class="peep-hi">22–24</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prone + Rescue -->
+    <div class="two-col">
+      <div class="box amber" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">🔄 Prone Positioning (PROSEVA 2013)</div>
+        <div class="item"><strong>Indication</strong>: PaO₂/FiO₂ <span class="val">&lt;150</span> mmHg on FiO₂ ≥0.6, PEEP ≥5</div>
+        <div class="item">Duration: <span class="val">≥16 hours/day</span> continuous sessions</div>
+        <div class="item">Mortality benefit: <span class="val">28-day mortality ↓ 32.8% vs 16%</span></div>
+        <div class="item">Contraindications: unstable spine, elevated ICP, open abdomen, facial trauma, pregnancy (relative)</div>
+        <div class="item">Complications: pressure sores, ETT displacement, facial edema</div>
+        <div class="item">Revert to supine if PaO₂/FiO₂ <span class="val">&gt;150</span> x 4h (PEEP ≤10, FiO₂ ≤0.6)</div>
+      </div>
+      <div class="box red" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">🆘 Rescue Therapies (Refractory Hypoxemia)</div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Inhaled Nitric Oxide (iNO)</strong>: 5–40 ppm. Improves V/Q mismatch — no mortality benefit</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Neuromuscular Blockade (NMB)</strong>: Cisatracurium 37.5 mg/h; 48h course may reduce VILI in moderate-severe ARDS</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Recruitment Maneuvers</strong>: Use cautiously — sustained inflation or CPAP 40 cmH₂O × 40 sec (risk: hemodynamic instability)</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>ECMO (VV)</strong>: PaO₂/FiO₂ &lt;80 despite optimization ≥3h, or uncompensated hypercapnia (pH &lt;7.25)</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Corticosteroids</strong>: Dexamethasone 20 mg/day × 5d → 10 mg × 5d may reduce ventilator days (DEXA-ARDS, 2020)</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on ARDSnet NEJM 2000 / PROSEVA NEJM 2013 / Berlin 2012<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

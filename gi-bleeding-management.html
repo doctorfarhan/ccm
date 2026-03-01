@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>GI Bleeding Management — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#5a0a0a 0%,#8a1010 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'GIB';position:absolute;right:10px;top:-10px;font-size:130px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#12b5b5;opacity:.5}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:14px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.box{background:#112233;border-radius:10px;padding:13px 16px;border-left:4px solid #12b5b5}
+.box.amber{border-left-color:#f5a623}
+.box.red{border-left-color:#e74c3c}
+.box.green{border-left-color:#27ae60}
+.box.blue{border-left-color:#3498db}
+.box.purple{border-left-color:#9b59b6}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#12b5b5;margin-bottom:8px}
+.box.amber .sec-lbl{color:#f5a623}
+.box.red .sec-lbl{color:#e74c3c}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+.box.purple .sec-lbl{color:#9b59b6}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini-box{background:#1a2e44;border-radius:8px;padding:10px 12px}
+.mini-title{font-size:10.5px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.item{font-size:12px;color:#d0e8e8;padding:2px 0 2px 14px;position:relative;line-height:1.35}
+.item::before{content:'▸';position:absolute;left:0;color:#12b5b5;font-size:9px;top:4px}
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+/* GBS scoring */
+.gbs-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.gbs-table th{background:#1a2e44;color:#7aaeae;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:10px;padding:6px 10px;text-align:left;border-bottom:1px solid rgba(18,181,181,.2)}
+.gbs-table td{padding:5px 10px;color:#d0e8e8;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.3}
+.gbs-table tr:last-child td{border-bottom:none}
+
+/* Compare boxes */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.c-box{border-radius:9px;padding:12px 14px}
+.c-upper{background:#1f0a0a;border:1px solid rgba(231,76,60,.2);border-top:4px solid #e74c3c}
+.c-lower{background:#0a1020;border:1px solid rgba(52,152,219,.2);border-top:4px solid #3498db}
+.c-label{font-size:14px;font-weight:800;margin-bottom:6px}
+.cl-red{color:#e74c3c}
+.cl-blue{color:#3498db}
+
+.algo-row{display:flex;align-items:flex-start;gap:10px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.algo-row:last-child{border-bottom:none}
+.algo-step{width:22px;height:22px;border-radius:50%;background:#12b5b5;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0d1b2a;flex-shrink:0;margin-top:1px}
+.algo-text{font-size:12px;color:#d0e8e8;line-height:1.35;flex:1}
+
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:11px;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">Gastroenterology · Emergency Medicine</span>
+    </div>
+    <div class="title">GI Bleeding Management</div>
+    <div class="subtitle">Upper vs Lower GIB · Glasgow-Blatchford Score · Resuscitation · Endoscopy Timing · PPI · Transfusion Triggers</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Upper vs Lower GIB -->
+    <div class="box">
+      <div class="sec-lbl">📋 Upper vs Lower GI Bleed — Differentiation</div>
+      <div class="compare-grid">
+        <div class="c-box c-upper">
+          <div class="c-label cl-red">🔴 Upper GI Bleed (UGIB)</div>
+          <div class="item">Source proximal to Ligament of Treitz</div>
+          <div class="item">Hematemesis (bright red or coffee-ground)</div>
+          <div class="item">Melena (black tarry stool) — most common presentation</div>
+          <div class="item">BUN:Cr ratio typically <span class="val">&gt;20:1</span> (protein digestion)</div>
+          <div class="item"><strong>Causes</strong>: PUD (40%), gastric erosions, varices (15%), Mallory-Weiss, Dieulafoy, AVM, malignancy</div>
+          <div class="item">NG aspirate: bloody or coffee-ground → confirms UGIB</div>
+        </div>
+        <div class="c-box c-lower">
+          <div class="c-label cl-blue">🔵 Lower GI Bleed (LGIB)</div>
+          <div class="item">Source distal to Ligament of Treitz</div>
+          <div class="item">Hematochezia (bright red blood per rectum)</div>
+          <div class="item">Can also cause dark stool if slow/proximal colon</div>
+          <div class="item"><strong>Causes</strong>: Diverticulosis (40%), angiodysplasia, ischemic colitis, IBD, neoplasm, hemorrhoids (anorectal)</div>
+          <div class="item">Self-limited in ~80% of cases</div>
+          <div class="item">CT angiography before colonoscopy if massive/unstable</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Glasgow-Blatchford Score -->
+    <div class="box amber">
+      <div class="sec-lbl">📊 Glasgow-Blatchford Score (GBS) — Predicts Need for Intervention</div>
+      <div class="two-col">
+        <div>
+          <table class="gbs-table">
+            <thead><tr><th>Parameter</th><th>Value</th><th>Points</th></tr></thead>
+            <tbody>
+              <tr><td>BUN (mg/dL)</td><td>18.2–22.4</td><td><span class="val">2</span></td></tr>
+              <tr><td></td><td>22.4–28</td><td><span class="val">3</span></td></tr>
+              <tr><td></td><td>28–70</td><td><span class="val">4</span></td></tr>
+              <tr><td></td><td>≥70</td><td><span class="val">6</span></td></tr>
+              <tr><td>Hemoglobin (male)</td><td>12–13 g/dL</td><td><span class="val">1</span></td></tr>
+              <tr><td></td><td>10–12 g/dL</td><td><span class="val">3</span></td></tr>
+              <tr><td></td><td>&lt;10 g/dL</td><td><span class="val">6</span></td></tr>
+              <tr><td>Hemoglobin (female)</td><td>10–12 g/dL</td><td><span class="val">1</span></td></tr>
+              <tr><td></td><td>&lt;10 g/dL</td><td><span class="val">6</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <table class="gbs-table">
+            <thead><tr><th>Parameter</th><th>Finding</th><th>Points</th></tr></thead>
+            <tbody>
+              <tr><td>SBP (mmHg)</td><td>100–109</td><td><span class="val">1</span></td></tr>
+              <tr><td></td><td>90–99</td><td><span class="val">2</span></td></tr>
+              <tr><td></td><td>&lt;90</td><td><span class="val">3</span></td></tr>
+              <tr><td>Pulse ≥100/min</td><td>Yes</td><td><span class="val">1</span></td></tr>
+              <tr><td>Melena</td><td>Present</td><td><span class="val">1</span></td></tr>
+              <tr><td>Syncope</td><td>Present</td><td><span class="val">2</span></td></tr>
+              <tr><td>Hepatic disease</td><td>Yes</td><td><span class="val">2</span></td></tr>
+              <tr><td>Cardiac failure</td><td>Yes</td><td><span class="val">2</span></td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top:7px;padding:7px 10px;background:rgba(245,166,35,.1);border-radius:6px;border:1px solid rgba(245,166,35,.25)">
+            <div style="font-size:11px;color:#f5a623;font-weight:700">GBS = 0 → safe outpatient discharge</div>
+            <div style="font-size:11px;color:#d0e8e8;margin-top:2px">GBS ≥1 → inpatient admission</div>
+            <div style="font-size:11px;color:#d0e8e8">GBS ≥7 → high risk; urgent endoscopy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resuscitation + PPI -->
+    <div class="two-col">
+      <div class="box green" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">💧 Resuscitation &amp; Endoscopy Timing</div>
+        <div class="algo-row">
+          <div class="algo-step">1</div>
+          <div class="algo-text">2 large-bore IV lines (≥16G); GCS; secure airway if hematemesis + altered consciousness</div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">2</div>
+          <div class="algo-text">IV crystalloid bolus; target <span class="val">MAP ≥65</span>; type and crossmatch; CBC, coagulation, LFTs, BMP</div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">3</div>
+          <div class="algo-text">Transfuse RBC when Hb <span class="val">&lt;7 g/dL</span> (Hb &lt;8 in ACS/hemodynamic instability)</div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">4</div>
+          <div class="algo-text">Correct coagulopathy: FFP if INR &gt;1.5; platelets if &lt;<span class="val">50,000</span>; consider TXA in massive bleed</div>
+        </div>
+        <div class="algo-row">
+          <div class="algo-step">5</div>
+          <div class="algo-text"><strong>Endoscopy timing</strong>: Within <span class="val">24h</span> for most UGIB; within <span class="val">12h</span> for high-risk (active bleeding, hemodynamic instability, GBS ≥12)</div>
+        </div>
+      </div>
+      <div class="box purple" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">💊 PPI Protocol &amp; Variceal Bleed</div>
+        <div class="item"><strong>Pre-endoscopy PPI</strong>: Pantoprazole <span class="val">80 mg IV bolus</span> then <span class="val">8 mg/h</span> infusion</div>
+        <div class="item"><strong>Post-endoscopy (high-risk lesion)</strong>: Omeprazole or pantoprazole <span class="val">40 mg IV BID × 72h</span>, then oral PPI</div>
+        <div class="item"><strong>H. pylori testing</strong>: All peptic ulcer cases; treat if positive (triple therapy 14 days)</div>
+        <div style="margin-top:6px;padding:6px 10px;background:rgba(155,89,182,.1);border-radius:6px">
+          <div style="font-size:10.5px;font-weight:700;color:#9b59b6;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Variceal Bleed</div>
+          <div class="item">Octreotide <span class="val">50 mcg IV bolus</span> → <span class="val">50 mcg/h × 3–5 days</span></div>
+          <div class="item">Ceftriaxone <span class="val">1g IV OD × 7 days</span> (SBP prophylaxis)</div>
+          <div class="item">Urgent endoscopy + EVL (band ligation) or sclerotherapy</div>
+          <div class="item">TIPS if refractory variceal hemorrhage</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transfusion triggers + warnings -->
+    <div class="box red">
+      <div class="sec-lbl">⚠️ Transfusion Triggers &amp; Critical Points</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Restrictive transfusion</strong>: Target Hb ≥7 g/dL in stable UGIB (TRIGGER trial) — lower mortality than liberal strategy</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Hold NSAIDs, anticoagulants; reverse warfarin with Vitamin K IV + 4F-PCC if INR &gt;2.5 with active bleed</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Avoid over-transfusion in varices — worsens portal HTN and re-bleeding risk</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Rockford criteria for surgery: persistent hemodynamic instability, &gt;10 units PRBC in 24h, rebleeding × 2</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on BSG/AGA GI Bleed Guidelines 2021 / ESGE 2021<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

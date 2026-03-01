@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Hypertensive Emergency — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#6e0a1a 0%,#a01028 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'HTN';position:absolute;right:-5px;top:-10px;font-size:120px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#12b5b5;opacity:.5}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:14px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.box{background:#112233;border-radius:10px;padding:13px 16px;border-left:4px solid #12b5b5}
+.box.amber{border-left-color:#f5a623}
+.box.red{border-left-color:#e74c3c}
+.box.green{border-left-color:#27ae60}
+.box.blue{border-left-color:#3498db}
+.box.purple{border-left-color:#9b59b6}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#12b5b5;margin-bottom:8px}
+.box.amber .sec-lbl{color:#f5a623}
+.box.red .sec-lbl{color:#e74c3c}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+.box.purple .sec-lbl{color:#9b59b6}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini-box{background:#1a2e44;border-radius:8px;padding:10px 12px}
+.mini-title{font-size:10.5px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.item{font-size:12px;color:#d0e8e8;padding:2px 0 2px 14px;position:relative;line-height:1.35}
+.item::before{content:'▸';position:absolute;left:0;color:#12b5b5;font-size:9px;top:4px}
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+/* Compare box */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.c-box{border-radius:9px;padding:12px 14px}
+.c-emerg{background:#1f0a10;border:1px solid rgba(231,76,60,.25);border-top:4px solid #e74c3c}
+.c-urgency{background:#1f1a0a;border:1px solid rgba(245,166,35,.25);border-top:4px solid #f5a623}
+.c-label{font-size:15px;font-weight:800;margin-bottom:5px}
+.cl-red{color:#e74c3c}
+.cl-amber{color:#f5a623}
+
+/* Drug table */
+.drug-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.drug-table th{background:#1a2e44;color:#7aaeae;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:10px;padding:6px 10px;text-align:left;border-bottom:1px solid rgba(18,181,181,.2)}
+.drug-table td{padding:5px 10px;color:#d0e8e8;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.3;vertical-align:top}
+.drug-table tr:last-child td{border-bottom:none}
+.drug-name{font-weight:700;color:#fff;font-size:12px}
+.drug-class{font-size:9.5px;color:#7aaeae;font-weight:600;letter-spacing:0.5px}
+.ind-green{color:#27ae60;font-size:10.5px;font-weight:600}
+.ind-red{color:#e74c3c;font-size:10.5px;font-weight:600}
+
+.algo-row{display:flex;align-items:flex-start;gap:10px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.algo-row:last-child{border-bottom:none}
+.algo-step{width:22px;height:22px;border-radius:50%;background:#12b5b5;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0d1b2a;flex-shrink:0;margin-top:1px}
+.algo-text{font-size:12px;color:#d0e8e8;line-height:1.35;flex:1}
+
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:11px;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">Cardiology · Emergency Medicine</span>
+    </div>
+    <div class="title">Hypertensive Emergency</div>
+    <div class="subtitle">Emergency vs Urgency · Target BP Reduction · IV Drug Selection · End-Organ Damage Assessment</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Emergency vs Urgency -->
+    <div class="box">
+      <div class="sec-lbl">📋 Emergency vs Urgency — Key Distinction</div>
+      <div class="compare-grid">
+        <div class="c-box c-emerg">
+          <div class="c-label cl-red">🚨 Hypertensive Emergency</div>
+          <div class="item">SBP typically <span class="val">&gt;180</span> mmHg and/or DBP <span class="val">&gt;120</span> mmHg</div>
+          <div class="item"><strong>WITH</strong> acute end-organ damage (see below)</div>
+          <div class="item">Requires <strong>IV therapy</strong> in monitored setting (ICU/HDU)</div>
+          <div class="item">BP reduction: <span class="val">↓ 20–25%</span> MAP in first hour, then gradual</div>
+          <div class="item">Examples: hypertensive encephalopathy, aortic dissection, eclampsia, ACS, pulmonary edema</div>
+        </div>
+        <div class="c-box c-urgency">
+          <div class="c-label cl-amber">⚠️ Hypertensive Urgency</div>
+          <div class="item">SBP typically <span class="val">&gt;180</span> mmHg and/or DBP <span class="val">&gt;120</span> mmHg</div>
+          <div class="item"><strong>WITHOUT</strong> acute end-organ damage</div>
+          <div class="item">Can be treated with <strong>oral agents</strong></div>
+          <div class="item">Gradual reduction over <span class="val">24–48 hours</span></div>
+          <div class="item">Reassess compliance, medications, secondary causes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Organ Damage -->
+    <div class="box blue">
+      <div class="sec-lbl">🔬 End-Organ Damage Assessment</div>
+      <div class="two-col">
+        <div class="mini-box">
+          <div class="mini-title">Neurological</div>
+          <div class="item">Hypertensive encephalopathy (confusion, seizures)</div>
+          <div class="item">Acute ischemic or hemorrhagic stroke</div>
+          <div class="item">Papilledema on fundoscopy</div>
+          <div class="item">Headache, visual changes, nausea/vomiting</div>
+        </div>
+        <div class="mini-box">
+          <div class="mini-title">Cardiovascular / Renal</div>
+          <div class="item">Acute coronary syndrome / Acute HF / APO</div>
+          <div class="item">Aortic dissection (tear, pulse differential)</div>
+          <div class="item">Acute kidney injury (↑Cr, proteinuria, hematuria)</div>
+          <div class="item">Microangiopathic hemolytic anemia (MAHA)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IV Drug Choices -->
+    <div class="box green">
+      <div class="sec-lbl">💊 IV Antihypertensive Drug Selection</div>
+      <table class="drug-table">
+        <thead>
+          <tr><th>Drug</th><th>Dose (IV)</th><th>Onset / Duration</th><th>Preferred For</th><th>Avoid If</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="drug-name">Labetalol</span><span class="drug-class"><br>α+β blocker</span></td>
+            <td><span class="val">20 mg IV bolus q10min<br>or 0.5–2 mg/min infusion</span></td>
+            <td>5 min / 3–6 h</td>
+            <td><span class="ind-green">HTN encephalopathy, ACS, aortic dissection, eclampsia</span></td>
+            <td><span class="ind-red">Acute HF, asthma, bradycardia, AV block</span></td>
+          </tr>
+          <tr>
+            <td><span class="drug-name">Nicardipine</span><span class="drug-class"><br>CCB (DHP)</span></td>
+            <td><span class="val">5 mg/h; titrate 2.5 mg/h q5–15min<br>max 15 mg/h</span></td>
+            <td>5–10 min / 1–4 h</td>
+            <td><span class="ind-green">Stroke, SAH, post-op HTN, AKI, eclampsia</span></td>
+            <td><span class="ind-red">Acute HF with decompensation</span></td>
+          </tr>
+          <tr>
+            <td><span class="drug-name">Clevidipine</span><span class="drug-class"><br>CCB (ultra-short)</span></td>
+            <td><span class="val">1–2 mg/h; double q90sec<br>max 32 mg/h</span></td>
+            <td>2–4 min / 5–15 min</td>
+            <td><span class="ind-green">Perioperative, ICU, rapid titration needed</span></td>
+            <td><span class="ind-red">Egg/soy allergy, lipid metabolism disorders</span></td>
+          </tr>
+          <tr>
+            <td><span class="drug-name">Hydralazine</span><span class="drug-class"><br>Direct vasodilator</span></td>
+            <td><span class="val">10–20 mg IV over 20 min<br>repeat q4–6h PRN</span></td>
+            <td>10–30 min / 3–8 h</td>
+            <td><span class="ind-green">Eclampsia, pregnancy-related HTN</span></td>
+            <td><span class="ind-red">Aortic dissection, ischemic heart disease</span></td>
+          </tr>
+          <tr>
+            <td><span class="drug-name">Sodium Nitroprusside</span><span class="drug-class"><br>Vasodilator</span></td>
+            <td><span class="val">0.25–0.5 mcg/kg/min<br>max 10 mcg/kg/min (short-term)</span></td>
+            <td>Seconds / 1–2 min</td>
+            <td><span class="ind-green">Hypertensive crisis — most potent, immediate effect</span></td>
+            <td><span class="ind-red">Renal/hepatic failure (cyanide toxicity), ↑ICP, pregnancy</span></td>
+          </tr>
+          <tr>
+            <td><span class="drug-name">Esmolol</span><span class="drug-class"><br>β-1 blocker</span></td>
+            <td><span class="val">500 mcg/kg bolus → 50–300 mcg/kg/min</span></td>
+            <td>1–2 min / 10–20 min</td>
+            <td><span class="ind-green">Aortic dissection (with nitroprusside), periop tachycardia</span></td>
+            <td><span class="ind-red">Asthma, bradycardia, heart block, decompensated HF</span></td>
+          </tr>
+          <tr>
+            <td><span class="drug-name">Phentolamine</span><span class="drug-class"><br>α-blocker</span></td>
+            <td><span class="val">2.5–5 mg IV bolus q5–15min<br>or 0.5–1 mg/min infusion</span></td>
+            <td>1–2 min / 10–15 min</td>
+            <td><span class="ind-green">Pheochromocytoma crisis, cocaine-induced HTN</span></td>
+            <td><span class="ind-red">Renal failure, coronary artery disease</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- BP Reduction Targets -->
+    <div class="box amber">
+      <div class="sec-lbl">🎯 BP Reduction Targets by Condition</div>
+      <div class="two-col">
+        <div class="mini-box">
+          <div class="mini-title">Specific Scenarios</div>
+          <div class="item">Hypertensive encephalopathy: ↓ MAP by <span class="val">20–25%</span> in 1h</div>
+          <div class="item">Aortic dissection (Type A/B): SBP <span class="val">&lt;120</span> mmHg within 20 min</div>
+          <div class="item">Ischemic stroke (no lytic): BP <span class="val">&lt;220/120</span> mmHg (conservative)</div>
+          <div class="item">Ischemic stroke (pre-lytic): <span class="val">&lt;185/110</span> mmHg before tPA</div>
+          <div class="item">Hemorrhagic stroke: SBP <span class="val">&lt;140</span> mmHg (ATACH-2 / INTERACT2)</div>
+          <div class="item">Eclampsia: SBP <span class="val">&lt;160</span>, DBP <span class="val">&lt;110</span> mmHg</div>
+        </div>
+        <div class="mini-box">
+          <div class="mini-title">⚠️ Critical Warnings</div>
+          <div class="item">Never reduce BP too quickly — risk of ischemic stroke, AKI, MI</div>
+          <div class="item">Autoregulation impaired in chronic HTN — gradual reduction essential</div>
+          <div class="item">Aortic dissection: heart rate target <span class="val">&lt;60 bpm</span> (use esmolol)</div>
+          <div class="item">Eclampsia: also give <span class="val">MgSO₄ 4g IV</span> loading dose</div>
+          <div class="item">Avoid sublingual nifedipine — uncontrolled rapid BP drop</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on AHA/ESC Hypertension Guidelines 2023<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

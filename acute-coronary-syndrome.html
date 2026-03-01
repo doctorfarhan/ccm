@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Acute Coronary Syndrome — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden}
+
+.hdr{background:linear-gradient(135deg,#6e1a0a 0%,#a02810 40%,#112233 100%);padding:24px 42px 18px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'ACS';position:absolute;right:20px;top:-8px;font-size:150px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase;margin-bottom:3px}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:3px}
+
+.body{flex:1;padding:13px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px}
+
+/* ACS type comparison */
+.acs-compare{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.acs-box{border-radius:10px;padding:12px 14px}
+.ab-stemi{background:#1f0a0a;border:1px solid rgba(231,76,60,.3);border-top:4px solid #e74c3c}
+.ab-nstemi{background:#1f150a;border:1px solid rgba(245,166,35,.3);border-top:4px solid #f5a623}
+.ab-ua{background:#0a1520;border:1px solid rgba(52,152,219,.3);border-top:4px solid #3498db}
+.acs-name{font-size:16px;font-weight:800;margin-bottom:4px}
+.an-stemi{color:#e74c3c}
+.an-nstemi{color:#f5a623}
+.an-ua{color:#3498db}
+.acs-ecg{font-size:10.5px;color:#7aaeae;margin-bottom:6px;font-style:italic}
+.acs-item{font-size:11.5px;color:#d0e8e8;padding:2px 0 2px 12px;position:relative;line-height:1.35}
+.acs-item::before{content:'▸';position:absolute;left:0;font-size:9px;top:4px;color:#12b5b5}
+.acs-time-target{margin-top:6px;padding:5px 8px;border-radius:5px;font-size:11.5px;font-weight:700}
+.att-stemi{background:rgba(231,76,60,.15);color:#e74c3c}
+.att-nstemi{background:rgba(245,166,35,.15);color:#f5a623}
+.att-ua{background:rgba(52,152,219,.15);color:#3498db}
+
+/* MONA */
+.mona-box{background:#112233;border-radius:10px;padding:12px 15px;border-left:4px solid #27ae60}
+.mona-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mona-cell{background:#1a2e44;border-radius:7px;padding:10px 10px;text-align:center}
+.mona-letter{font-size:24px;font-weight:900;line-height:1;margin-bottom:3px}
+.ml-m{color:#e74c3c}
+.ml-o{color:#3498db}
+.ml-n{color:#f5a623}
+.ml-a{color:#27ae60}
+.mona-text{font-size:11px;color:#d0e8e8;line-height:1.35}
+.mona-text .mono{font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600}
+
+/* Antiplatelet / Anticoagulant drugs */
+.drugs-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.drug-box{background:#112233;border-radius:10px;padding:11px 14px}
+.db-anti{border-left:4px solid #9b59b6}
+.db-antag{border-left:4px solid #e74c3c}
+.db-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,.08)}
+.db-title-ap{color:#9b59b6}
+.db-title-ac{color:#e74c3c}
+
+.dr-entry{padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.dr-entry:last-child{border-bottom:none}
+.dr-name{font-size:13px;font-weight:700;color:#fff}
+.dr-dose{font-size:11.5px;font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600;margin:1px 0}
+.dr-note{font-size:11px;color:#b0d8d8;line-height:1.35}
+.dr-note .red{color:#e74c3c;font-weight:600}
+.dr-note .green{color:#27ae60;font-weight:600}
+.dr-tag{display:inline-block;padding:1px 5px;border-radius:3px;font-size:8.5px;font-weight:700;text-transform:uppercase;margin-left:4px}
+.dt-stemi{background:rgba(231,76,60,.2);color:#e74c3c}
+.dt-ns{background:rgba(245,166,35,.2);color:#f5a623}
+.dt-both{background:rgba(39,174,96,.2);color:#27ae60}
+
+/* Time targets */
+.time-targets{background:#112233;border-radius:10px;padding:11px 14px;border-left:4px solid #f5a623}
+.tt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tt-cell{background:#1a2e44;border-radius:7px;padding:9px 10px;text-align:center}
+.tt-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#7aaeae;margin-bottom:4px;line-height:1.3}
+.tt-val{font-size:16px;font-weight:800;font-family:'JetBrains Mono',monospace;line-height:1}
+.tt-note{font-size:9.5px;color:#7aaeae;margin-top:3px;font-family:'Inter',sans-serif}
+.tv-red{color:#e74c3c}
+.tv-amber{color:#f5a623}
+.tv-green{color:#27ae60}
+.tv-blue{color:#3498db}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo">CCM Notes</div>
+    <div class="cat">Emergency Medicine · Cardiology</div>
+    <div class="title">Acute Coronary Syndrome</div>
+    <div class="subtitle">STEMI vs NSTEMI/UA Pathway · Antiplatelets · Anticoagulants · Time Targets</div>
+  </div>
+
+  <div class="body">
+
+    <!-- ACS Types -->
+    <div class="acs-compare">
+      <div class="acs-box ab-stemi">
+        <div class="acs-name an-stemi">STEMI</div>
+        <div class="acs-ecg">ECG: ST elevation ≥1mm (≥2 leads) or LBBB (new)</div>
+        <div class="acs-item">Troponin markedly elevated</div>
+        <div class="acs-item">Complete occlusion of coronary artery</div>
+        <div class="acs-item">Immediate reperfusion therapy</div>
+        <div class="acs-item">Primary PCI: preferred if &lt;120min door-to-balloon</div>
+        <div class="acs-item">Fibrinolysis if PCI not available &lt;120min</div>
+        <div class="acs-time-target att-stemi">🎯 Door-to-Balloon: &lt;90 min</div>
+      </div>
+      <div class="acs-box ab-nstemi">
+        <div class="acs-name an-nstemi">NSTEMI</div>
+        <div class="acs-ecg">ECG: ST depression / T-wave changes / normal</div>
+        <div class="acs-item">Troponin elevated (positive)</div>
+        <div class="acs-item">Partial coronary occlusion</div>
+        <div class="acs-item">Risk-stratify: TIMI / GRACE score</div>
+        <div class="acs-item">High risk → early invasive (&lt;24h)</div>
+        <div class="acs-item">Very high risk → urgent (&lt;2h): refractory ischemia, hemodynamic instability</div>
+        <div class="acs-time-target att-nstemi">🎯 Cath: &lt;24h (high risk) / &lt;72h (intermediate)</div>
+      </div>
+      <div class="acs-box ab-ua">
+        <div class="acs-name an-ua">Unstable Angina</div>
+        <div class="acs-ecg">ECG: Dynamic changes / normal</div>
+        <div class="acs-item">Troponin negative</div>
+        <div class="acs-item">New-onset severe angina, rest angina, crescendo angina</div>
+        <div class="acs-item">Risk-stratify with serial ECG + troponins × 3</div>
+        <div class="acs-item">Rule out NSTEMI (high-sensitivity troponin at 0h/1h/3h)</div>
+        <div class="acs-time-target att-ua">🎯 Risk stratify → selective invasive strategy</div>
+      </div>
+    </div>
+
+    <!-- MONA+ Initial Therapy -->
+    <div class="mona-box">
+      <div class="sec-lbl" style="color:#27ae60">🏥 Initial Management — All ACS (First 10 Minutes)</div>
+      <div class="mona-grid">
+        <div class="mona-cell">
+          <div class="mona-letter ml-m">M</div>
+          <div class="mona-text"><strong>Morphine</strong> <span class="mono">2–4 mg IV</span> PRN (use cautiously — may ↑ mortality in NSTEMI)</div>
+        </div>
+        <div class="mona-cell">
+          <div class="mona-letter ml-o">O</div>
+          <div class="mona-text"><strong>O₂</strong> if SpO₂ <span class="mono">&lt;90%</span>; avoid routine O₂ if SpO₂ ≥90%</div>
+        </div>
+        <div class="mona-cell">
+          <div class="mona-letter ml-n">N</div>
+          <div class="mona-text"><strong>Nitrates</strong> SL NTG <span class="mono">0.4 mg q5min × 3</span>; IV if BP ≥90; avoid if PDE-5 inhibitor ≤24–48h</div>
+        </div>
+        <div class="mona-cell">
+          <div class="mona-letter ml-a">A</div>
+          <div class="mona-text"><strong>Aspirin</strong> <span class="mono">325 mg PO</span> chewed immediately (unless allergy). Continue <span class="mono">81 mg/day</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Antiplatelets + Anticoagulants -->
+    <div class="drugs-two">
+      <div class="drug-box db-anti">
+        <div class="db-title db-title-ap">💊 Antiplatelet Therapy (DAPT)</div>
+
+        <div class="dr-entry">
+          <div class="dr-name">Aspirin <span class="dr-tag dt-both">STEMI + NSTEMI</span></div>
+          <div class="dr-dose">Loading: 325 mg PO | Maintenance: 81 mg/day</div>
+          <div class="dr-note">First agent in all ACS. Lifelong dual antiplatelet.</div>
+        </div>
+
+        <div class="dr-entry">
+          <div class="dr-name">Ticagrelor <span class="dr-tag dt-both">Preferred P2Y12</span></div>
+          <div class="dr-dose">Loading: 180 mg PO | Maintenance: 90 mg BID</div>
+          <div class="dr-note"><span class="green">Preferred over clopidogrel</span> (PLATO trial). Dyspnea side effect. Avoid with prior intracranial hemorrhage.</div>
+        </div>
+
+        <div class="dr-entry">
+          <div class="dr-name">Prasugrel <span class="dr-tag dt-stemi">STEMI/PCI</span></div>
+          <div class="dr-dose">Loading: 60 mg PO | Maintenance: 10 mg/day</div>
+          <div class="dr-note"><span class="red">Avoid</span> if prior TIA/stroke, age ≥75, &lt;60 kg (5 mg/day), pending CABG. TRITON-TIMI 38.</div>
+        </div>
+
+        <div class="dr-entry">
+          <div class="dr-name">Clopidogrel <span class="dr-tag dt-both">Alternative</span></div>
+          <div class="dr-dose">Loading: 300–600 mg PO | Maintenance: 75 mg/day</div>
+          <div class="dr-note">Use when ticagrelor/prasugrel contraindicated. Variable response (CYP2C19 polymorphism).</div>
+        </div>
+      </div>
+
+      <div class="drug-box db-antag">
+        <div class="db-title db-title-ac">💉 Anticoagulation (ACT)</div>
+
+        <div class="dr-entry">
+          <div class="dr-name">UFH (Heparin) <span class="dr-tag dt-both">STEMI + NSTEMI</span></div>
+          <div class="dr-dose">60 U/kg IV bolus (max 4000U) → 12 U/kg/h (max 1000 U/h)</div>
+          <div class="dr-note">Target aPTT 50–70 sec. Preferred for STEMI → PCI. ACT 250–300 sec during PCI.</div>
+        </div>
+
+        <div class="dr-entry">
+          <div class="dr-name">Enoxaparin <span class="dr-tag dt-ns">NSTEMI preferred</span></div>
+          <div class="dr-dose">1 mg/kg SC q12h (if CrCl ≥30) | or 30 mg IV bolus first</div>
+          <div class="dr-note">Preferred over UFH for NSTEMI (SYNERGY trial). Reduce to 1 mg/kg q24h if CrCl &lt;30.</div>
+        </div>
+
+        <div class="dr-entry">
+          <div class="dr-name">Bivalirudin <span class="dr-tag dt-stemi">PCI</span></div>
+          <div class="dr-dose">0.75 mg/kg IV bolus → 1.75 mg/kg/h</div>
+          <div class="dr-note">Direct thrombin inhibitor. Preferred in HIT. Less bleeding than UFH + GPI.</div>
+        </div>
+
+        <div class="dr-entry">
+          <div class="dr-name">Fondaparinux <span class="dr-tag dt-ns">Conservative NSTEMI</span></div>
+          <div class="dr-dose">2.5 mg SC daily</div>
+          <div class="dr-note">Lowest bleeding risk. <span class="red">Avoid as sole agent during PCI</span> (catheter thrombosis risk — add UFH).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Time targets -->
+    <div class="time-targets">
+      <div class="sec-lbl" style="color:#f5a623">⏱️ Critical Time Targets (ACC/AHA Guidelines)</div>
+      <div class="tt-grid">
+        <div class="tt-cell">
+          <div class="tt-label">STEMI Door-to-Balloon (PCI)</div>
+          <div class="tt-val tv-red">&lt;90 min</div>
+          <div class="tt-note">From first medical contact</div>
+        </div>
+        <div class="tt-cell">
+          <div class="tt-label">STEMI Door-to-Needle (Lytic)</div>
+          <div class="tt-val tv-amber">&lt;30 min</div>
+          <div class="tt-note">If PCI unavailable in 120 min</div>
+        </div>
+        <div class="tt-cell">
+          <div class="tt-label">NSTEMI High-Risk PCI</div>
+          <div class="tt-val tv-amber">&lt;24 h</div>
+          <div class="tt-note">GRACE &gt;140 or troponin rise</div>
+        </div>
+        <div class="tt-cell">
+          <div class="tt-label">NSTEMI Very High Risk</div>
+          <div class="tt-val tv-red">&lt;2 h</div>
+          <div class="tt-note">Hemodynamic instability, cardiogenic shock, VF</div>
+        </div>
+        <div class="tt-cell">
+          <div class="tt-label">12-Lead ECG</div>
+          <div class="tt-val tv-green">&lt;10 min</div>
+          <div class="tt-note">From arrival / first contact</div>
+        </div>
+        <div class="tt-cell">
+          <div class="tt-label">Aspirin + P2Y12</div>
+          <div class="tt-val tv-green">ASAP</div>
+          <div class="tt-note">Before PCI in all ACS</div>
+        </div>
+        <div class="tt-cell">
+          <div class="tt-label">Transfer to PCI Centre</div>
+          <div class="tt-val tv-blue">&lt;120 min</div>
+          <div class="tt-note">From STEMI diagnosis</div>
+        </div>
+        <div class="tt-cell">
+          <div class="tt-label">Troponin (hs-cTn)</div>
+          <div class="tt-val tv-blue">0h/1h</div>
+          <div class="tt-note">Serial sampling protocol (ESC)</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on ACC/AHA & ESC ACS Guidelines<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

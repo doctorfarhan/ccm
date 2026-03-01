@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCM Notes — Critical Care Clinical Reference</title>
+<meta name="description" content="Evidence-based critical care protocols and clinical notes. FOAMed resources for intensivists and emergency medicine physicians.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ──────────────────────────────────────────────
+   RESET & TOKENS
+────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #f5f4f0;
+  --surface:   #ffffff;
+  --border:    #d8d6cf;
+  --text:      #1a1917;
+  --muted:     #6b6860;
+  --accent:    #1a3a5c;
+  --accent2:   #b5401a;
+  --mono:      'IBM Plex Mono', monospace;
+  --sans:      'IBM Plex Sans', system-ui, sans-serif;
+  --serif:     'IBM Plex Serif', Georgia, serif;
+  --radius:    6px;
+  --shadow:    0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+}
+
+html {
+  font-size: 15px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* ──────────────────────────────────────────────
+   LAYOUT SHELL
+────────────────────────────────────────────── */
+.shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ──────────────────────────────────────────────
+   MASTHEAD
+────────────────────────────────────────────── */
+.masthead {
+  padding: 52px 0 36px;
+  border-bottom: 2px solid var(--text);
+  margin-bottom: 36px;
+}
+
+.masthead-label {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.masthead h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: var(--accent);
+}
+
+.masthead-sub {
+  margin-top: 12px;
+  font-size: .88rem;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+/* ──────────────────────────────────────────────
+   NAVIGATION
+────────────────────────────────────────────── */
+.nav-section {
+  margin-bottom: 44px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+  transition: all .2s ease;
+  display: inline-block;
+}
+
+.nav-btn:hover {
+  background: var(--accent);
+  color: var(--surface);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.nav-btn.primary {
+  background: var(--accent);
+  color: var(--surface);
+  border-color: var(--accent);
+}
+
+.nav-btn.primary:hover {
+  background: var(--accent2);
+  border-color: var(--accent2);
+}
+
+/* ──────────────────────────────────────────────
+   SECTION
+────────────────────────────────────────────── */
+.section-heading {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+h2.block-title {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--accent);
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ──────────────────────────────────────────────
+   PROTOCOL GRID
+────────────────────────────────────────────── */
+.protocol-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 44px;
+}
+
+.protocol-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-decoration: none;
+  display: block;
+  transition: all .2s ease;
+  border-left: 4px solid var(--accent);
+}
+
+.protocol-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-left-color: var(--accent2);
+}
+
+.protocol-type {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.protocol-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--accent);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.protocol-desc {
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ──────────────────────────────────────────────
+   FOOTER
+────────────────────────────────────────────── */
+footer {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.footer-left a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: border-color .15s;
+}
+
+.footer-left a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.footer-badge {
+  font-family: var(--mono);
+  font-size: .7rem;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--muted);
+  white-space: nowrap;
+  align-self: center;
+}
+
+/* ──────────────────────────────────────────────
+   RESPONSIVE
+────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .protocol-grid { grid-template-columns: 1fr; }
+  .shell { padding: 0 16px 60px; }
+  footer { flex-direction: column; }
+  .nav-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  .nav-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <p class="masthead-label">Critical Care Medicine</p>
+    <h1>CCM Notes</h1>
+    <p class="masthead-sub">Evidence-based clinical references for intensivists · FOAMed resources · Updated 2025</p>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="nav-section">
+    <div class="nav-buttons">
+      <a href="#protocol-cards" class="nav-btn primary">📋 Protocol Cards (20)</a>
+      <a href="#clinical-notes" class="nav-btn">📖 Clinical Notes (1)</a>
+      <a href="about.html" class="nav-btn">ℹ️ About</a>
+    </div>
+  </nav>
+
+  <!-- PROTOCOL CARDS -->
+  <section id="protocol-cards" style="margin-bottom: 44px;">
+    <p class="section-heading">Protocol Cards</p>
+    <h2 class="block-title">Critical Care Protocols</h2>
+
+    <div class="protocol-grid">
+      <a href="sepsis-management.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Sepsis Management</div>
+        <div class="protocol-desc">Sepsis-3 criteria, Hour-1 bundle, fluid and vasopressor algorithms</div>
+      </a>
+
+      <a href="shock-management.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Shock Management</div>
+        <div class="protocol-desc">Classification, initial assessment, and treatment pathways</div>
+      </a>
+
+      <a href="acls-algorithm.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">ACLS Algorithm</div>
+        <div class="protocol-desc">Shockable and non-shockable rhythms, drug doses, H's & T's</div>
+      </a>
+
+      <a href="acute-coronary-syndrome.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Acute Coronary Syndrome</div>
+        <div class="protocol-desc">STEMI, NSTEMI, unstable angina management pathways</div>
+      </a>
+
+      <a href="acute-ischemic-stroke.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Acute Ischemic Stroke</div>
+        <div class="protocol-desc">Thrombolysis criteria, time windows, and exclusions</div>
+      </a>
+
+      <a href="acute-kidney-injury.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Acute Kidney Injury</div>
+        <div class="protocol-desc">KDIGO criteria, classification, and management approach</div>
+      </a>
+
+      <a href="burns-management.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Burns Management</div>
+        <div class="protocol-desc">Parkland formula, fluid resuscitation, assessment criteria</div>
+      </a>
+
+      <a href="community-acquired-pneumonia.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Community Acquired Pneumonia</div>
+        <div class="protocol-desc">CURB-65, PSI scoring, empiric antibiotic selection</div>
+      </a>
+
+      <a href="dka-management.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">DKA Management</div>
+        <div class="protocol-desc">Diabetic ketoacidosis protocol, insulin dosing, electrolytes</div>
+      </a>
+
+      <a href="dvt-pe-management.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">DVT/PE Management</div>
+        <div class="protocol-desc">Wells score, PERC rule, anticoagulation strategies</div>
+      </a>
+
+      <a href="electrolyte-correction.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Electrolyte Correction</div>
+        <div class="protocol-desc">Sodium, potassium, calcium, magnesium correction formulas</div>
+      </a>
+
+      <a href="gi-bleeding-management.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">GI Bleeding Management</div>
+        <div class="protocol-desc">Glasgow-Blatchford score, transfusion triggers, PPIs</div>
+      </a>
+
+      <a href="hypertensive-emergency.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Hypertensive Emergency</div>
+        <div class="protocol-desc">Target organ damage, IV antihypertensives, BP goals</div>
+      </a>
+
+      <a href="intracranial-pressure-management.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">ICP Management</div>
+        <div class="protocol-desc">Intracranial pressure monitoring, treatment thresholds</div>
+      </a>
+
+      <a href="mechanical-ventilation-ards.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Mechanical Ventilation — ARDS</div>
+        <div class="protocol-desc">Low tidal volume, PEEP strategies, Berlin criteria</div>
+      </a>
+
+      <a href="rapid-sequence-intubation.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Rapid Sequence Intubation</div>
+        <div class="protocol-desc">Pre-oxygenation, induction agents, paralytic dosing</div>
+      </a>
+
+      <a href="sedation-analgesia-icu.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Sedation & Analgesia — ICU</div>
+        <div class="protocol-desc">RASS scoring, sedative selection, analgesia-first approach</div>
+      </a>
+
+      <a href="thyroid-storm.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Thyroid Storm</div>
+        <div class="protocol-desc">Burch-Wartofsky score, management steps, medications</div>
+      </a>
+
+      <a href="vasopressor-dosing.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Vasopressor Dosing</div>
+        <div class="protocol-desc">Norepinephrine, epinephrine, vasopressin dosing tables</div>
+      </a>
+
+      <a href="ventilator-initial-settings.html" class="protocol-card">
+        <div class="protocol-type">Protocol Card</div>
+        <div class="protocol-title">Ventilator Initial Settings</div>
+        <div class="protocol-desc">Mode selection, tidal volume, PEEP, FiO₂ settings</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CLINICAL NOTES -->
+  <section id="clinical-notes">
+    <p class="section-heading">Clinical Notes</p>
+    <h2 class="block-title">Comprehensive Drug References</h2>
+
+    <div class="protocol-grid">
+      <a href="noradrenaline-clinical-notes.html" class="protocol-card">
+        <div class="protocol-type">Clinical Note</div>
+        <div class="protocol-title">Noradrenaline</div>
+        <div class="protocol-desc">Evidence-based clinical reference including dosing tables, calculations, and trial evidence</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      CCM Notes · FOAMed · Critical Care Clinical Reference<br>
+      Updated January 2025<br>
+      <a href="about.html">About</a><br>
+      <span style="color:#c00; font-size:.68rem;">For educational use only. Always verify against local formulary and institutional protocols.</span>
+    </div>
+    <div class="footer-badge">Evidence-Based Medicine</div>
+  </footer>
+
+</div><!-- /shell -->
+
+</body>
+</html>

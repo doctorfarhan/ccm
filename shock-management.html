@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Shock Management — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#4a0000 0%,#7b1a1a 40%,#1a0d2a 100%);padding:28px 42px 22px;border-bottom:3px solid #e74c3c;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'SHOCK';position:absolute;right:-10px;top:-10px;font-size:110px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#e74c3c;text-transform:uppercase}
+.cat{font-size:11px;color:#c08080;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#e74c3c;opacity:.5}
+.title{font-size:40px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13.5px;color:#f0c0c0;margin-top:5px;font-weight:400}
+
+.body{flex:1;padding:16px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+
+.box{background:#1a0d14;border-radius:10px;padding:12px 16px;border-left:4px solid #e74c3c}
+.box.amber{border-left-color:#f5a623;background:#1a1400}
+.box.green{border-left-color:#27ae60;background:#0d1a12}
+.box.blue{border-left-color:#3498db;background:#0d1526}
+.box.purple{border-left-color:#9b59b6;background:#130d1a}
+.box.red{border-left-color:#e74c3c;background:#1a0d0d}
+
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#e74c3c;margin-bottom:8px}
+.box.amber .sec-lbl{color:#f5a623}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+.box.purple .sec-lbl{color:#9b59b6}
+
+.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.shock-box{background:#0d1524;border-radius:8px;padding:11px 12px;border-top:3px solid #e74c3c}
+.shock-box.sep{border-top-color:#e74c3c}
+.shock-box.card-type{border-top-color:#9b59b6}
+.shock-box.obs{border-top-color:#f5a623}
+.shock-box.hyp{border-top-color:#27ae60}
+.shock-type{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.shock-box.sep .shock-type{color:#e74c3c}
+.shock-box.card-type .shock-type{color:#9b59b6}
+.shock-box.obs .shock-type{color:#f5a623}
+.shock-box.hyp .shock-type{color:#27ae60}
+.shock-item{font-size:11px;color:#c8d0d8;padding:2px 0 2px 12px;position:relative;line-height:1.3}
+.shock-item::before{content:'▸';position:absolute;left:0;font-size:8px;top:4px}
+.shock-box.sep .shock-item::before{color:#e74c3c}
+.shock-box.card-type .shock-item::before{color:#9b59b6}
+.shock-box.obs .shock-item::before{color:#f5a623}
+.shock-box.hyp .shock-item::before{color:#27ae60}
+
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+.algo-row{display:flex;align-items:flex-start;gap:10px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.algo-row:last-child{border-bottom:none}
+.algo-step{width:24px;height:24px;border-radius:50%;background:#e74c3c;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;margin-top:1px}
+.algo-text{font-size:12.5px;color:#d0d8e0;line-height:1.35;flex:1}
+.algo-val{font-family:'JetBrains Mono',monospace;color:#f5a623;font-size:12px;font-weight:600}
+
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.mini-box{background:#0d1524;border-radius:8px;padding:11px 13px}
+.mini-title{font-size:10px;font-weight:700;color:#9a9da8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.mini-item{font-size:11.5px;color:#c8d0d8;padding:2px 0;line-height:1.3}
+
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:12px;flex-shrink:0;margin-top:1px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+.hemo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.hemo-item{background:#0d1524;border-radius:8px;padding:9px;text-align:center}
+.hemo-label{font-size:9.5px;color:#8090a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.hemo-sep{font-size:13px;font-weight:700;color:#e74c3c}
+.hemo-card{font-size:13px;font-weight:700;color:#9b59b6}
+.hemo-obs{font-size:13px;font-weight:700;color:#f5a623}
+.hemo-hyp{font-size:13px;font-weight:700;color:#27ae60}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">ICU Essentials</span>
+    </div>
+    <div class="title">Shock Management</div>
+    <div class="subtitle">Recognition · Classification · Hemodynamics · Resuscitation Algorithm</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Recognition -->
+    <div class="box red">
+      <div class="sec-lbl">⚡ Recognition — Shock = Inadequate Tissue Perfusion</div>
+      <div class="four-col" style="gap:6px">
+        <div style="background:#0d1524;border-radius:8px;padding:10px 12px;text-align:center">
+          <div style="font-size:10px;color:#8090a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">SBP</div>
+          <div class="val" style="font-size:15px">&lt; 90</div>
+          <div style="font-size:10px;color:#8090a0">mmHg</div>
+        </div>
+        <div style="background:#0d1524;border-radius:8px;padding:10px 12px;text-align:center">
+          <div style="font-size:10px;color:#8090a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">MAP</div>
+          <div class="val" style="font-size:15px">&lt; 65</div>
+          <div style="font-size:10px;color:#8090a0">mmHg</div>
+        </div>
+        <div style="background:#0d1524;border-radius:8px;padding:10px 12px;text-align:center">
+          <div style="font-size:10px;color:#8090a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Lactate</div>
+          <div class="val" style="font-size:15px">&gt; 2.0</div>
+          <div style="font-size:10px;color:#8090a0">mmol/L</div>
+        </div>
+        <div style="background:#0d1524;border-radius:8px;padding:10px 12px;text-align:center">
+          <div style="font-size:10px;color:#8090a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">UO</div>
+          <div class="val" style="font-size:15px">&lt; 0.5</div>
+          <div style="font-size:10px;color:#8090a0">mL/kg/hr</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Type Classification -->
+    <div class="box amber">
+      <div class="sec-lbl">🔎 Shock Classification — Bedside Differentiation</div>
+      <div class="four-col">
+        <div class="shock-box sep">
+          <div class="shock-type">Distributive</div>
+          <div class="shock-item">Warm extremities</div>
+          <div class="shock-item">↑ HR, ↓ SVR</div>
+          <div class="shock-item">Bounding pulse</div>
+          <div class="shock-item">↑ CO, ↓↓ MAP</div>
+          <div class="shock-item" style="margin-top:4px;color:#e74c3c;font-weight:600">Sepsis · Anaphylaxis</div>
+        </div>
+        <div class="shock-box card-type">
+          <div class="shock-type">Cardiogenic</div>
+          <div class="shock-item">Cold, clammy</div>
+          <div class="shock-item">↑ SVR, ↓ CO</div>
+          <div class="shock-item">JVD, crackles</div>
+          <div class="shock-item">S3, pulm edema</div>
+          <div class="shock-item" style="margin-top:4px;color:#9b59b6;font-weight:600">AMI · Acute HF</div>
+        </div>
+        <div class="shock-box obs">
+          <div class="shock-type">Obstructive</div>
+          <div class="shock-item">JVD + hypoxia</div>
+          <div class="shock-item">Tracheal deviat.</div>
+          <div class="shock-item">Pulsus paradoxus</div>
+          <div class="shock-item">Beck's triad</div>
+          <div class="shock-item" style="margin-top:4px;color:#f5a623;font-weight:600">PE · Tamponade · PTX</div>
+        </div>
+        <div class="shock-box hyp">
+          <div class="shock-type">Hypovolemic</div>
+          <div class="shock-item">Dry mucosae</div>
+          <div class="shock-item">↑ HR, flat JVP</div>
+          <div class="shock-item">Tenting skin</div>
+          <div class="shock-item">↓ Hct (hemorrh.)</div>
+          <div class="shock-item" style="margin-top:4px;color:#27ae60;font-weight:600">Hemorrhage · GI loss</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hemodynamic Profile -->
+    <div class="box blue">
+      <div class="sec-lbl">📊 Hemodynamic Profile (PA Catheter / Echo)</div>
+      <div class="hemo-grid">
+        <div class="hemo-item"><div class="hemo-label">Parameter</div><div style="font-size:11px;color:#7aaeae;font-weight:600">Normal</div></div>
+        <div class="hemo-item"><div class="hemo-label">CO (L/min)</div><div class="hemo-sep">↑↑</div><div class="hemo-card">↓↓</div><div class="hemo-obs">↓</div><div class="hemo-hyp">↓</div></div>
+        <div class="hemo-item"><div class="hemo-label">SVR</div><div class="hemo-sep">↓↓</div><div class="hemo-card">↑↑</div><div class="hemo-obs">↑</div><div class="hemo-hyp">↑</div></div>
+        <div class="hemo-item"><div class="hemo-label">PCWP</div><div class="hemo-sep">Normal</div><div class="hemo-card">↑↑</div><div class="hemo-obs">↑/N</div><div class="hemo-hyp">↓</div></div>
+        <div class="hemo-item"><div class="hemo-label">CVP</div><div class="hemo-sep">Low/N</div><div class="hemo-card">↑</div><div class="hemo-obs">↑↑</div><div class="hemo-hyp">↓↓</div></div>
+      </div>
+      <div style="display:flex;gap:16px;margin-top:7px;padding-top:5px">
+        <span style="font-size:10px;color:#e74c3c;font-weight:700">■ Distributive</span>
+        <span style="font-size:10px;color:#9b59b6;font-weight:700">■ Cardiogenic</span>
+        <span style="font-size:10px;color:#f5a623;font-weight:700">■ Obstructive</span>
+        <span style="font-size:10px;color:#27ae60;font-weight:700">■ Hypovolemic</span>
+      </div>
+    </div>
+
+    <!-- Resuscitation Algorithm -->
+    <div class="box green">
+      <div class="sec-lbl">⚕ Universal Resuscitation Algorithm (First 15 Minutes)</div>
+      <div class="algo-row">
+        <div class="algo-step">1</div>
+        <div class="algo-text"><strong>Airway/Access:</strong> 2x large-bore IVs, O₂, cardiac monitor, 12-lead ECG, portable CXR — <span class="algo-val">Immediate</span></div>
+      </div>
+      <div class="algo-row">
+        <div class="algo-step">2</div>
+        <div class="algo-text"><strong>Volume Challenge:</strong> <span class="algo-val">250–500 mL</span> crystalloid over 15 min → reassess MAP, CO, lung sounds. Stop if PCWP ↑ or O₂ sat ↓</div>
+      </div>
+      <div class="algo-row">
+        <div class="algo-step">3</div>
+        <div class="algo-text"><strong>MAP Target:</strong> <span class="algo-val">≥ 65 mmHg</span> (≥ 70–85 if chronic HTN). Start Noradrenaline if MAP &lt; 65 after fluid</div>
+      </div>
+      <div class="algo-row">
+        <div class="algo-step">4</div>
+        <div class="algo-text"><strong>Point-of-care Echo:</strong> Assess LV/RV function, IVC collapsibility, pericardial effusion → guides type-specific therapy <span class="algo-val">within 5 min</span></div>
+      </div>
+      <div class="algo-row">
+        <div class="algo-step">5</div>
+        <div class="algo-text"><strong>Treat Cause:</strong> Cultures + Abx (septic) · PCI/dobutamine (cardiogenic) · Needle/pericardiocentesis (obstructive) · Transfuse Hb&lt;7 (hemorrhagic)</div>
+      </div>
+    </div>
+
+    <!-- Vasopressors -->
+    <div class="box purple">
+      <div class="sec-lbl">💊 Vasopressors & Inotropes — Shock-Specific</div>
+      <div class="three-col">
+        <div class="mini-box">
+          <div class="mini-title" style="color:#e74c3c">Distributive (Septic)</div>
+          <div class="mini-item"><span class="val">Noradrenaline</span> 0.1–1 mcg/kg/min <em>1st line</em></div>
+          <div class="mini-item"><span class="val">Vasopressin</span> 0.03 U/min add-on</div>
+          <div class="mini-item"><span class="val">Hydrocortisone</span> 200 mg/day if refractory</div>
+          <div class="mini-item">Adrenaline add-on if MAP not met</div>
+        </div>
+        <div class="mini-box">
+          <div class="mini-title" style="color:#9b59b6">Cardiogenic</div>
+          <div class="mini-item"><span class="val">Dobutamine</span> 2.5–20 mcg/kg/min</div>
+          <div class="mini-item"><span class="val">Noradrenaline</span> if MAP &lt; 65</div>
+          <div class="mini-item">Avoid aggressive fluids</div>
+          <div class="mini-item">IABP / ECMO if refractory</div>
+        </div>
+        <div class="mini-box">
+          <div class="mini-title" style="color:#27ae60">Anaphylactic</div>
+          <div class="mini-item"><span class="val">Adrenaline IM</span> 0.5 mg q5min</div>
+          <div class="mini-item"><span class="val">Adrenaline IV</span> 0.1–0.5 mcg/kg/min</div>
+          <div class="mini-item">1L NS bolus immediately</div>
+          <div class="mini-item">Chlorphenamine + Hydrocortisone</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Red Flags -->
+    <div class="box red">
+      <div class="sec-lbl">🚨 Do Not Miss — Immediately Reversible Causes</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>Tension PTX</strong> — Needle decompression 2nd ICS MCL, then chest tube NOW</div></div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>Cardiac Tamponade</strong> — Pericardiocentesis if hemodynamically compromised</div></div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>Massive PE</strong> — Systemic thrombolysis: Alteplase <span class="val">100 mg</span> over 2h</div></div>
+        </div>
+        <div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>Adrenal Crisis</strong> — Hydrocortisone <span class="val">100 mg IV</span> + aggressive fluids immediately</div></div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>Aortic Dissection</strong> — Avoid thrombolytics; emergent surgery/stenting</div></div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>Anaphylaxis</strong> — IM Adrenaline is 1st line, NEVER delay; IV line second</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Educational reference only. Not a substitute for clinical judgment.<br>Guidelines: SSC 2021 · ESC 2019 · ACLS 2020</div>
+  </div>
+
+</div>
+</body>
+</html>

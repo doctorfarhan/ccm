@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — CCM Notes</title>
+<meta name="description" content="About CCM Notes — Evidence-based critical care clinical references by Dr. Farhan Palathinkal">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ──────────────────────────────────────────────
+   RESET & TOKENS
+────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #f5f4f0;
+  --surface:   #ffffff;
+  --border:    #d8d6cf;
+  --text:      #1a1917;
+  --muted:     #6b6860;
+  --accent:    #1a3a5c;
+  --accent2:   #b5401a;
+  --mono:      'IBM Plex Mono', monospace;
+  --sans:      'IBM Plex Sans', system-ui, sans-serif;
+  --serif:     'IBM Plex Serif', Georgia, serif;
+  --radius:    6px;
+  --shadow:    0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+}
+
+html { font-size: 15px; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* ──────────────────────────────────────────────
+   LAYOUT SHELL
+────────────────────────────────────────────── */
+.shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ──────────────────────────────────────────────
+   MASTHEAD
+────────────────────────────────────────────── */
+.masthead {
+  padding: 52px 0 36px;
+  border-bottom: 2px solid var(--text);
+  margin-bottom: 36px;
+}
+
+.masthead-label {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.masthead h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: var(--accent);
+}
+
+.masthead-sub {
+  margin-top: 12px;
+  font-size: .88rem;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+/* ──────────────────────────────────────────────
+   CONTENT
+────────────────────────────────────────────── */
+.content {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.content p {
+  margin-bottom: 20px;
+  font-size: .95rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: border-color .15s;
+}
+
+.content a:hover {
+  border-bottom-color: var(--accent);
+}
+
+h2 {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--accent);
+  margin: 36px 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin: 28px 0;
+  border-left: 4px solid var(--accent);
+}
+
+.card-title {
+  font-family: var(--sans);
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+/* ──────────────────────────────────────────────
+   FOOTER
+────────────────────────────────────────────── */
+footer {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.footer-left a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: border-color .15s;
+}
+
+.footer-left a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.footer-badge {
+  font-family: var(--mono);
+  font-size: .7rem;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--muted);
+  white-space: nowrap;
+  align-self: center;
+}
+
+/* ──────────────────────────────────────────────
+   RESPONSIVE
+────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .shell { padding: 0 16px 60px; }
+  footer { flex-direction: column; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <p class="masthead-label">Critical Care Medicine</p>
+    <h1>About CCM Notes</h1>
+    <p class="masthead-sub"><a href="index.html" style="border-bottom: 1px solid var(--border); text-decoration: none; color: var(--muted);">← Back to Index</a></p>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <p><strong>CCM Notes</strong> is a collection of evidence-based critical care protocols and clinical references designed for intensivists, emergency medicine physicians, and critical care practitioners.</p>
+
+    <p>This resource provides quick-reference protocol cards and comprehensive clinical notes covering essential topics in intensive care medicine, from sepsis management and mechanical ventilation to vasopressor dosing and acute coronary syndromes.</p>
+
+    <h2>About the Author</h2>
+
+    <div class="card">
+      <div class="card-title">Dr. Farhan Palathinkal</div>
+      <p style="margin-bottom: 12px; color: var(--muted); font-size: .9rem;">Critical Care Physician · Tech Founder</p>
+      <p style="margin-bottom: 0; color: var(--muted); font-size: .9rem;">
+        Dr. Farhan Palathinkal is a critical care physician and technology entrepreneur focused on improving clinical workflows and medical education through evidence-based digital tools.
+      </p>
+    </div>
+
+    <p>For more information about Dr. Palathinkal's work in healthcare technology and innovation, visit <a href="https://qatalyst.co.in" target="_blank" rel="noopener noreferrer">qatalyst.co.in</a>.</p>
+
+    <h2>Purpose & Disclaimer</h2>
+
+    <p>These resources are provided for <strong>educational purposes only</strong>. All protocols and clinical references should be verified against your local formulary, institutional guidelines, and current evidence-based practice standards.</p>
+
+    <p>The materials presented here represent a synthesis of published guidelines and clinical evidence, including references from the Surviving Sepsis Campaign, American Heart Association ACLS guidelines, and major critical care trials. However, clinical practice evolves rapidly, and individual patient care must always be tailored to specific circumstances.</p>
+
+    <p style="color: #c00; font-weight: 500; margin-top: 32px; padding: 16px; background: #fdf2f0; border-radius: var(--radius); border-left: 4px solid #c00;">
+      <strong>Important:</strong> These materials are not a substitute for professional medical judgment. Always consult current evidence, institutional protocols, and senior colleagues when managing critically ill patients.
+    </p>
+
+    <h2>License & Usage</h2>
+
+    <p>CCM Notes is part of the Free Open Access Medical education (FOAMed) movement. These resources are freely available for educational use by healthcare professionals.</p>
+
+    <p>Questions, corrections, or feedback? Please reach out via <a href="https://qatalyst.co.in" target="_blank" rel="noopener noreferrer">qatalyst.co.in</a>.</p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      CCM Notes · FOAMed · Critical Care Clinical Reference<br>
+      Updated January 2025<br>
+      <a href="index.html">Home</a><br>
+      <span style="color:#c00; font-size:.68rem;">For educational use only. Always verify against local formulary and institutional protocols.</span>
+    </div>
+    <div class="footer-badge">Evidence-Based Medicine</div>
+  </footer>
+
+</div><!-- /shell -->
+
+</body>
+</html>

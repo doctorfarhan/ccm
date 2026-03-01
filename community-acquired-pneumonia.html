@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Community-Acquired Pneumonia — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#0a3a1a 0%,#0f5228 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'CAP';position:absolute;right:10px;top:-10px;font-size:130px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#12b5b5;opacity:.5}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:14px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.box{background:#112233;border-radius:10px;padding:13px 16px;border-left:4px solid #12b5b5}
+.box.amber{border-left-color:#f5a623}
+.box.red{border-left-color:#e74c3c}
+.box.green{border-left-color:#27ae60}
+.box.blue{border-left-color:#3498db}
+.box.purple{border-left-color:#9b59b6}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#12b5b5;margin-bottom:8px}
+.box.amber .sec-lbl{color:#f5a623}
+.box.red .sec-lbl{color:#e74c3c}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+.box.purple .sec-lbl{color:#9b59b6}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini-box{background:#1a2e44;border-radius:8px;padding:10px 12px}
+.mini-title{font-size:10.5px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.item{font-size:12px;color:#d0e8e8;padding:2px 0 2px 14px;position:relative;line-height:1.35}
+.item::before{content:'▸';position:absolute;left:0;color:#12b5b5;font-size:9px;top:4px}
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+/* CURB-65 */
+.curb-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:2px}
+.curb-cell{background:#1a2e44;border-radius:8px;padding:10px 8px;text-align:center}
+.curb-letter{font-size:22px;font-weight:900;color:#12b5b5;line-height:1;margin-bottom:4px}
+.curb-text{font-size:10px;color:#b0d8d8;line-height:1.35}
+
+/* Score bands */
+.score-band{display:flex;gap:8px;margin-top:6px}
+.sb-cell{flex:1;border-radius:6px;padding:8px 10px;text-align:center}
+.sb-0{background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.3)}
+.sb-1{background:rgba(52,152,219,.15);border:1px solid rgba(52,152,219,.3)}
+.sb-2{background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3)}
+.sb-3{background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3)}
+.sb-score{font-size:15px;font-weight:800;font-family:'JetBrains Mono',monospace}
+.ss-0{color:#27ae60}
+.ss-1{color:#3498db}
+.ss-2{color:#f5a623}
+.ss-3{color:#e74c3c}
+.sb-label{font-size:10px;color:#d0e8e8;margin-top:3px;font-weight:600}
+.sb-note{font-size:9px;color:#7aaeae;margin-top:2px}
+
+/* ABX table */
+.abx-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.abx-table th{background:#1a2e44;color:#7aaeae;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:10px;padding:6px 10px;text-align:left;border-bottom:1px solid rgba(18,181,181,.2)}
+.abx-table td{padding:5px 10px;color:#d0e8e8;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.3;vertical-align:top}
+.abx-table tr:last-child td{border-bottom:none}
+.abx-name{font-weight:700;color:#fff;font-size:12px}
+.abx-dur{font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600;font-size:11px}
+.tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:8.5px;font-weight:700;text-transform:uppercase;margin-left:4px}
+.tag-out{background:rgba(39,174,96,.2);color:#27ae60}
+.tag-in{background:rgba(245,166,35,.2);color:#f5a623}
+.tag-icu{background:rgba(231,76,60,.2);color:#e74c3c}
+
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:11px;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">Pulmonology · Infectious Disease</span>
+    </div>
+    <div class="title">Community-Acquired Pneumonia</div>
+    <div class="subtitle">CURB-65 Severity · Antibiotic Selection by Severity · Gulf Organisms · Treatment Duration</div>
+  </div>
+
+  <div class="body">
+
+    <!-- CURB-65 -->
+    <div class="box">
+      <div class="sec-lbl">📊 CURB-65 Severity Score (BTS Guidelines)</div>
+      <div class="curb-grid">
+        <div class="curb-cell">
+          <div class="curb-letter">C</div>
+          <div class="curb-text"><strong>Confusion</strong><br>New onset disorientation</div>
+        </div>
+        <div class="curb-cell">
+          <div class="curb-letter">U</div>
+          <div class="curb-text"><strong>Urea</strong><br>&gt;7 mmol/L (BUN &gt;20 mg/dL)</div>
+        </div>
+        <div class="curb-cell">
+          <div class="curb-letter">R</div>
+          <div class="curb-text"><strong>Respiratory Rate</strong><br>≥30 breaths/min</div>
+        </div>
+        <div class="curb-cell">
+          <div class="curb-letter">B</div>
+          <div class="curb-text"><strong>Blood Pressure</strong><br>SBP &lt;90 or DBP ≤60 mmHg</div>
+        </div>
+        <div class="curb-cell">
+          <div class="curb-letter">65</div>
+          <div class="curb-text"><strong>Age</strong><br>≥65 years</div>
+        </div>
+      </div>
+      <div class="score-band">
+        <div class="sb-cell sb-0"><div class="sb-score ss-0">0–1</div><div class="sb-label">Low severity</div><div class="sb-note">30-day mortality ~1–3%<br>Outpatient treatment</div></div>
+        <div class="sb-cell sb-1"><div class="sb-score ss-1">2</div><div class="sb-label">Moderate severity</div><div class="sb-note">30-day mortality ~9%<br>Consider inpatient</div></div>
+        <div class="sb-cell sb-2"><div class="sb-score ss-2">3–4</div><div class="sb-label">Severe</div><div class="sb-note">30-day mortality ~22%<br>Inpatient; consider ICU</div></div>
+        <div class="sb-cell sb-3"><div class="sb-score ss-3">5</div><div class="sb-label">Very severe</div><div class="sb-note">30-day mortality ~57%<br>ICU admission</div></div>
+      </div>
+    </div>
+
+    <!-- Antibiotic Selection -->
+    <div class="box green">
+      <div class="sec-lbl">💊 Antibiotic Selection by Severity (IDSA/ATS 2019)</div>
+      <table class="abx-table">
+        <thead>
+          <tr><th>Setting</th><th>First-Line Regimen</th><th>Alternative</th><th>Duration</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="abx-name">Outpatient</span><span class="tag tag-out">CURB 0–1</span><br><small style="color:#7aaeae">No comorbidities</small></td>
+            <td>Amoxicillin <span class="abx-dur">500 mg PO TID</span><br>or Doxycycline 100 mg PO BID</td>
+            <td>Azithromycin 500 mg PO Day 1, then 250 mg OD (check local resistance)</td>
+            <td><span class="abx-dur">5 days</span></td>
+          </tr>
+          <tr>
+            <td><span class="abx-name">Outpatient</span><span class="tag tag-out">CURB 0–1</span><br><small style="color:#7aaeae">With comorbidities</small></td>
+            <td>Amoxicillin-clavulanate <span class="abx-dur">875/125 mg PO BID</span> + Azithromycin 500 mg OD<br>or Levofloxacin <span class="abx-dur">750 mg PO OD</span> (monotherapy)</td>
+            <td>Moxifloxacin 400 mg PO OD</td>
+            <td><span class="abx-dur">5 days</span></td>
+          </tr>
+          <tr>
+            <td><span class="abx-name">Inpatient</span><span class="tag tag-in">CURB 2–3</span><br><small style="color:#7aaeae">Non-ICU ward</small></td>
+            <td>Amox-Clav IV + Azithromycin 500 mg IV/PO<br>or β-lactam + Levofloxacin <span class="abx-dur">750 mg IV OD</span></td>
+            <td>Ceftriaxone 1–2g IV OD + Azithromycin 500 mg IV OD</td>
+            <td><span class="abx-dur">5–7 days</span></td>
+          </tr>
+          <tr>
+            <td><span class="abx-name">ICU</span><span class="tag tag-icu">CURB 4–5</span><br><small style="color:#7aaeae">Severe CAP</small></td>
+            <td>Ceftriaxone <span class="abx-dur">2g IV OD</span> + Azithromycin <span class="abx-dur">500 mg IV OD</span><br>or Piperacillin-tazobactam + Levofloxacin IV</td>
+            <td>If Pseudomonas risk: Pip-Tazo + Ciprofloxacin IV<br>If MRSA risk: add Vancomycin or Linezolid</td>
+            <td><span class="abx-dur">7–10 days</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Gulf-Specific + Organisms -->
+    <div class="two-col">
+      <div class="box amber" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">🌍 Common Pathogens</div>
+        <div class="mini-box" style="margin-bottom:6px">
+          <div class="mini-title">Typical Organisms</div>
+          <div class="item"><em>Streptococcus pneumoniae</em> — most common overall</div>
+          <div class="item"><em>Haemophilus influenzae</em> — COPD, smokers</div>
+          <div class="item"><em>Klebsiella pneumoniae</em> — Gulf: alcoholics, DM (rare)</div>
+          <div class="item"><em>Staphylococcus aureus</em> — post-influenza, ICU</div>
+        </div>
+        <div class="mini-box">
+          <div class="mini-title">Atypical Organisms</div>
+          <div class="item"><em>Mycoplasma pneumoniae</em> — young adults, gradual onset</div>
+          <div class="item"><em>Legionella pneumophila</em> — AC systems (Gulf: high exposure)</div>
+          <div class="item"><em>Chlamydophila pneumoniae</em></div>
+        </div>
+      </div>
+      <div class="box blue" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">📋 Management Checklist</div>
+        <div class="item">Cultures: blood × 2, sputum (before antibiotics if possible)</div>
+        <div class="item">Legionella urinary antigen (if severe or epidemiological risk)</div>
+        <div class="item">Pneumococcal urinary antigen (ICU/severe)</div>
+        <div class="item">CXR (PA + lateral); CT chest if complex</div>
+        <div class="item">Oxygen: target SpO₂ <span class="val">≥94%</span> (88–92% in COPD)</div>
+        <div class="item">Switch IV→PO when: afebrile ×24h, HR &lt;100, RR &lt;24, tolerating PO</div>
+        <div class="item">Pneumococcal + influenza vaccination before discharge</div>
+        <div class="item">Follow-up CXR at <span class="val">6 weeks</span> (exclude malignancy)</div>
+      </div>
+    </div>
+
+    <!-- Warnings -->
+    <div class="box red">
+      <div class="sec-lbl">⚠️ Severe CAP Criteria (IDSA/ATS Major / Minor)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Major criteria</strong>: Invasive mechanical ventilation OR septic shock requiring vasopressors → direct ICU admission</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text"><strong>Minor criteria (≥3)</strong>: RR ≥30, PaO₂/FiO₂ ≤250, multilobar infiltrates, confusion, BUN ≥20, WBC &lt;4000, platelets &lt;100k, hypothermia, hypotension requiring aggressive fluids</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Gulf: Legionella risk from hotel/hospital AC — check urinary antigen in all hospitalized patients</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">High T2DM prevalence → impaired immunity; <em>Klebsiella</em> and fungal pneumonia more common in Gulf diabetics</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on IDSA/ATS CAP Guidelines 2019 / BTS 2023<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

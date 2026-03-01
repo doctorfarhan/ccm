@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>DVT & PE Management — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#1a0a3a 0%,#2d1a5e 40%,#0d1b2a 100%);padding:28px 42px 22px;border-bottom:3px solid #8e44ad;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'PE';position:absolute;right:-10px;top:-10px;font-size:110px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-4px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#8e44ad;text-transform:uppercase}
+.cat{font-size:11px;color:#a080c8;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#8e44ad;opacity:.5}
+.title{font-size:40px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13.5px;color:#c8b0e0;margin-top:5px;font-weight:400}
+
+.body{flex:1;padding:16px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+
+.box{background:#130d1e;border-radius:10px;padding:12px 16px;border-left:4px solid #8e44ad}
+.box.red{border-left-color:#e74c3c;background:#1a0d0d}
+.box.amber{border-left-color:#f5a623;background:#1a1200}
+.box.green{border-left-color:#27ae60;background:#0d1a12}
+.box.blue{border-left-color:#3498db;background:#0d1526}
+
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8e44ad;margin-bottom:8px}
+.box.red .sec-lbl{color:#e74c3c}
+.box.amber .sec-lbl{color:#f5a623}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+/* Wells Score */
+.wells-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.wells-col{display:flex;flex-direction:column;gap:4px}
+.wells-item{display:flex;align-items:center;justify-content:space-between;background:#1a1030;border-radius:6px;padding:7px 10px}
+.wells-text{font-size:12px;color:#c8c0d8;flex:1}
+.wells-score{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#f5a623;margin-left:8px}
+.wells-note{font-size:10px;color:#9a80b0;margin-top:6px;font-style:italic}
+
+/* Risk strat */
+.risk-row{display:flex;gap:8px}
+.risk-box{flex:1;border-radius:8px;padding:10px 13px;text-align:center}
+.risk-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.risk-score{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:800}
+.risk-class{font-size:11px;margin-top:2px}
+.risk-action{font-size:10px;margin-top:5px;opacity:0.8}
+
+/* Algorithm */
+.algo-row{display:flex;align-items:flex-start;gap:10px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.algo-row:last-child{border-bottom:none}
+.algo-step{width:24px;height:24px;border-radius:50%;background:#8e44ad;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;margin-top:1px}
+.algo-text{font-size:12.5px;color:#c8d0d8;line-height:1.35;flex:1}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mini-box{background:#1a1030;border-radius:8px;padding:11px 13px}
+.mini-title{font-size:10px;font-weight:700;color:#9a80b0;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.mini-item{font-size:11.5px;color:#c8c0d8;padding:2px 0;line-height:1.35}
+
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:12px;flex-shrink:0;margin-top:1px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">ICU Essentials</span>
+    </div>
+    <div class="title">DVT & Pulmonary Embolism</div>
+    <div class="subtitle">Risk Stratification · Wells Score · Anticoagulation · Thrombolysis Algorithm</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Wells Score PE -->
+    <div class="box blue">
+      <div class="sec-lbl">📊 Wells Score for PE — Pre-Test Probability</div>
+      <div class="wells-grid">
+        <div class="wells-col">
+          <div class="wells-item"><span class="wells-text">Clinical signs/symptoms DVT</span><span class="wells-score">+3</span></div>
+          <div class="wells-item"><span class="wells-text">PE most likely diagnosis (or equally likely)</span><span class="wells-score">+3</span></div>
+          <div class="wells-item"><span class="wells-text">HR &gt; 100 bpm</span><span class="wells-score">+1.5</span></div>
+          <div class="wells-item"><span class="wells-text">Immobilisation &gt; 3 days OR surgery within 4 wks</span><span class="wells-score">+1.5</span></div>
+        </div>
+        <div class="wells-col">
+          <div class="wells-item"><span class="wells-text">Prior DVT or PE</span><span class="wells-score">+1.5</span></div>
+          <div class="wells-item"><span class="wells-text">Haemoptysis</span><span class="wells-score">+1</span></div>
+          <div class="wells-item"><span class="wells-text">Malignancy (treatment within 6 months / palliative)</span><span class="wells-score">+1</span></div>
+          <div class="wells-item" style="background:#1e1540;border:1px solid #8e44ad;justify-content:center;gap:12px">
+            <span style="font-size:11px;color:#c8b0e0">Low &lt;2</span>
+            <span style="font-size:11px;color:#f5a623">Mod 2–6</span>
+            <span style="font-size:11px;color:#e74c3c">High &gt;6</span>
+          </div>
+        </div>
+      </div>
+      <div class="wells-note">✶ Two-level: ≤4 = PE unlikely (get D-Dimer) | &gt;4 = PE likely (CTPA directly)</div>
+    </div>
+
+    <!-- Risk Stratification -->
+    <div class="box red">
+      <div class="sec-lbl">🔺 Haemodynamic Risk Stratification (ESC 2019)</div>
+      <div class="risk-row">
+        <div class="risk-box" style="background:#3d0a0a;border:1px solid #e74c3c">
+          <div class="risk-label" style="color:#e74c3c">High Risk</div>
+          <div class="risk-score" style="color:#e74c3c">SBP &lt;90</div>
+          <div class="risk-class" style="color:#f0c0c0">or drop ≥40 mmHg &gt;15 min</div>
+          <div class="risk-action" style="color:#f0c0c0">Immediate reperfusion<br>Consider thrombolysis</div>
+        </div>
+        <div class="risk-box" style="background:#3d2000;border:1px solid #f5a623">
+          <div class="risk-label" style="color:#f5a623">Intermediate-High</div>
+          <div class="risk-score" style="color:#f5a623">RV dysfn</div>
+          <div class="risk-class" style="color:#ffd080">+ Troponin/BNP ↑</div>
+          <div class="risk-action" style="color:#ffd080">Anticoag + monitor<br>ICU admission</div>
+        </div>
+        <div class="risk-box" style="background:#0a2a18;border:1px solid #27ae60">
+          <div class="risk-label" style="color:#27ae60">Intermediate-Low</div>
+          <div class="risk-score" style="color:#27ae60">PESI III–IV</div>
+          <div class="risk-class" style="color:#a0d8b8">RV or Troponin normal</div>
+          <div class="risk-action" style="color:#a0d8b8">Anticoag + admit<br>Short obs</div>
+        </div>
+        <div class="risk-box" style="background:#0a1a28;border:1px solid #3498db">
+          <div class="risk-label" style="color:#3498db">Low Risk</div>
+          <div class="risk-score" style="color:#3498db">PESI I–II</div>
+          <div class="risk-class" style="color:#90c8f0">Hemodynamically stable</div>
+          <div class="risk-action" style="color:#90c8f0">Early discharge<br>Oral anticoag</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Treatment Algorithm -->
+    <div class="box green">
+      <div class="sec-lbl">⚕ Treatment Algorithm — Confirmed PE</div>
+      <div class="algo-row">
+        <div class="algo-step">1</div>
+        <div class="algo-text"><strong>High-Risk PE (haemodynamic instability):</strong> Systemic thrombolysis — <span class="val">Alteplase 100 mg</span> IV over 2h. If CI: surgical embolectomy or catheter-directed</div>
+      </div>
+      <div class="algo-row">
+        <div class="algo-step">2</div>
+        <div class="algo-text"><strong>Anticoagulation (all non-high-risk):</strong> Start immediately. <span class="val">LMWH</span> (Enoxaparin 1 mg/kg SC q12h) OR <span class="val">UFH</span> 80 U/kg bolus + 18 U/kg/hr if renal impairment</div>
+      </div>
+      <div class="algo-row">
+        <div class="algo-step">3</div>
+        <div class="algo-text"><strong>Long-Term Anticoag:</strong> DOACs preferred — <span class="val">Rivaroxaban</span> 15 mg BD×21d then 20 mg OD OR <span class="val">Apixaban</span> 10 mg BD×7d then 5 mg BD</div>
+      </div>
+      <div class="algo-row">
+        <div class="algo-step">4</div>
+        <div class="algo-text"><strong>Duration:</strong> <span class="val">3 months</span> (provoked) | <span class="val">6 months</span> (unprovoked first) | <span class="val">Indefinite</span> (cancer, recurrent, antiphospholipid)</div>
+      </div>
+      <div class="algo-row">
+        <div class="algo-step">5</div>
+        <div class="algo-text"><strong>IVC Filter:</strong> Only if anticoag absolutely contraindicated (active major bleeding). Not routine. Reassess regularly for removal.</div>
+      </div>
+    </div>
+
+    <!-- Anticoag reference + DVT -->
+    <div class="two-col">
+      <div class="box amber">
+        <div class="sec-lbl">💊 Thrombolysis — Eligibility</div>
+        <div class="mini-box" style="background:#1a1200;margin-bottom:0;padding:0">
+          <div style="font-size:11px;font-weight:700;color:#f5a623;margin-bottom:5px">✅ Indications (High-Risk PE)</div>
+          <div class="mini-item">• Cardiac arrest from PE</div>
+          <div class="mini-item">• SBP &lt; 90 mmHg ≥ 15 min</div>
+          <div class="mini-item">• Cardiogenic shock not responding</div>
+          <div style="font-size:11px;font-weight:700;color:#e74c3c;margin:8px 0 5px">❌ Absolute Contraindications</div>
+          <div class="mini-item">• Prior intracranial haemorrhage</div>
+          <div class="mini-item">• Structural intracranial disease</div>
+          <div class="mini-item">• Ischaemic stroke &lt;3 months</div>
+          <div class="mini-item">• Active internal bleeding (not menses)</div>
+          <div class="mini-item">• Major surgery/trauma &lt;3 wks</div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="sec-lbl">🦵 DVT — Diagnosis & Treatment</div>
+        <div class="mini-box" style="background:#130d1e;margin-bottom:0;padding:0">
+          <div style="font-size:11px;font-weight:700;color:#8e44ad;margin-bottom:5px">Diagnosis</div>
+          <div class="mini-item">• Wells DVT score (high ≥3 → USDVT directly)</div>
+          <div class="mini-item">• D-Dimer (if low prob): ELISA sensitivity &gt;99%</div>
+          <div class="mini-item">• Compression USS — gold standard</div>
+          <div style="font-size:11px;font-weight:700;color:#8e44ad;margin:8px 0 5px">Treatment</div>
+          <div class="mini-item">• Proximal DVT: anticoag 3–6 months</div>
+          <div class="mini-item">• Distal DVT (symptomatic): 6–12 weeks</div>
+          <div class="mini-item">• <span class="val">Rivaroxaban 15 mg BD</span> × 3wk → 20 mg OD</div>
+          <div class="mini-item">• Compression stockings — symptom relief</div>
+          <div class="mini-item">• Thrombolysis: only massive/limb-threatening</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Red Flags -->
+    <div class="box red">
+      <div class="sec-lbl">🚨 High-Risk PE — Immediate Actions (First 10 Minutes)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>O₂:</strong> High-flow via NRB, target SpO₂ &gt;94%. Intubate if failing — use ketamine, avoid propofol</div></div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>Fluids:</strong> Max <span class="val">500 mL</span> cautious bolus — RV is preload dependent but overfill = death</div></div>
+        </div>
+        <div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>Vasopressor:</strong> <span class="val">Noradrenaline</span> for RV support. Dobutamine if RV failure/low output</div></div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>UFH:</strong> Start immediately — <span class="val">80 U/kg bolus</span> + 18 U/kg/hr whilst preparing thrombolysis</div></div>
+        </div>
+        <div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>Thrombolysis:</strong> <span class="val">Alteplase 100mg/2h</span>. Stop UFH during. Restart when aPTT &lt; 80 sec after</div></div>
+          <div class="warn-row"><span class="warn-icon">⚡</span><div class="warn-text"><strong>ECMO:</strong> If refractory cardiac arrest or thrombolysis contraindicated — call cardiothoracic early</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Educational reference only. Not a substitute for clinical judgment.<br>Guidelines: ESC 2019 · ACCP 2021 · BTS 2023</div>
+  </div>
+
+</div>
+</body>
+</html>

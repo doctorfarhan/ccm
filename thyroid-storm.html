@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Thyroid Storm — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#2a1a0a 0%,#5a3010 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'STORM';position:absolute;right:-5px;top:-10px;font-size:100px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-3px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#12b5b5;opacity:.5}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:14px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.box{background:#112233;border-radius:10px;padding:13px 16px;border-left:4px solid #12b5b5}
+.box.amber{border-left-color:#f5a623}
+.box.red{border-left-color:#e74c3c}
+.box.green{border-left-color:#27ae60}
+.box.blue{border-left-color:#3498db}
+.box.purple{border-left-color:#9b59b6}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#12b5b5;margin-bottom:8px}
+.box.amber .sec-lbl{color:#f5a623}
+.box.red .sec-lbl{color:#e74c3c}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+.box.purple .sec-lbl{color:#9b59b6}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini-box{background:#1a2e44;border-radius:8px;padding:10px 12px}
+.mini-title{font-size:10.5px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.item{font-size:12px;color:#d0e8e8;padding:2px 0 2px 14px;position:relative;line-height:1.35}
+.item::before{content:'▸';position:absolute;left:0;color:#12b5b5;font-size:9px;top:4px}
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+/* BWS scoring */
+.bws-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.bws-cell{background:#1a2e44;border-radius:8px;padding:9px 11px}
+.bws-title{font-size:10px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:5px}
+.bws-item{font-size:11.5px;color:#d0e8e8;padding:2px 0;line-height:1.3;display:flex;justify-content:space-between}
+.bws-pts{font-family:'JetBrains Mono',monospace;color:#f5a623;font-weight:600;font-size:11px}
+
+/* Score interpretation */
+.score-band{display:flex;gap:8px;margin-top:6px}
+.sb-cell{flex:1;border-radius:6px;padding:7px 10px;text-align:center}
+.sb-45{background:rgba(52,152,219,.15);border:1px solid rgba(52,152,219,.3)}
+.sb-25{background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3)}
+.sb-45p{background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3)}
+.sb-score{font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace}
+.ss-45{color:#3498db}
+.ss-25{color:#f5a623}
+.ss-45p{color:#e74c3c}
+.sb-label{font-size:10px;color:#d0e8e8;margin-top:2px;font-weight:600}
+
+/* Treatment sequence */
+.treat-seq{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.treat-step{background:#1a2e44;border-radius:8px;padding:10px 10px}
+.ts-num{font-size:22px;font-weight:900;color:#f5a623;line-height:1;margin-bottom:4px}
+.ts-drug{font-size:12.5px;font-weight:700;color:#fff;margin-bottom:3px}
+.ts-dose{font-family:'JetBrains Mono',monospace;color:#f5a623;font-size:10.5px;font-weight:600;margin-bottom:3px}
+.ts-note{font-size:10px;color:#b0d8d8;line-height:1.35}
+
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:11px;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">Endocrinology · Critical Care</span>
+    </div>
+    <div class="title">Thyroid Storm</div>
+    <div class="subtitle">Burch-Wartofsky Score · PTU / Methimazole · Beta-Blockade · Iodine Therapy · Supportive Care</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Burch-Wartofsky Score -->
+    <div class="box">
+      <div class="sec-lbl">📊 Burch-Wartofsky Point Scale (BWPS) — Diagnosis</div>
+      <div class="bws-grid">
+        <div class="bws-cell">
+          <div class="bws-title">Temperature (°C)</div>
+          <div class="bws-item"><span>37.2–37.7</span><span class="bws-pts">5</span></div>
+          <div class="bws-item"><span>37.8–38.3</span><span class="bws-pts">10</span></div>
+          <div class="bws-item"><span>38.3–38.8</span><span class="bws-pts">15</span></div>
+          <div class="bws-item"><span>38.9–39.4</span><span class="bws-pts">20</span></div>
+          <div class="bws-item"><span>39.4–39.9</span><span class="bws-pts">25</span></div>
+          <div class="bws-item"><span>≥40.0</span><span class="bws-pts">30</span></div>
+        </div>
+        <div class="bws-cell">
+          <div class="bws-title">CNS Effects</div>
+          <div class="bws-item"><span>Absent</span><span class="bws-pts">0</span></div>
+          <div class="bws-item"><span>Mild (agitation)</span><span class="bws-pts">10</span></div>
+          <div class="bws-item"><span>Moderate (delirium)</span><span class="bws-pts">20</span></div>
+          <div class="bws-item"><span>Severe (seizure, coma)</span><span class="bws-pts">30</span></div>
+          <div class="bws-title" style="margin-top:6px">GI-Hepatic</div>
+          <div class="bws-item"><span>Absent</span><span class="bws-pts">0</span></div>
+          <div class="bws-item"><span>Moderate (N/V/D)</span><span class="bws-pts">10</span></div>
+          <div class="bws-item"><span>Severe (jaundice)</span><span class="bws-pts">20</span></div>
+        </div>
+        <div class="bws-cell">
+          <div class="bws-title">Cardiovascular</div>
+          <div class="bws-item"><span>HR 100–109</span><span class="bws-pts">5</span></div>
+          <div class="bws-item"><span>HR 110–119</span><span class="bws-pts">10</span></div>
+          <div class="bws-item"><span>HR 120–129</span><span class="bws-pts">15</span></div>
+          <div class="bws-item"><span>HR 130–139</span><span class="bws-pts">20</span></div>
+          <div class="bws-item"><span>HR ≥140</span><span class="bws-pts">25</span></div>
+          <div class="bws-item"><span>AF</span><span class="bws-pts">+10</span></div>
+          <div class="bws-item"><span>CHF (mild/mod/sev)</span><span class="bws-pts">5/10/15</span></div>
+          <div class="bws-title" style="margin-top:4px">Precipitant</div>
+          <div class="bws-item"><span>Positive</span><span class="bws-pts">+10</span></div>
+        </div>
+      </div>
+      <div class="score-band">
+        <div class="sb-cell sb-45"><div class="sb-score ss-45">&lt;25</div><div class="sb-label">Storm unlikely</div></div>
+        <div class="sb-cell sb-25"><div class="sb-score ss-25">25–44</div><div class="sb-label">Impending storm</div></div>
+        <div class="sb-cell sb-45p"><div class="sb-score ss-45p">≥45</div><div class="sb-label">Thyroid storm — treat immediately</div></div>
+      </div>
+    </div>
+
+    <!-- Treatment Sequence - MUST follow order -->
+    <div class="box green">
+      <div class="sec-lbl">💊 Treatment Sequence — MUST Follow This Order (ATA 2016)</div>
+      <div class="treat-seq">
+        <div class="treat-step">
+          <div class="ts-num">1</div>
+          <div class="ts-drug">Thionamide (PTU preferred)</div>
+          <div class="ts-dose">PTU 500–1000 mg loading, then 250 mg q4h PO/NG</div>
+          <div class="ts-note">Blocks new hormone synthesis + blocks T4→T3 conversion. Give FIRST before iodine.</div>
+        </div>
+        <div class="treat-step">
+          <div class="ts-num">2</div>
+          <div class="ts-drug">Iodine (≥1h after PTU)</div>
+          <div class="ts-dose">SSKI 5 drops q6h PO<br>or Lugol's 10 drops q8h PO</div>
+          <div class="ts-note">Wolff-Chaikoff effect — blocks thyroid hormone release. NEVER give before PTU.</div>
+        </div>
+        <div class="treat-step">
+          <div class="ts-num">3</div>
+          <div class="ts-drug">Beta-Blocker</div>
+          <div class="ts-dose">Propranolol 60–80 mg PO q4–6h<br>or IV 0.5–1 mg slow bolus</div>
+          <div class="ts-note">Controls adrenergic symptoms + blocks T4→T3 conversion. Titrate to HR &lt;100 bpm.</div>
+        </div>
+        <div class="treat-step">
+          <div class="ts-num">4</div>
+          <div class="ts-drug">Glucocorticoids</div>
+          <div class="ts-dose">Hydrocortisone 100 mg IV q8h<br>or Dexamethasone 2 mg IV q6h</div>
+          <div class="ts-note">Blocks T4→T3; prevents relative adrenal insufficiency. Continue until improving.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Precipitants + Supportive -->
+    <div class="two-col">
+      <div class="box amber" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">🔥 Precipitants to Identify &amp; Treat</div>
+        <div class="item">Infection (most common) — blood/urine cultures; empiric antibiotics</div>
+        <div class="item">Surgery / trauma</div>
+        <div class="item">Iodine load (contrast dye, amiodarone)</div>
+        <div class="item">Radioiodine therapy (thyroid release)</div>
+        <div class="item">Cessation of antithyroid medications</div>
+        <div class="item">Pregnancy / parturition</div>
+        <div class="item">Palpation/biopsy of thyroid gland</div>
+        <div class="item">Emotional stress, vigorous exercise</div>
+      </div>
+      <div class="box blue" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">🏥 Supportive Care (ICU Required)</div>
+        <div class="item">Cooling blankets; antipyretics (<strong>Acetaminophen</strong> — NOT aspirin; aspirin displaces T4 from TBG)</div>
+        <div class="item">IV fluids; glucose-containing solutions (avoid dehydration)</div>
+        <div class="item">Correct hyperglycemia with insulin protocol</div>
+        <div class="item">Cardiac monitoring for AF → rate control with propranolol</div>
+        <div class="item">Cholestyramine <span class="val">4g PO QID</span>: binds thyroid hormones in gut (adjunctive)</div>
+        <div class="item">Plasmapheresis: refractory cases unresponsive to standard therapy</div>
+        <div class="item">Methimazole alternative to PTU if liver disease exists (PTU can cause hepatitis)</div>
+      </div>
+    </div>
+
+    <!-- Warnings -->
+    <div class="box red">
+      <div class="sec-lbl">⚠️ Critical Reminders</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Never give iodine BEFORE thionamide — will worsen thyroid storm (Wolff-Chaikoff failure)</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Do NOT use aspirin for fever — displaces T4 from thyroid-binding globulin → worsens thyrotoxicosis</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Mortality: 10–20% even with treatment. ICU admission mandatory for BWPS ≥45</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Methimazole is preferred for non-urgent hyperthyroidism; PTU preferred in thyroid storm + pregnancy (1st trimester)</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on ATA Hyperthyroidism Guidelines 2016 / 2021<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>

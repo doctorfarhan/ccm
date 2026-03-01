@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Acute Ischemic Stroke — CCM Protocol Card</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#111827;display:flex;justify-content:center;padding:0}
+.card{width:1080px;height:1350px;background:#0d1b2a;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.hdr{background:linear-gradient(135deg,#1a0a4e 0%,#2a1080 40%,#112233 100%);padding:26px 42px 20px;border-bottom:3px solid #12b5b5;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'STROKE';position:absolute;right:-10px;top:-10px;font-size:100px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-3px;line-height:1}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#12b5b5;text-transform:uppercase}
+.cat{font-size:11px;color:#7aaeae;letter-spacing:2px;text-transform:uppercase}
+.sep-dot{color:#12b5b5;opacity:.5}
+.title{font-size:38px;font-weight:900;color:#fff;line-height:1.1;margin-top:4px}
+.subtitle{font-size:13px;color:#b0d8d8;margin-top:4px}
+
+.body{flex:1;padding:14px 42px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.box{background:#112233;border-radius:10px;padding:13px 16px;border-left:4px solid #12b5b5}
+.box.amber{border-left-color:#f5a623}
+.box.red{border-left-color:#e74c3c}
+.box.green{border-left-color:#27ae60}
+.box.blue{border-left-color:#3498db}
+.box.purple{border-left-color:#9b59b6}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#12b5b5;margin-bottom:8px}
+.box.amber .sec-lbl{color:#f5a623}
+.box.red .sec-lbl{color:#e74c3c}
+.box.green .sec-lbl{color:#27ae60}
+.box.blue .sec-lbl{color:#3498db}
+.box.purple .sec-lbl{color:#9b59b6}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.mini-box{background:#1a2e44;border-radius:8px;padding:10px 12px}
+.mini-title{font-size:10.5px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.item{font-size:12px;color:#d0e8e8;padding:2px 0 2px 14px;position:relative;line-height:1.35}
+.item::before{content:'▸';position:absolute;left:0;color:#12b5b5;font-size:9px;top:4px}
+.val{font-family:'JetBrains Mono','Courier New',monospace;color:#f5a623;font-weight:600;font-size:11.5px}
+
+/* FAST boxes */
+.fast-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.fast-cell{background:#1a2e44;border-radius:8px;padding:10px 10px;text-align:center}
+.fast-letter{font-size:28px;font-weight:900;line-height:1;margin-bottom:4px}
+.fl-f{color:#e74c3c}
+.fl-a{color:#f5a623}
+.fl-s{color:#9b59b6}
+.fl-t{color:#e74c3c}
+.fast-text{font-size:11px;color:#d0e8e8;line-height:1.35}
+
+/* Time windows */
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+.time-cell{background:#1a2e44;border-radius:8px;padding:10px 10px;text-align:center}
+.time-val{font-size:20px;font-weight:800;font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px}
+.tv-red{color:#e74c3c}
+.tv-amber{color:#f5a623}
+.tv-green{color:#27ae60}
+.tv-blue{color:#3498db}
+.time-label{font-size:10px;font-weight:700;color:#7aaeae;text-transform:uppercase;letter-spacing:1px;line-height:1.3}
+.time-note{font-size:9.5px;color:#b0d8d8;margin-top:3px}
+
+.algo-row{display:flex;align-items:flex-start;gap:10px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.algo-row:last-child{border-bottom:none}
+.algo-step{width:22px;height:22px;border-radius:50%;background:#12b5b5;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0d1b2a;flex-shrink:0;margin-top:1px}
+.algo-text{font-size:12px;color:#d0e8e8;line-height:1.35;flex:1}
+
+.warn-row{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.warn-icon{color:#e74c3c;font-size:11px;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:11.5px;color:#f0b8b0;line-height:1.35}
+
+/* NIHSS score band */
+.nihss-band{display:flex;gap:6px;margin-top:4px}
+.nb-cell{flex:1;border-radius:6px;padding:7px 8px;text-align:center}
+.nbc-0{background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.3)}
+.nbc-4{background:rgba(52,152,219,.15);border:1px solid rgba(52,152,219,.3)}
+.nbc-15{background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3)}
+.nbc-21{background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3)}
+.nb-score{font-size:13px;font-weight:800;font-family:'JetBrains Mono',monospace}
+.nb-s0{color:#27ae60}
+.nb-s4{color:#3498db}
+.nb-s15{color:#f5a623}
+.nb-s21{color:#e74c3c}
+.nb-label{font-size:9.5px;color:#b0d8d8;margin-top:2px}
+
+.ftr{background:#112233;border-top:1px solid rgba(18,181,181,.25);padding:12px 42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;flex-wrap:wrap;gap:12px}
+.ftr-left{font-size:11px;color:#b0d8d8;font-weight:500;line-height:1.6}
+.ftr-note{font-size:9px;color:#7aaeae;text-align:right;line-height:1.4}
+
+@media (max-width:1100px){.card{width:100%;height:auto;min-height:1350px}}
+@media (max-width:768px){
+.hdr{padding:18px 24px 14px}
+.title{font-size:30px}
+.body{padding:12px 24px 8px}
+.ftr{padding:12px 24px;flex-direction:column;align-items:flex-start}
+.ftr-note{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hdr">
+    <div class="logo-row">
+      <span class="logo">CCM Notes</span>
+      <span class="sep-dot">•</span>
+      <span class="cat">Neurology · Emergency Medicine</span>
+    </div>
+    <div class="title">Acute Ischemic Stroke</div>
+    <div class="subtitle">FAST Criteria · NIHSS · tPA Eligibility · Thrombectomy Criteria · BP Management</div>
+  </div>
+
+  <div class="body">
+
+    <!-- FAST Criteria -->
+    <div class="box">
+      <div class="sec-lbl">🧠 FAST Recognition & NIHSS Severity</div>
+      <div class="fast-grid">
+        <div class="fast-cell">
+          <div class="fast-letter fl-f">F</div>
+          <div class="fast-text"><strong>Face</strong> drooping — Ask to smile. Is one side drooping?</div>
+        </div>
+        <div class="fast-cell">
+          <div class="fast-letter fl-a">A</div>
+          <div class="fast-text"><strong>Arm</strong> weakness — Raise both arms. Does one drift down?</div>
+        </div>
+        <div class="fast-cell">
+          <div class="fast-letter fl-s">S</div>
+          <div class="fast-text"><strong>Speech</strong> difficulty — Slurred, garbled, or unable to speak?</div>
+        </div>
+        <div class="fast-cell">
+          <div class="fast-letter fl-t">T</div>
+          <div class="fast-text"><strong>Time</strong> — Note exact symptom onset. <em>Call code stroke NOW.</em></div>
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#7aaeae;text-transform:uppercase;margin-bottom:5px">NIHSS Severity Classification</div>
+        <div class="nihss-band">
+          <div class="nb-cell nbc-0"><div class="nb-score nb-s0">0–4</div><div class="nb-label">Minor stroke</div></div>
+          <div class="nb-cell nbc-4"><div class="nb-score nb-s4">5–15</div><div class="nb-label">Moderate</div></div>
+          <div class="nb-cell nbc-15"><div class="nb-score nb-s15">16–20</div><div class="nb-label">Moderately severe</div></div>
+          <div class="nb-cell nbc-21"><div class="nb-score nb-s21">21–42</div><div class="nb-label">Severe stroke</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Time Targets -->
+    <div class="box amber">
+      <div class="sec-lbl">⏱️ Critical Time Targets (AHA/ASA 2019)</div>
+      <div class="time-grid">
+        <div class="time-cell"><div class="time-val tv-green">&lt;10 min</div><div class="time-label">Door to physician</div></div>
+        <div class="time-cell"><div class="time-val tv-green">&lt;25 min</div><div class="time-label">Door to CT scan</div></div>
+        <div class="time-cell"><div class="time-val tv-amber">&lt;45 min</div><div class="time-label">CT interpretation</div></div>
+        <div class="time-cell"><div class="time-val tv-red">&lt;60 min</div><div class="time-label">Door to needle (tPA)</div></div>
+        <div class="time-cell"><div class="time-val tv-amber">4.5 h</div><div class="time-label">tPA window (onset)</div></div>
+        <div class="time-cell"><div class="time-val tv-amber">6–24 h</div><div class="time-label">Thrombectomy window</div></div>
+        <div class="time-cell"><div class="time-val tv-red">3–4.5 h</div><div class="time-label">Extended tPA (select pts)</div></div>
+        <div class="time-cell"><div class="time-val tv-blue">24 h</div><div class="time-label">Dual antiplatelet (minor)</div></div>
+      </div>
+    </div>
+
+    <!-- tPA Eligibility -->
+    <div class="two-col">
+      <div class="box green" style="border-radius:10px;padding:12px 15px">
+        <div class="sec-lbl">✅ tPA Eligibility Criteria (0–3h window)</div>
+        <div class="item">Age <span class="val">≥18</span> years</div>
+        <div class="item">Diagnosis of acute ischemic stroke with <strong>measurable deficit</strong></div>
+        <div class="item">Onset (or last known well) <span class="val">&lt;3 hours</span> (3–4.5 h in selected patients)</div>
+        <div class="item">CT: no hemorrhage, no large established infarct (&lt;1/3 MCA territory)</div>
+        <div class="item">BP <span class="val">&lt;185/110</span> mmHg at time of treatment</div>
+        <div class="item">No hypoglycemia (glucose <span class="val">&gt;50 mg/dL</span>)</div>
+        <div class="item">Alteplase dose: <span class="val">0.9 mg/kg</span> IV (max 90 mg); 10% as bolus, rest over 60 min</div>
+      </div>
+      <div class="box red" style="border-radius:10px;padding:12px 15px">
+        <div class="sec-lbl">🚫 tPA Absolute Contraindications</div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Intracranial hemorrhage on CT (any type)</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Prior intracranial hemorrhage (lifetime)</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Subarachnoid hemorrhage (presenting symptoms)</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Active internal bleeding (excluding menses)</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Platelet count <span class="val">&lt;100,000/mm³</span></span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Heparin within 48h with elevated aPTT; INR <span class="val">&gt;1.7</span></span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Recent (3 months) intracranial/spinal surgery or serious head trauma</span></div>
+        <div class="warn-row"><span class="warn-icon">●</span><span class="warn-text">Blood glucose <span class="val">&lt;50 mg/dL</span> or <span class="val">&gt;400 mg/dL</span></span></div>
+      </div>
+    </div>
+
+    <!-- Thrombectomy + BP -->
+    <div class="two-col">
+      <div class="box purple" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">🔧 Mechanical Thrombectomy Criteria</div>
+        <div class="item">NIHSS <span class="val">≥6</span> with large vessel occlusion (ICA, M1, M2)</div>
+        <div class="item">ASPECTS <span class="val">≥6</span> on CT (within 6 hours)</div>
+        <div class="item">Window: <span class="val">0–6 h</span> from onset (Class I)</div>
+        <div class="item"><strong>Extended window</strong> (6–24 h): DAWN/DEFUSE-3 criteria — clinical-imaging mismatch, selected patients</div>
+        <div class="item">mRS <span class="val">≤2</span> pre-stroke (functional independence)</div>
+        <div class="item">Thrombectomy + tPA if eligible (bridging therapy)</div>
+        <div class="item">Target: TICI <span class="val">2b/3</span> reperfusion (≥50% territory)</div>
+      </div>
+      <div class="box blue" style="border-radius:10px;padding:12px 14px">
+        <div class="sec-lbl">📊 Blood Pressure Management</div>
+        <div class="item"><strong>Pre-tPA</strong>: Must be <span class="val">&lt;185/110</span> mmHg. Use labetalol or nicardipine.</div>
+        <div class="item"><strong>During/after tPA</strong>: Maintain <span class="val">&lt;180/105</span> mmHg for 24h</div>
+        <div class="item"><strong>No reperfusion therapy</strong>: Allow permissive HTN up to <span class="val">220/120</span> mmHg (unless other organ damage)</div>
+        <div class="item"><strong>Post-thrombectomy</strong>: SBP target <span class="val">&lt;180</span> mmHg</div>
+        <div class="item"><strong>Hypotension</strong>: Actively treated — maintain SBP <span class="val">≥140</span> mmHg (avoid cerebral hypoperfusion)</div>
+        <div class="item">Resume antihypertensives at <span class="val">24h</span> if neurologically stable</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-left">CCM Notes · FOAMed · Critical Care Clinical Reference<br><a href="about.html" style="color:#12b5b5;text-decoration:none;font-size:10px;">About</a></div>
+    <div class="ftr-note">Based on AHA/ASA Stroke Guidelines 2019 / 2023 Update<br>Educational use only</div>
+  </div>
+
+</div>
+</body>
+</html>
